@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Buttons</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
+  .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap;}
+  .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); min-width: 64px;}
+  svg { width: 14px; height: 14px; }
+</style>
+</head>
+<body class="surface">
+  <div class="row">
+    <span class="lbl">primary</span>
+    <button class="btn btn-primary">
+      Begin a story
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button class="btn btn-magic">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/></svg>
+      Make a song
+    </button>
+  </div>
+
+  <div class="row">
+    <span class="lbl">ghost</span>
+    <button class="btn btn-ghost">Add another moment</button>
+    <button class="btn btn-quiet">Skip for now</button>
+    <button class="btn btn-dark">View library</button>
+  </div>
+
+  <div class="row">
+    <span class="lbl">sizes</span>
+    <button class="btn btn-primary btn-sm">Save</button>
+    <button class="btn btn-primary">Save story</button>
+    <button class="btn btn-primary btn-lg">Save story</button>
+  </div>
+</body>
+</html>

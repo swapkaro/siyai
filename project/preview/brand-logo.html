@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Logo Mark</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 30px; display:flex; align-items:center; gap: 40px; min-height: 200px;}
+  .mark-lg {
+    display:flex; align-items:center; gap: 14px;
+  }
+  .glyph {
+    width: 56px; height: 56px; position: relative;
+  }
+  .glyph svg { width: 100%; height: 100%;}
+  .word {
+    font-family: var(--font-display); font-size: 56px; line-height: 1; letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .word em { font-style: italic; color: var(--emerald); }
+
+  .lockup-small { display:flex; align-items:center; gap: 8px;}
+  .lockup-small .glyph { width: 22px; height: 22px;}
+  .lockup-small .word { font-size: 22px; letter-spacing: -0.03em;}
+
+  .col { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  .nm { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint);}
+</style>
+</head>
+<body class="surface">
+  <div class="col">
+    <span class="nm">Primary lockup</span>
+    <div class="mark-lg">
+      <div class="glyph">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="g1" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="30%" stop-color="#9AE19D"/>
+              <stop offset="70%" stop-color="#40E0B0"/>
+              <stop offset="100%" stop-color="#A6E3FF"/>
+            </radialGradient>
+          </defs>
+          <circle cx="28" cy="28" r="22" fill="url(#g1)"/>
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#0D0F17" stroke-opacity="0.06"/>
+        </svg>
+      </div>
+      <span class="word">Siy<em>AI</em></span>
+    </div>
+  </div>
+  <div class="col">
+    <span class="nm">Compact</span>
+    <div class="lockup-small">
+      <div class="glyph">
+        <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="url(#g1)"/></svg>
+      </div>
+      <span class="word">Siy<em>AI</em></span>
+    </div>
+  </div>
+</body>
+</html>

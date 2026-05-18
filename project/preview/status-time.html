@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Status & Time semantics</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { padding: 26px 30px;}
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .cell {
+    border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 14px 16px; display: flex; flex-direction: column; gap: 8px;
+    background: var(--bg-elevated);
+    position: relative;
+  }
+  .cell .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    background: rgba(13,15,23,0.04); color: var(--ink); width: fit-content;
+  }
+  .cell .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink);}
+  .scheduled  .dot { background: var(--emerald); box-shadow: 0 0 8px var(--emerald);}
+  .recurring  .dot { background: var(--gold);}
+  .sealed     .dot { background: var(--ink); border: 2px solid var(--ivory); width: 8px; height: 8px;}
+  .delivered  .dot { background: var(--sky);}
+  .arriving   .dot { background: var(--emerald); animation: breathe 2s ease-in-out infinite;}
+  .private    .dot { background: var(--ink-40);}
+  .shared     .dot { background: var(--sky);}
+  .gifted     .dot { background: var(--gold);}
+
+  .cell .when { font-family: var(--font-display); font-style: italic; font-size: 18px; letter-spacing: -0.015em; }
+  .cell .ds { font-size: 12px; color: var(--fg-quiet); line-height: 1.45;}
+</style>
+</head>
+<body class="surface">
+  <div class="grid">
+    <div class="cell scheduled">
+      <span class="pill"><span class="dot"></span>Scheduled</span>
+      <div class="when"><em>Jun 14</em> · in 27 days</div>
+      <div class="ds">Arrives at a future date you set.</div>
+    </div>
+    <div class="cell arriving">
+      <span class="pill"><span class="dot"></span>Arriving soon</span>
+      <div class="when"><em>tomorrow</em> · 09:00</div>
+      <div class="ds">Within 48 hours. The orb breathes.</div>
+    </div>
+    <div class="cell recurring">
+      <span class="pill"><span class="dot"></span>Recurring</span>
+      <div class="when"><em>every August</em></div>
+      <div class="ds">Repeats on an anniversary or season.</div>
+    </div>
+    <div class="cell sealed">
+      <span class="pill"><span class="dot"></span>Sealed</span>
+      <div class="when">opens in <em>7 years</em></div>
+      <div class="ds">Locked. Cannot be edited or opened early.</div>
+    </div>
+    <div class="cell delivered">
+      <span class="pill"><span class="dot"></span>Delivered</span>
+      <div class="when"><em>Mar 04</em> · he listened twice</div>
+      <div class="ds">Already arrived. Receipts may be visible.</div>
+    </div>
+    <div class="cell private">
+      <span class="pill"><span class="dot"></span>Private</span>
+      <div class="when">only <em>you</em></div>
+      <div class="ds">Kept. Revisit forever.</div>
+    </div>
+    <div class="cell shared">
+      <span class="pill"><span class="dot"></span>Shared</span>
+      <div class="when"><em>sent to Mum</em></div>
+      <div class="ds">Sent to someone who's in it.</div>
+    </div>
+    <div class="cell gifted">
+      <span class="pill"><span class="dot"></span>Gifted</span>
+      <div class="when">a gift for <em>Yves</em></div>
+      <div class="ds">Made for someone you love.</div>
+    </div>
+  </div>
+</body>
+</html>

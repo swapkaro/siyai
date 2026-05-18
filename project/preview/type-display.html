@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Typography Display</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; }
+  .row { display: flex; align-items: baseline; gap: 18px; }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); min-width: 56px; }
+</style>
+</head>
+<body class="surface">
+  <div style="display:flex; flex-direction:column; gap:14px;">
+    <div class="row">
+      <span class="label">Hero</span>
+      <span style="font-family:var(--font-display); font-size:88px; line-height:1; letter-spacing:-0.03em;">Where stories <em style="font-style:italic;">live</em>.</span>
+    </div>
+    <div class="row">
+      <span class="label">Display</span>
+      <span style="font-family:var(--font-display); font-size:56px; line-height:1.02; letter-spacing:-0.025em;">A film from your morning.</span>
+    </div>
+    <div class="row" style="border-top: 1px solid var(--border); padding-top: 18px;">
+      <span class="label">Family</span>
+      <span class="t-small" style="color: var(--fg-muted);">Fraunces · 400–500 · Italic. Display, headlines, pull-quotes</span>
+    </div>
+  </div>
+</body>
+</html>

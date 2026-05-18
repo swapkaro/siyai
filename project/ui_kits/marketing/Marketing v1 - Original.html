@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>SiyAI · Where stories live.</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { background: var(--ivory); color: var(--fg); }
+
+  .page { width: 1440px; margin: 0 auto; }
+
+  /* ── Nav ───────────────────────────── */
+  header.site {
+    position: sticky; top: 0; z-index: 30;
+    backdrop-filter: blur(20px) saturate(140%);
+    background: rgba(255,253,247,0.72);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 64px;
+  }
+  .brand { display:flex; align-items:center; gap: 10px; }
+  .brand-glyph {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #9AE19D 30%, #40E0B0 70%, #A6E3FF 100%);
+  }
+  .brand-word { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.03em;}
+  .brand-word em { font-style: italic; color: var(--emerald);}
+
+  .navlinks { display: flex; gap: 28px; }
+  .navlinks a {
+    color: var(--fg-muted); font-size: 14px; font-weight: 500;
+    text-decoration: none;
+  }
+  .navlinks a:hover { color: var(--fg); }
+
+  /* ── Hero ──────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 96px 64px 140px;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 50% at 50% 0%, rgba(166,227,255,0.34) 0%, transparent 60%),
+      radial-gradient(50% 40% at 80% 30%, rgba(126,242,193,0.30) 0%, transparent 60%),
+      radial-gradient(40% 30% at 10% 60%, rgba(246,213,138,0.16) 0%, transparent 70%),
+      var(--ivory);
+  }
+  .hero-orb {
+    position: absolute; right: 80px; top: 80px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 40% 35%, #FFFFFF 0%, #C8F1D2 18%, #9AE19D 35%, #7EF2C1 55%, #40E0B0 75%, transparent 100%);
+    filter: blur(2px);
+    box-shadow: 0 0 120px rgba(64,224,176,0.4);
+    animation: breathe 6s ease-in-out infinite;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-quiet); margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content:''; display:inline-block; width: 28px; height: 1px; background: var(--ink-40);}
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 168px;
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+    margin: 0;
+    max-width: 1100px;
+  }
+  .hero-title em { font-style: italic; color: var(--ink);}
+  .hero-title .accent { font-style: italic; background: linear-gradient(135deg, #40E0B0 0%, #A6E3FF 100%); -webkit-background-clip: text; background-clip: text; color: transparent;}
+
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--fg-muted);
+    max-width: 600px;
+  }
+
+  .hero-ctas {
+    display: flex; align-items: center; gap: 14px; margin-top: 40px;
+  }
+  .play-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--fg-muted);
+    font-size: 14px; font-weight: 500;
+  }
+  .play-link .play-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .play-link .play-circle svg { width: 11px; height: 11px; }
+
+  /* trust strip */
+  .trust {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 48px;
+  }
+  .trust-label {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-quiet);
+    max-width: 180px;
+  }
+  .trust-logos { display: flex; gap: 48px; align-items: center; color: var(--fg-faint); font-family: var(--font-display); font-style: italic; font-size: 22px;}
+  .trust-logos span { opacity: 0.6;}
+
+  /* ── Showcase row ─────────────────── */
+  .showcase {
+    padding: 120px 64px 80px;
+    background: var(--cloud);
+  }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 56px;
+  }
+  .section-eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-quiet); margin-bottom: 16px; display: block;
+  }
+  .section-title { font-family: var(--font-display); font-size: 64px; letter-spacing: -0.03em; line-height: 1.02; margin: 0; max-width: 720px;}
+  .section-title em { font-style: italic;}
+
+  .showcase-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 22px;
+  }
+  .feature {
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/5;
+    box-shadow: var(--shadow-card);
+  }
+  .feature.tall { aspect-ratio: 4/5; }
+  .feature.f1 { background:
+      radial-gradient(60% 50% at 30% 30%, rgba(166,227,255,0.6), transparent 60%),
+      radial-gradient(50% 60% at 80% 80%, rgba(126,242,193,0.55), transparent 60%),
+      linear-gradient(135deg, #D5C7B2 0%, #82765E 100%);
+  }
+  .feature.f2 { background:
+      radial-gradient(60% 60% at 70% 30%, rgba(246,213,138,0.7), transparent 60%),
+      radial-gradient(60% 60% at 20% 80%, rgba(255,170,140,0.4), transparent 60%),
+      linear-gradient(160deg, #F2DAB0 0%, #BC7A5A 100%);
+  }
+  .feature.f3 { background:
+      radial-gradient(60% 60% at 30% 70%, rgba(166,227,255,0.55), transparent 60%),
+      linear-gradient(180deg, #C0CFE0 0%, #4F5E72 100%);
+  }
+  .feature .label {
+    position: absolute; top: 28px; left: 28px;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,253,247,0.8);
+  }
+  .feature .ftitle {
+    position: absolute; bottom: 32px; left: 28px; right: 28px;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 36px; line-height: 1.05; letter-spacing: -0.02em;
+    color: #FFFDF7;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  }
+  .feature .fmeta {
+    position: absolute; bottom: 22px; right: 24px;
+    font-family: var(--font-mono); font-size: 11px; color: rgba(255,253,247,0.7);
+    letter-spacing: 0.1em;
+  }
+  .feature .play-fab {
+    position: absolute; top: 24px; right: 24px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,253,247,0.18); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.4);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .feature .play-fab svg { width: 12px; height: 12px; color: #FFFDF7;}
+
+  /* ── Quote ─────────────────────────── */
+  .pull {
+    padding: 160px 64px 160px;
+    text-align: center;
+    background: var(--grad-dawn);
+    position: relative;
+  }
+  .pull .q {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 88px;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .pull .by {
+    margin-top: 40px;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);
+  }
+
+  /* ── How it works ──────────────────── */
+  .how {
+    padding: 120px 64px;
+    background: var(--ivory);
+  }
+  .how-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    margin-top: 64px;
+  }
+  .how-step {
+    border-top: 1px solid var(--ink-12);
+    padding-top: 24px;
+  }
+  .how-num { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.22em; color: var(--fg-quiet);}
+  .how-title { font-family: var(--font-display); font-size: 36px; letter-spacing: -0.02em; margin: 16px 0 12px; line-height: 1.08;}
+  .how-title em { font-style: italic; }
+  .how-body { font-size: 15px; color: var(--fg-muted); line-height: 1.6; max-width: 320px;}
+
+  /* ── Atmospheric strip ─────────────── */
+  .atmos {
+    padding: 0; height: 320px; position: relative; overflow: hidden;
+    background:
+      radial-gradient(40% 60% at 20% 50%, rgba(154,225,157,0.55), transparent 60%),
+      radial-gradient(40% 60% at 50% 50%, rgba(166,227,255,0.55), transparent 60%),
+      radial-gradient(40% 60% at 80% 50%, rgba(246,213,138,0.45), transparent 60%),
+      linear-gradient(180deg, #FFF8E8 0%, #F5E3C0 100%);
+  }
+  .atmos-text {
+    position: absolute; inset: 0; display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 96px; letter-spacing: -0.03em;
+    color: rgba(13,15,23,0.65);
+  }
+
+  /* ── CTA ───────────────────────────── */
+  .cta {
+    padding: 160px 64px;
+    background: var(--ink);
+    color: var(--ivory);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(50% 80% at 50% 0%, rgba(64,224,176,0.30), transparent 70%),
+      radial-gradient(40% 60% at 50% 100%, rgba(166,227,255,0.20), transparent 60%);
+  }
+  .cta-eyebrow { position: relative; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,253,247,0.55); margin-bottom: 28px;}
+  .cta-title {
+    position: relative; font-family: var(--font-display);
+    font-size: 144px; line-height: 0.95; letter-spacing: -0.04em;
+    margin: 0; max-width: 1100px; margin-inline: auto;
+  }
+  .cta-title em { font-style: italic; color: var(--gold);}
+  .cta-buttons { position: relative; display: flex; justify-content: center; gap: 14px; margin-top: 48px;}
+  .btn-onlight-ghost {
+    background: transparent;
+    color: var(--ivory);
+    border: 1px solid rgba(255,253,247,0.3);
+  }
+  .btn-onlight-ghost:hover { background: rgba(255,253,247,0.08);}
+
+  /* ── Footer ────────────────────────── */
+  footer.site {
+    background: var(--ink);
+    color: rgba(255,253,247,0.6);
+    padding: 48px 64px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,253,247,0.08);
+    font-size: 13px;
+  }
+  footer .links { display: flex; gap: 32px;}
+  footer .links a { color: rgba(255,253,247,0.6); text-decoration: none;}
+</style>
+</head>
+<body style="font-family: Geist">
+<div class="page" data-screen-label="Marketing · Home">
+
+  <header class="site">
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-glyph"></div>
+        <span class="brand-word">Siy<em>AI</em></span>
+      </div>
+      <nav class="navlinks">
+        <a>How it works</a>
+        <a>Library</a>
+        <a>For storytellers</a>
+        <a>Sounds</a>
+        <a>Pricing</a>
+      </nav>
+      <div style="display:flex; gap: 10px;">
+        <button class="btn btn-quiet btn-sm">Sign in</button>
+        <button class="btn btn-primary btn-sm">Begin a story</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" data-screen-label="Hero">
+    <div class="hero-orb"></div>
+    <div class="hero-eyebrow">A new place for memory</div>
+    <h1 class="hero-title" style="font-family: Fraunces">Where <span class="accent">stories</span><br>come alive.</h1>
+    <p class="hero-sub">Share a memory, a feeling, a thought. SiyAI turns it into a film, a song, or an immersive piece. Made just for you. No prompting. No editing. No directing.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary btn-lg">Begin a story <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+      <a class="play-link">
+        <span class="play-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        Watch a piece. 1:48
+      </a>
+    </div>
+
+    <div class="trust">
+      <div class="trust-label">A storytelling tool, featured by</div>
+      <div class="trust-logos">
+        <span>The Atlantic</span>
+        <span>Wallpaper*</span>
+        <span>Sight &amp; Sound</span>
+        <span>It's Nice That</span>
+        <span>Pitchfork</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase" data-screen-label="Showcase">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Pieces · made by people</span>
+        <h2 class="section-title">A library of <em>quiet things</em>, made by storytellers like you.</h2>
+      </div>
+      <a class="t-small" style="color: var(--fg-muted); display:flex; align-items:center; gap: 6px;">See the library <i data-lucide="arrow-right" style="width:13px; height:13px;"></i></a>
+    </div>
+
+    <div class="showcase-grid">
+      <article class="feature f1">
+        <span class="label">Film · 02:14</span>
+        <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="ftitle">Sunday morning,<br>slow light.</div>
+        <span class="fmeta">scored · Lara M.</span>
+      </article>
+      <article class="feature f2">
+        <span class="label">Song · 03:42</span>
+        <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="ftitle">A song for my mother.</div>
+        <span class="fmeta">piano + strings</span>
+      </article>
+      <article class="feature f3">
+        <span class="label">Experience · 04:12</span>
+        <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="ftitle">First snow,<br>Paris.</div>
+        <span class="fmeta">gifted to Mum</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="pull" data-screen-label="Pull quote">
+    <p class="q">"Memory is not a record.<br>It's a feeling we replay until it becomes a story."</p>
+    <div class="by">SiyAI · field notes</div>
+  </section>
+
+  <section class="how" data-screen-label="How it works">
+    <span class="section-eyebrow">How it works</span>
+    <h2 class="section-title">Three quiet steps. <em>One small wonder.</em></h2>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <h3 class="how-title">Tell us a <em>moment.</em></h3>
+        <p class="how-body">A morning, a meeting, the smell of a house. Speak it, type it, drop a photo. Whatever feels easiest.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <h3 class="how-title">SiyAI <em>listens.</em></h3>
+        <p class="how-body">No prompting, no directing. We read the feeling underneath the words. An army of filmmakers, musicians and writers. Working quietly, for you.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <h3 class="how-title">A story <em>arrives.</em></h3>
+        <p class="how-body">A film, a song, an immersive piece. Yours, alone. Keep it. Share it. Make a gift of it. Leave it for someone you love.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="atmos" data-screen-label="Atmosphere">
+    <div class="atmos-text">A place where stories come alive.</div>
+  </section>
+
+  <section class="cta" data-screen-label="CTA">
+    <div class="cta-eyebrow">Begin</div>
+    <h2 class="cta-title">What will you<br><em>make today?</em></h2>
+    <div class="cta-buttons">
+      <button class="btn btn-primary btn-lg">Begin a story <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+      <button class="btn btn-onlight-ghost btn-lg">See the library</button>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div style="display:flex; align-items:center; gap: 12px;">
+      <div class="brand-glyph" style="width:18px;height:18px;"></div>
+      <span style="font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--ivory);">SiyAI</span>
+      <span style="margin-left: 16px;">© 2026 · made for storytellers</span>
+    </div>
+    <div class="links">
+      <a>About</a><a>Press</a><a>Sounds</a><a>Privacy</a><a>Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.5 }});</script>
+</body>
+</html>

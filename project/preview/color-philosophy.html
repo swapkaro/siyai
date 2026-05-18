@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Color Usage Philosophy</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 24px 28px; display:flex; gap:18px; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .bar { height: 72px; border-radius: var(--r-md); border: 1px solid var(--border); position: relative; overflow: hidden; display:flex; align-items:flex-end; padding: 10px 12px;}
+  .pct { font-family: var(--font-mono); font-size: 11px; color: var(--ink-72); }
+  .role { font-family: var(--font-body); font-size: 13px; font-weight: 500; }
+  .desc { font-family: var(--font-body); font-size: 12px; color: var(--fg-quiet); line-height: 1.45;}
+</style>
+</head>
+<body class="surface">
+  <div class="col">
+    <div class="bar" style="background: var(--ivory);"><span class="pct">70–80%</span></div>
+    <div class="role">Ivory canvas</div>
+    <div class="desc">The screen is mostly empty. Color enters as light.</div>
+  </div>
+  <div class="col">
+    <div class="bar" style="background:linear-gradient(180deg, rgba(154,225,157,0.0) 0%, rgba(154,225,157,1) 100%);"><span class="pct" style="color:#1a6f3a;">CTA</span></div>
+    <div class="role">Mint. Primary action</div>
+    <div class="desc">Single CTA per view. Used on the most important moment.</div>
+  </div>
+  <div class="col">
+    <div class="bar" style="background: linear-gradient(135deg, var(--sky) 0%, var(--seafoam) 100%); opacity:0.55;"><span class="pct" style="color:#1f5878;">atmos</span></div>
+    <div class="role">Sky + Seafoam. Atmosphere</div>
+    <div class="desc">Ambient washes and halos. Never solid fills.</div>
+  </div>
+  <div class="col">
+    <div class="bar" style="background: var(--gold);"><span class="pct" style="color:#7a5a16;">magic</span></div>
+    <div class="role">Warm Gold. Magic only</div>
+    <div class="desc">The moment a story is born. Use sparingly.</div>
+  </div>
+</body>
+</html>

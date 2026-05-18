@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>SiyAI · Mint vs Emerald · Ivory vs White</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body {
+    background: var(--cloud);
+    padding: 56px 0 80px;
+  }
+  .sheet {
+    width: 1340px;
+    margin: 0 auto;
+    background: var(--ivory);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+
+  .sheet-head {
+    padding: 40px 56px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: end; justify-content: space-between;
+  }
+  .sheet-head h1 {
+    font-family: var(--font-display); font-size: 56px; line-height: 1; letter-spacing: -0.03em; margin: 0;
+  }
+  .sheet-head h1 em { font-style: italic;}
+  .sheet-head .meta {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-quiet);
+    text-align: right;
+  }
+
+  /* ── Sections ───────────────────────── */
+  .section {
+    padding: 56px 56px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-of-type { border-bottom: none; }
+  .section-eyebrow {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-quiet);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: 44px; letter-spacing: -0.025em; line-height: 1.05;
+    margin: 0 0 8px;
+  }
+  .section-title em { font-style: italic;}
+  .section-sub {
+    font-size: 16px; color: var(--fg-muted); max-width: 720px;
+    line-height: 1.55;
+    margin-bottom: 32px;
+  }
+
+  /* ── Option card ────────────────────── */
+  .options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  .opt {
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--ivory);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .opt.winner {
+    border: 1px solid var(--emerald);
+    box-shadow: 0 0 0 4px rgba(64,224,176,0.14), var(--shadow-card);
+  }
+  .opt-tag {
+    position: absolute; top: 12px; right: 12px; z-index: 4;
+    background: var(--ink);
+    color: var(--ivory);
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .opt.winner .opt-tag { background: var(--emerald-deep); }
+  .opt-tag.warn { background: rgba(200,80,80,0.9);}
+
+  .opt-stage {
+    height: 200px;
+    background: var(--ivory);
+    position: relative;
+    padding: 32px 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden;
+  }
+  .opt-stage.dawn {
+    background:
+      radial-gradient(60% 50% at 70% 20%, rgba(166,227,255,0.30) 0%, transparent 60%),
+      radial-gradient(50% 40% at 20% 80%, rgba(126,242,193,0.22) 0%, transparent 60%),
+      var(--ivory);
+  }
+  .opt-stage.pure-white { background: #FFFFFF; }
+
+  .opt-hl {
+    font-family: var(--font-display); font-size: 32px; line-height: 1.0; letter-spacing: -0.025em;
+    color: var(--ink); max-width: 220px;
+  }
+  .opt-hl em { font-style: italic;}
+  .opt-sub { font-size: 12px; color: var(--fg-muted); margin-top: 6px;}
+
+  .opt-cta-wrap { display: flex; align-items: center; gap: 12px;}
+
+  /* CTA variants */
+  .cta-mint {
+    background: var(--mint); color: var(--ink);
+    box-shadow: 0 0 0 0 rgba(154,225,157,0.0), 0 20px 60px -20px rgba(154,225,157,0.32);
+  }
+  .cta-emerald {
+    background: var(--emerald); color: var(--ink);
+    box-shadow: 0 20px 50px -20px rgba(64,224,176,0.55), 0 0 0 6px rgba(64,224,176,0.10);
+  }
+  .cta-ink {
+    background: var(--ink); color: var(--ivory);
+    box-shadow: 0 20px 60px -20px rgba(64,224,176,0.45), 0 0 0 6px rgba(64,224,176,0.08);
+  }
+  .cta-gradient {
+    background: linear-gradient(135deg, #9AE19D 0%, #40E0B0 100%);
+    color: var(--ink);
+    box-shadow: 0 20px 60px -20px rgba(64,224,176,0.5), 0 0 0 6px rgba(64,224,176,0.10);
+  }
+
+  .opt-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    border: 1px solid transparent;
+    letter-spacing: -0.005em;
+  }
+  .opt-cta svg { width: 13px; height: 13px;}
+
+  .opt-meta {
+    padding: 14px 18px 18px;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+  }
+  .opt-name { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--fg);}
+  .opt-name em { color: var(--emerald); font-style: italic; font-family: var(--font-display); font-size: 16px; margin-left: 4px;}
+  .opt-hex { font-family: var(--font-mono); font-size: 10px; color: var(--fg-quiet); margin-top: 2px; letter-spacing: 0.08em; text-transform: uppercase;}
+  .opt-note { font-size: 12px; color: var(--fg-muted); margin-top: 8px; line-height: 1.45;}
+
+  /* ── Background section: 2-up ──────── */
+  .options-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;}
+  .options-2 .opt-stage { height: 320px;}
+  .options-2 .opt-hl { font-size: 44px;}
+
+  /* ── Verdict strip ─────────────────── */
+  .verdict {
+    margin-top: 36px;
+    padding: 24px 28px;
+    background: var(--ink);
+    color: var(--ivory);
+    border-radius: var(--r-lg);
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    position: relative; overflow: hidden;
+  }
+  .verdict::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(40% 80% at 100% 50%, rgba(64,224,176,0.25), transparent 60%);
+  }
+  .verdict .v-eyebrow {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,253,247,0.5); margin-bottom: 8px;
+  }
+  .verdict .v-text { font-family: var(--font-display); font-size: 26px; letter-spacing: -0.015em; line-height: 1.2; max-width: 800px; position: relative;}
+  .verdict .v-text em { font-style: italic; color: var(--gold);}
+  .verdict .v-tag {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ivory);
+    padding: 10px 18px; border-radius: 999px; background: rgba(255,253,247,0.10); border: 1px solid rgba(255,253,247,0.18);
+    position: relative; flex-shrink: 0;
+  }
+
+  /* ── Final summary ────────────────── */
+  .rules-blk {
+    padding: 56px;
+    background: var(--cloud);
+  }
+  .rules-blk h3 {
+    font-family: var(--font-display); font-size: 40px; letter-spacing: -0.025em; margin: 0 0 36px;
+  }
+  .rules-blk h3 em { font-style: italic;}
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px;}
+  .rules-col h4 {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-quiet); margin: 0 0 16px;
+  }
+  .rule {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px 0;
+    border-top: 1px solid var(--border-strong);
+    font-family: var(--font-display); font-size: 22px; line-height: 1.35; letter-spacing: -0.015em;
+  }
+  .rule em { font-style: italic; }
+  .rule .pos { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--emerald-deep); flex-shrink: 0; margin-top: 8px; width: 44px;}
+  .rule .pos.no { color: #883333;}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="sheet-head">
+    <h1>Two <em>decisions</em>, settled.</h1>
+    <div class="meta">Reference · v1</div>
+  </div>
+
+  <!-- ─── CTA decision ─────────────────── -->
+  <div class="section">
+    <div class="section-eyebrow">Question 01 · Primary CTA</div>
+    <h2 class="section-title">Mint, Emerald, Ink, or a <em>gradient?</em></h2>
+    <p class="section-sub">All four sit on the same Ivory hero. Read it as a stranger would: where does your eye go first, and which feels most like the SiyAI you described?</p>
+
+    <div class="options">
+      <!-- 1. Mint -->
+      <div class="opt">
+        <div class="opt-tag warn">Too quiet</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Where stories<br><em>come alive.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-mint">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Mint <em>solo</em></div>
+          <div class="opt-hex">#9AE19D · pastel</div>
+          <div class="opt-note">Soft and pretty. But reads as <em>secondary</em>. Pastel green on warm ivory has low contrast and competes with the dawn wash. The CTA doesn't claim the screen.</div>
+        </div>
+      </div>
+
+      <!-- 2. Emerald -->
+      <div class="opt winner">
+        <div class="opt-tag">Recommended</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Where stories<br><em>come alive.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-emerald">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Emerald <em>+ Mint halo</em></div>
+          <div class="opt-hex">#40E0B0 fill · Mint glow</div>
+          <div class="opt-note">Confident at rest, premium, unmistakably the action. The Mint becomes the <em>light</em> around it. Not the surface. This is the way.</div>
+        </div>
+      </div>
+
+      <!-- 3. Ink -->
+      <div class="opt">
+        <div class="opt-tag">Editorial</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Where stories<br><em>come alive.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-ink">Begin a story <i data-lucide="arrow-right" style="color:var(--ivory);"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Ink <em>+ Mint halo</em></div>
+          <div class="opt-hex">#0D0F17 · with #9AE19D glow</div>
+          <div class="opt-note">Editorial, A24-leaning. Strongest hierarchy. <em>Use this on dark sections</em> and high-emotion moments (full-bleed images, the final CTA).</div>
+        </div>
+      </div>
+
+      <!-- 4. Gradient -->
+      <div class="opt">
+        <div class="opt-tag warn">Decorative</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Where stories<br><em>come alive.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-gradient">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Mint → Emerald <em>gradient</em></div>
+          <div class="opt-hex">linear · 135°</div>
+          <div class="opt-note">Pretty, but feels <em>"AI startup"</em>. The exact tropes we're avoiding. Save gradients for atmosphere (halos), not surfaces.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div>
+        <div class="v-eyebrow">Verdict · CTA</div>
+        <div class="v-text"><em>Emerald</em> fills the button. <em>Mint</em> becomes the halo around it. Ink CTAs appear in dark sections and on top of imagery.</div>
+      </div>
+      <div class="v-tag">#40E0B0 → #9AE19D halo</div>
+    </div>
+  </div>
+
+  <!-- ─── Background decision ──────────── -->
+  <div class="section">
+    <div class="section-eyebrow">Question 02 · Background</div>
+    <h2 class="section-title">Ivory, or <em>pure white?</em></h2>
+    <p class="section-sub">Same screen. One on Ivory <span class="t-mono" style="font-size:13px;">#FFFDF7</span>, one on Pure White <span class="t-mono" style="font-size:13px;">#FFFFFF</span>. The difference is small but emotional.</p>
+
+    <div class="options-2">
+      <!-- Ivory -->
+      <div class="opt winner">
+        <div class="opt-tag">Recommended</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Where stories<br><em>come alive.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-emerald">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Ivory <em>· #FFFDF7</em></div>
+          <div class="opt-hex">Warm white · 1.5° toward yellow</div>
+          <div class="opt-note">Reads as <em>paper, morning light, a gallery</em>. The slight warmth holds hands with serif type and human imagery. Premium brands almost never use pure white.</div>
+        </div>
+      </div>
+
+      <!-- White -->
+      <div class="opt">
+        <div class="opt-tag warn">Cold</div>
+        <div class="opt-stage pure-white">
+          <div>
+            <div class="opt-hl">Where stories<br><em>come alive.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-emerald">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Pure White <em>· #FFFFFF</em></div>
+          <div class="opt-hex">Neutral · clinical</div>
+          <div class="opt-note">Cold. Software-y. Saps the warmth out of the serif and turns "cinematic" into "interface." This is what <em>Notion, Linear, Stripe</em> look like. Not what SiyAI should look like.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div>
+        <div class="v-eyebrow">Verdict · Background</div>
+        <div class="v-text"><em>Ivory, every time.</em> Pure white is allowed only inside elevated cards <em>on</em> ivory. To suggest a sheet of paper lifted from the desk.</div>
+      </div>
+      <div class="v-tag">#FFFDF7</div>
+    </div>
+  </div>
+
+  <!-- ─── Three Greens decision ──────── -->
+  <div class="section">
+    <div class="section-eyebrow">Question 03 · The three greens</div>
+    <h2 class="section-title">Mint, Seafoam, or <em>Emerald?</em></h2>
+    <p class="section-sub">All three of our greens, side by side, on identical heroes. Each has <em>one job.</em> Asking any of them to do another job breaks the system.</p>
+
+    <div class="options" style="grid-template-columns: repeat(3, 1fr);">
+      <!-- Mint -->
+      <div class="opt">
+        <div class="opt-tag warn">The glow</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Begin a<br><em>story.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-mint">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Mint <em>· #9AE19D</em></div>
+          <div class="opt-hex">Pastel · low contrast on ivory</div>
+          <div class="opt-note"><strong style="color:var(--fg);font-weight:500;">Job:</strong> the <em>halo</em> around the primary action. The glow shadow under the Emerald button. Never the fill.</div>
+        </div>
+      </div>
+
+      <!-- Seafoam -->
+      <div class="opt">
+        <div class="opt-tag warn">The air</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Begin a<br><em>story.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta" style="background: #7EF2C1; color: var(--ink); box-shadow: 0 20px 50px -20px rgba(126,242,193,0.55), 0 0 0 6px rgba(126,242,193,0.10);">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Seafoam <em>· #7EF2C1</em></div>
+          <div class="opt-hex">Bright · cool · "wellness-app"</div>
+          <div class="opt-note"><strong style="color:var(--fg);font-weight:500;">Job:</strong> <em>atmosphere</em>. Lives in hero washes, the aurora halo behind the orb, and ambient gradients. Promoting it to a fill steals the system's air.</div>
+        </div>
+      </div>
+
+      <!-- Emerald -->
+      <div class="opt winner">
+        <div class="opt-tag">The action</div>
+        <div class="opt-stage dawn">
+          <div>
+            <div class="opt-hl">Begin a<br><em>story.</em></div>
+            <div class="opt-sub">A new place for memory</div>
+          </div>
+          <div class="opt-cta-wrap">
+            <button class="opt-cta cta-emerald">Begin a story <i data-lucide="arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="opt-meta">
+          <div class="opt-name">Emerald <em>· #40E0B0</em></div>
+          <div class="opt-hex">Confident · cinematic · premium</div>
+          <div class="opt-note"><strong style="color:var(--fg);font-weight:500;">Job:</strong> the <em>action</em>. The fill of the single primary CTA on every screen. Mint glows around it, Seafoam breathes behind it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The three jobs panel -->
+    <div style="margin-top: 28px; padding: 28px 32px; background: var(--cloud); border-radius: var(--r-lg); border: 1px solid var(--border); display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center;">
+      <div style="font-family: var(--font-display); font-style: italic; font-size: 36px; line-height: 1.05; letter-spacing: -0.02em;">Mint is the&nbsp;glow.<br>Seafoam is the&nbsp;air.<br>Emerald is the&nbsp;action.</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+        <div style="border-left: 2px solid #9AE19D; padding-left: 14px;">
+          <div class="t-eyebrow" style="color: #1a6f3a;">Glow</div>
+          <div style="font-family: var(--font-body); font-size: 14px; color: var(--fg); margin-top: 4px; font-weight: 500;">Mint</div>
+          <div style="font-size: 12px; color: var(--fg-quiet); margin-top: 6px; line-height: 1.45;">Halo around primary buttons. Soft shadows that breathe. Never a surface.</div>
+        </div>
+        <div style="border-left: 2px solid #7EF2C1; padding-left: 14px;">
+          <div class="t-eyebrow" style="color: #1f7a5a;">Air</div>
+          <div style="font-family: var(--font-body); font-size: 14px; color: var(--fg); margin-top: 4px; font-weight: 500;">Seafoam</div>
+          <div style="font-size: 12px; color: var(--fg-quiet); margin-top: 6px; line-height: 1.45;">Atmospheric washes. Aurora halos. Hero backgrounds. The orb's outer ring.</div>
+        </div>
+        <div style="border-left: 2px solid #40E0B0; padding-left: 14px;">
+          <div class="t-eyebrow" style="color: #086e54;">Action</div>
+          <div style="font-family: var(--font-body); font-size: 14px; color: var(--fg); margin-top: 4px; font-weight: 500;">Emerald</div>
+          <div style="font-size: 12px; color: var(--fg-quiet); margin-top: 6px; line-height: 1.45;">Primary CTA fill. Focused input borders. The single confident moment per view.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div>
+        <div class="v-eyebrow">Verdict · Three greens</div>
+        <div class="v-text"><em>Emerald fills.</em> Mint glows. Seafoam breathes. Each green has one job. Using the wrong one softens the whole system.</div>
+      </div>
+      <div class="v-tag">Action · Glow · Air</div>
+    </div>
+  </div>
+
+  <!-- ─── Summary rules ─────────────────── -->
+  <div class="rules-blk">
+    <h3>How they <em>behave together.</em></h3>
+    <div class="rules-grid">
+      <div class="rules-col">
+        <h4>Primary action. The rule</h4>
+        <div class="rule"><span class="pos">Rest</span><span>Emerald fill <em>#40E0B0</em>, dark ink text.</span></div>
+        <div class="rule"><span class="pos">Halo</span><span>Mint glow shadow <em>around</em> the button.</span></div>
+        <div class="rule"><span class="pos">Hover</span><span>Lighten Emerald 4% + grow the halo.</span></div>
+        <div class="rule"><span class="pos">Press</span><span>Deeper Emerald + drop the halo.</span></div>
+        <div class="rule"><span class="pos no">Never</span><span>Two Emerald buttons in the same eye-line.</span></div>
+      </div>
+      <div class="rules-col">
+        <h4>Surfaces. The rule</h4>
+        <div class="rule"><span class="pos">Page</span><span>Ivory <em>#FFFDF7</em>. Always.</span></div>
+        <div class="rule"><span class="pos">Section</span><span>Cloud <em>#FAF7EE</em> for grouping (very subtle).</span></div>
+        <div class="rule"><span class="pos">Card</span><span>Elevated <em>#FFFFFB</em>. Slightly brighter than the page.</span></div>
+        <div class="rule"><span class="pos">Dark</span><span>Deep Ink <em>#0D0F17</em> for cinematic moments only.</span></div>
+        <div class="rule"><span class="pos no">Never</span><span>Pure <em>#FFFFFF</em> as a page background.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.6 }});</script>
+</body>
+</html>

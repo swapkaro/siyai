@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Motion Principles</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 24px 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+  .cell { display: flex; flex-direction: column; gap: 10px; align-items:flex-start;}
+  .demo { width: 100%; aspect-ratio: 1.4/1; border-radius: var(--r-lg); border: 1px solid var(--border); position: relative; overflow: hidden; background: var(--ivory);}
+  .name { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint);}
+  .desc { font-family: var(--font-body); font-size: 12px; color: var(--fg-muted); line-height: 1.4;}
+
+  .orb { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, var(--mint) 40%, var(--emerald) 80%); box-shadow: 0 0 30px rgba(64,224,176,0.6);}
+  .drift-orb { left: 50%; top: 50%; animation: drift 6s ease-in-out infinite; }
+  .breath-orb { animation: breathe 4s ease-in-out infinite;}
+  @keyframes rise {
+    0% { opacity: 0; transform: translate(-50%, -50%) translateY(16px); }
+    100% { opacity: 1; transform: translate(-50%, -50%) translateY(0);}
+  }
+  .rise { animation: rise 1.6s var(--ease-emotional) infinite alternate; }
+  @keyframes glow-pulse {
+    0%,100% { box-shadow: 0 0 20px rgba(64,224,176,0.4);}
+    50%     { box-shadow: 0 0 60px rgba(64,224,176,0.8);}
+  }
+  .glow-pulse { animation: glow-pulse 3s ease-in-out infinite;}
+</style>
+</head>
+<body class="surface">
+  <div class="cell">
+    <div class="demo"><div class="orb drift-orb"></div></div>
+    <span class="name">drift · 9s</span>
+    <span class="desc">Floating elements drift on a sine.</span>
+  </div>
+  <div class="cell">
+    <div class="demo"><div class="orb breath-orb"></div></div>
+    <span class="name">breathe · 4s</span>
+    <span class="desc">Halos breathe softly. Used for AI listening.</span>
+  </div>
+  <div class="cell">
+    <div class="demo"><div class="orb rise"></div></div>
+    <span class="name">reveal · 900ms</span>
+    <span class="desc">Page reveals fade up. Never slide-in.</span>
+  </div>
+  <div class="cell">
+    <div class="demo"><div class="orb glow-pulse"></div></div>
+    <span class="name">glow · 3s</span>
+    <span class="desc">Hover brightens the halo, never scales.</span>
+  </div>
+</body>
+</html>

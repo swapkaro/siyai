@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Story Lifecycle</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { padding: 26px 30px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .state {
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 8px;
+    background: var(--bg-elevated);
+    position: relative; overflow: hidden;
+  }
+  .state .ic { width: 28px; height: 28px; border-radius: 50%; display:flex; align-items:center; justify-content:center;}
+  .state .ic svg { width: 14px; height: 14px;}
+  .state .nm { font-family: var(--font-display); font-style: italic; font-size: 20px; letter-spacing: -0.015em;}
+  .state .ds { font-size: 12px; color: var(--fg-quiet); line-height: 1.45;}
+
+  .private .ic { background: var(--ink-08); color: var(--ink-72);}
+  .shared  .ic { background: var(--sky-soft); color: #1f5878;}
+  .gifted  .ic { background: var(--gold-soft); color: #7a5a16;}
+  .kept    .ic { background: var(--mint-soft); color: #1a6f3a;}
+
+  .gifted::before {
+    content: ''; position: absolute; inset: -40% -10% auto auto; width: 60%; height: 100%;
+    background: var(--grad-gold-breath); pointer-events: none;
+  }
+</style>
+</head>
+<body class="surface">
+  <div class="grid">
+    <div class="state private">
+      <div class="ic"><i data-lucide="lock"></i></div>
+      <span class="nm">Private</span>
+      <span class="ds">Only you. Revisit forever.</span>
+    </div>
+    <div class="state shared">
+      <div class="ic"><i data-lucide="send"></i></div>
+      <span class="nm">Shared</span>
+      <span class="ds">Sent to someone in it.</span>
+    </div>
+    <div class="state gifted">
+      <div class="ic"><i data-lucide="gift"></i></div>
+      <span class="nm">Gifted</span>
+      <span class="ds">Made for someone you love.</span>
+    </div>
+    <div class="state kept">
+      <div class="ic"><i data-lucide="bookmark"></i></div>
+      <span class="nm">Kept</span>
+      <span class="ds">A lifelong memory, preserved.</span>
+    </div>
+  </div>
+  <script>lucide.createIcons({ attrs: { 'stroke-width': 1.5 }});</script>
+</body>
+</html>

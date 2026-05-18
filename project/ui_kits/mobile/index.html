@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiyAI · Mobile</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body {
+    background: #1a1d28;
+    padding: 40px 0;
+    display: flex; justify-content: center; gap: 40px;
+    min-height: 100vh;
+  }
+
+  /* iPhone-like frame */
+  .phone {
+    width: 390px; height: 844px;
+    background: var(--ivory);
+    border-radius: 54px;
+    border: 12px solid #0D0F17;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
+  }
+  .phone .notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 124px; height: 32px; background: #0D0F17; border-radius: 20px; z-index: 50;
+  }
+  .phone .statusbar {
+    position: absolute; top: 0; left: 0; right: 0; padding: 18px 32px 0;
+    display: flex; justify-content: space-between; align-items: center; z-index: 40;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink);
+  }
+
+  /* Home screen */
+  .screen {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .home-bg {
+    background:
+      radial-gradient(60% 40% at 50% 0%, rgba(166,227,255,0.4) 0%, transparent 60%),
+      radial-gradient(50% 40% at 30% 80%, rgba(126,242,193,0.3) 0%, transparent 60%),
+      var(--ivory);
+  }
+
+  .home-content { padding: 80px 24px 24px; flex: 1; display: flex; flex-direction: column; gap: 18px; overflow: hidden;}
+
+  .greet {
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .greet em { font-style: italic; }
+  .greet-sub { font-size: 15px; color: var(--fg-muted); line-height: 1.45;}
+
+  .prompt-mob {
+    margin-top: 8px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: 24px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-glow-soft);
+  }
+  .prompt-mob .ph {
+    font-family: var(--font-display); font-style: italic; font-size: 20px;
+    color: var(--fg-faint); line-height: 1.3;
+  }
+  .prompt-mob .row { display:flex; justify-content: space-between; align-items: center; margin-top: 14px;}
+  .prompt-mob .tools { display: flex; gap: 4px; }
+  .tool-mob { width: 36px; height: 36px; border-radius: 50%; background: var(--ink-04); display: flex; align-items:center; justify-content:center; color: var(--fg-muted);}
+  .tool-mob svg { width: 16px; height: 16px;}
+  .send-fab { width: 38px; height: 38px; border-radius: 50%; background: var(--mint); display:flex; align-items:center; justify-content:center; color: var(--ink); box-shadow: var(--shadow-glow-mint);}
+  .send-fab svg { width: 14px; height: 14px;}
+
+  .recents-eyebrow {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-quiet); margin-top: 8px;
+  }
+
+  .recents { display:flex; gap: 12px; overflow: hidden; }
+  .recent-card {
+    flex: 1; min-width: 0;
+    border-radius: 20px; overflow: hidden;
+    aspect-ratio: 3/4;
+    position: relative;
+    box-shadow: var(--shadow-card);
+  }
+  .recent-card .ftitle {
+    position: absolute; bottom: 12px; left: 12px; right: 12px;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 15px; line-height: 1.1; color: #FFFDF7;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .recent-card.r1 { background:
+      radial-gradient(60% 60% at 30% 30%, rgba(166,227,255,0.7), transparent 60%),
+      radial-gradient(70% 60% at 70% 70%, rgba(126,242,193,0.55), transparent 60%),
+      linear-gradient(135deg, #E5D0AC 0%, #A48B6A 100%);}
+  .recent-card.r2 { background:
+      radial-gradient(60% 60% at 70% 30%, rgba(246,213,138,0.6), transparent 60%),
+      linear-gradient(135deg, #F2D5A8 0%, #B58054 100%);}
+  .recent-card.r3 { background:
+      radial-gradient(60% 60% at 30% 70%, rgba(166,227,255,0.6), transparent 60%),
+      linear-gradient(180deg, #B5C5D5 0%, #4F5E72 100%);}
+
+  /* bottom nav */
+  .botnav {
+    position: absolute; left: 16px; right: 16px; bottom: 24px;
+    background: rgba(13,15,23,0.92);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: 999px;
+    padding: 10px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid rgba(255,253,247,0.08);
+    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.4);
+  }
+  .bn { width: 52px; height: 42px; border-radius: 999px; display:flex; align-items:center; justify-content:center; color: rgba(255,253,247,0.55);}
+  .bn.active { background: rgba(255,253,247,0.10); color: var(--mint);}
+  .bn svg { width: 18px; height: 18px;}
+
+  /* ── Phone 2: Now Playing ─────────── */
+  .nowplaying {
+    background:
+      radial-gradient(70% 50% at 30% 30%, rgba(166,227,255,0.6), transparent 60%),
+      radial-gradient(60% 60% at 70% 80%, rgba(126,242,193,0.55), transparent 60%),
+      linear-gradient(135deg, #D9C6A8 0%, #8B7558 60%, #4D3F2E 100%);
+    color: var(--ivory);
+  }
+  .np-top {
+    padding: 76px 24px 12px;
+    display:flex; justify-content: space-between; align-items: center;
+    color: rgba(255,253,247,0.7); font-size: 13px;
+  }
+  .np-top svg { width: 18px; height: 18px;}
+  .np-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;}
+  .np-orb-wrap {
+    flex: 1; display:flex; align-items:center; justify-content:center; position: relative;
+  }
+  .np-orb {
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #C8F1D2 22%, #9AE19D 50%, #40E0B0 80%, transparent 100%);
+    box-shadow: 0 0 120px rgba(64,224,176,0.5);
+    animation: breathe 4s ease-in-out infinite;
+  }
+  .np-meta { padding: 0 24px 8px; }
+  .np-title { font-family: var(--font-display); font-size: 32px; line-height: 1.05; letter-spacing: -0.02em;}
+  .np-title em { font-style: italic;}
+  .np-sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,253,247,0.55); margin-top: 8px;}
+
+  .np-bar { padding: 20px 24px 0;}
+  .np-bar .track { height: 3px; background: rgba(255,253,247,0.18); border-radius: 999px; overflow: hidden;}
+  .np-bar .fill { width: 42%; height: 100%; background: var(--ivory); border-radius: 999px;}
+  .np-bar .time { display:flex; justify-content: space-between; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,253,247,0.55);}
+
+  .np-controls { padding: 12px 24px 96px; display:flex; align-items: center; justify-content: center; gap: 32px;}
+  .np-ctrl { width: 48px; height: 48px; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: var(--ivory);}
+  .np-ctrl.play { width: 72px; height: 72px; background: var(--ivory); color: var(--ink);}
+  .np-ctrl.play svg { width: 22px; height: 22px;}
+  .np-ctrl svg { width: 22px; height: 22px;}
+
+  .home-indicator {
+    position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%);
+    width: 134px; height: 5px; background: var(--ink); border-radius: 999px; opacity: 0.5;
+  }
+  .nowplaying .home-indicator { background: var(--ivory);}
+
+  .label-tag {
+    font-family: var(--font-mono); color: rgba(255,253,247,0.5); text-align: center;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+<div data-screen-label="Mobile · Home">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="statusbar">
+      <span>9:41</span>
+      <span style="display:flex; gap:6px;">
+        <i data-lucide="signal" style="width:16px;height:16px;"></i>
+        <i data-lucide="wifi" style="width:16px;height:16px;"></i>
+        <i data-lucide="battery-full" style="width:18px;height:18px;"></i>
+      </span>
+    </div>
+    <div class="screen home-bg">
+      <div class="home-content">
+        <span class="recents-eyebrow">Tuesday · gentle morning</span>
+        <h1 class="greet">Welcome back,<br>Lara. <em>What are we<br>making?</em></h1>
+
+        <div class="prompt-mob">
+          <div class="ph">Tell us a moment…</div>
+          <div class="row">
+            <div class="tools">
+              <div class="tool-mob"><i data-lucide="image"></i></div>
+              <div class="tool-mob"><i data-lucide="mic"></i></div>
+            </div>
+            <div class="send-fab"><i data-lucide="arrow-up"></i></div>
+          </div>
+        </div>
+
+        <span class="recents-eyebrow">From your library</span>
+        <div class="recents">
+          <div class="recent-card r1"><div class="ftitle">Sunday morning, slow light.</div></div>
+          <div class="recent-card r2"><div class="ftitle">A song for my mother.</div></div>
+          <div class="recent-card r3"><div class="ftitle">First snow, Paris.</div></div>
+        </div>
+      </div>
+
+      <div class="botnav">
+        <div class="bn active"><i data-lucide="sparkles"></i></div>
+        <div class="bn"><i data-lucide="library"></i></div>
+        <div class="bn"><i data-lucide="search"></i></div>
+        <div class="bn"><i data-lucide="user"></i></div>
+      </div>
+    </div>
+    <div class="home-indicator"></div>
+  </div>
+  <p class="label-tag">Home</p>
+</div>
+
+<div data-screen-label="Mobile · Now Playing">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="statusbar" style="color: var(--ivory);">
+      <span>9:41</span>
+      <span style="display:flex; gap:6px;">
+        <i data-lucide="signal" style="width:16px;height:16px;"></i>
+        <i data-lucide="wifi" style="width:16px;height:16px;"></i>
+        <i data-lucide="battery-full" style="width:18px;height:18px;"></i>
+      </span>
+    </div>
+    <div class="screen nowplaying">
+      <div class="np-top">
+        <i data-lucide="chevron-down"></i>
+        <span class="np-eyebrow">Now listening</span>
+        <i data-lucide="more-horizontal"></i>
+      </div>
+      <div class="np-orb-wrap"><div class="np-orb"></div></div>
+      <div class="np-meta">
+        <div class="np-title"><em>A song for<br>my mother.</em></div>
+        <div class="np-sub">Song · piano + warm strings</div>
+      </div>
+      <div class="np-bar">
+        <div class="track"><div class="fill"></div></div>
+        <div class="time"><span>01:24</span><span>03:42</span></div>
+      </div>
+      <div class="np-controls">
+        <div class="np-ctrl"><i data-lucide="skip-back"></i></div>
+        <div class="np-ctrl play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+        </div>
+        <div class="np-ctrl"><i data-lucide="skip-forward"></i></div>
+      </div>
+    </div>
+    <div class="home-indicator"></div>
+  </div>
+  <p class="label-tag">Listening</p>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.5 } });</script>
+</body>
+</html>

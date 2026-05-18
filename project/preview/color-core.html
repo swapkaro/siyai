@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Color · Core Palette</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 26px 30px; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; }
+  .swatch { display: flex; flex-direction: column; gap: 8px; }
+  .chip { aspect-ratio: 1.05/1; border-radius: var(--r-md); border: 1px solid var(--border); position: relative; overflow: hidden; }
+  .name { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--fg); }
+  .hex  { font-family: var(--font-mono); font-size: 11px; color: var(--fg-quiet); }
+</style>
+</head>
+<body class="surface">
+  <div class="grid">
+    <div class="swatch"><div class="chip" style="background:#FFFDF7;"></div><span class="name">Ivory</span><span class="hex">#FFFDF7</span></div>
+    <div class="swatch"><div class="chip" style="background:#9AE19D;"></div><span class="name">Mint</span><span class="hex">#9AE19D</span></div>
+    <div class="swatch"><div class="chip" style="background:#7EF2C1;"></div><span class="name">Seafoam</span><span class="hex">#7EF2C1</span></div>
+    <div class="swatch"><div class="chip" style="background:#40E0B0;"></div><span class="name">Emerald</span><span class="hex">#40E0B0</span></div>
+    <div class="swatch"><div class="chip" style="background:#A6E3FF;"></div><span class="name">Sky</span><span class="hex">#A6E3FF</span></div>
+    <div class="swatch"><div class="chip" style="background:#F6D58A;"></div><span class="name">Warm Gold</span><span class="hex">#F6D58A</span></div>
+    <div class="swatch"><div class="chip" style="background:#0D0F17;"></div><span class="name" >Deep Ink</span><span class="hex">#0D0F17</span></div>
+  </div>
+</body>
+</html>

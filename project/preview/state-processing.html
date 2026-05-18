@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · AI Processing State</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 26px 30px; background: var(--ivory); }
+  .panel {
+    position: relative;
+    border-radius: var(--r-xl);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .halo {
+    position:absolute; inset: -40px; pointer-events: none; z-index: 0;
+    background: var(--grad-aurora);
+    filter: blur(40px);
+    opacity: 0.7;
+  }
+  .content { position: relative; z-index: 1; display:flex; align-items: center; gap: 22px;}
+  .orb {
+    width: 52px; height: 52px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 35%, #FFFFFF 0%, var(--mint) 35%, var(--emerald) 70%, transparent 90%);
+    box-shadow: 0 0 40px rgba(64,224,176,0.6);
+  }
+  .meta-mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-quiet);}
+  .label { font-family: var(--font-display); font-size: 28px; line-height: 1.1; letter-spacing: -0.02em;}
+</style>
+</head>
+<body>
+  <div class="panel">
+    <div class="halo is-breathing"></div>
+    <div class="content">
+      <div class="orb is-breathing"></div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="meta-mono">Now</span>
+        <span class="label"><em class="shimmer-text">Finding the feeling…</em></span>
+        <span class="t-small" style="color: var(--fg-quiet);">SiyAI is reading your moment, weaving the score, and finding the light.</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

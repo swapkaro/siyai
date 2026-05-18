@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Shadows (light, not weight)</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 32px 30px; background: var(--cloud); }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+  .cell { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align:center; }
+  .box { width: 100%; aspect-ratio: 1.1/1; background: var(--ivory); border-radius: var(--r-lg); border: 1px solid var(--border); }
+  .nm { font-family: var(--font-mono); font-size: 11px; color: var(--fg-quiet); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell"><div class="box" style="box-shadow: var(--shadow-card);"></div><span class="nm">card</span></div>
+    <div class="cell"><div class="box" style="box-shadow: var(--shadow-float);"></div><span class="nm">float</span></div>
+    <div class="cell"><div class="box" style="box-shadow: var(--shadow-glow-mint);"></div><span class="nm">glow · mint</span></div>
+    <div class="cell"><div class="box" style="box-shadow: var(--shadow-glow-sky);"></div><span class="nm">glow · sky</span></div>
+    <div class="cell"><div class="box" style="box-shadow: var(--shadow-glow-gold);"></div><span class="nm">glow · gold</span></div>
+  </div>
+</body>
+</html>

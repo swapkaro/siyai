@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Semantic Tokens</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 24px 28px; }
+  .grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px 28px; align-items:center; }
+  .row { display: flex; align-items: center; gap: 12px;}
+  .sw  { width: 24px; height: 24px; border-radius: 8px; border:1px solid var(--border); }
+  .nm  { font-family: var(--font-mono); font-size: 12px; color: var(--fg); }
+  .dc  { font-family: var(--font-body); font-size: 12px; color: var(--fg-quiet);}
+</style>
+</head>
+<body class="surface">
+  <div class="grid">
+    <div class="row"><div class="sw" style="background:var(--bg)"></div><span class="nm">--bg</span></div><span class="dc">canvas</span>
+    <div class="row"><div class="sw" style="background:var(--bg-sunken)"></div><span class="nm">--bg-sunken</span></div><span class="dc">section underlay</span>
+    <div class="row"><div class="sw" style="background:var(--bg-elevated)"></div><span class="nm">--bg-elevated</span></div><span class="dc">cards, sheets</span>
+    <div class="row"><div class="sw" style="background:var(--ink)"></div><span class="nm">--fg</span></div><span class="dc">text</span>
+    <div class="row"><div class="sw" style="background:var(--ink-72)"></div><span class="nm">--fg-muted</span></div><span class="dc">secondary text</span>
+    <div class="row"><div class="sw" style="background:var(--ink-40)"></div><span class="nm">--fg-faint</span></div><span class="dc">helper, captions</span>
+    <div class="row"><div class="sw" style="background:var(--accent)"></div><span class="nm">--accent</span></div><span class="dc">primary action · Mint</span>
+    <div class="row"><div class="sw" style="background:var(--accent-hover)"></div><span class="nm">--accent-hover</span></div><span class="dc">action hover · Emerald</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Iconography</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { padding: 26px 30px; }
+  .row { display: flex; gap: 18px; align-items:center; flex-wrap: wrap;}
+  .ic { display: flex; flex-direction: column; align-items:center; gap: 6px;}
+  .ic svg { width: 24px; height: 24px; color: var(--ink); stroke-width: 1.5;}
+  .ic span { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint);}
+  .meta { font-family: var(--font-body); font-size: 13px; color: var(--fg-muted); margin-top: 16px;}
+</style>
+</head>
+<body class="surface">
+  <div class="row">
+    <div class="ic"><i data-lucide="sparkles"></i><span>sparkles</span></div>
+    <div class="ic"><i data-lucide="film"></i><span>film</span></div>
+    <div class="ic"><i data-lucide="music"></i><span>music</span></div>
+    <div class="ic"><i data-lucide="play"></i><span>play</span></div>
+    <div class="ic"><i data-lucide="pause"></i><span>pause</span></div>
+    <div class="ic"><i data-lucide="heart"></i><span>heart</span></div>
+    <div class="ic"><i data-lucide="bookmark"></i><span>save</span></div>
+    <div class="ic"><i data-lucide="image"></i><span>image</span></div>
+    <div class="ic"><i data-lucide="mic"></i><span>mic</span></div>
+    <div class="ic"><i data-lucide="library"></i><span>library</span></div>
+    <div class="ic"><i data-lucide="moon-star"></i><span>moon</span></div>
+    <div class="ic"><i data-lucide="settings"></i><span>settings</span></div>
+  </div>
+  <p class="meta">Lucide · 1.5px stroke · rounded caps &amp; joins. No filled glyphs. No emoji.</p>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
