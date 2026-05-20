@@ -1,0 +1,131 @@
+/* ============================================================
+   SiyAI · Cinzel + Geist type variant
+   Re-fonts index.html via CSS variable + import overrides.
+   Cinzel (display serif, Trajan-style stone caps) becomes the
+   display face. Geist (body sans) handles UI. Fraunces drops out.
+
+   ⚠ Cinzel is brand-canonically the *ceremonial* mark only — used
+   here at the user's request as a system-wide display face for a
+   single variant. It runs hot at large sizes (poster-feeling) and
+   demands generous tracking + uppercase.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-display: 'Cinzel', 'Trajan Pro', 'Cormorant Garamond', serif;
+  --font-body:    'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-stone:   'Cinzel', 'Trajan Pro', serif;
+  --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* Cinzel has no real italics — display "italics" in this variant become
+   uppercase tracked + slight color shift, NOT slanted. That's how Trajan
+   faces signal emphasis. */
+h1, h2, h3,
+.hero-col h1,
+.tuesday-intro h2,
+.line-quote h2,
+.intent-head h2,
+.con-head h2,
+.products-head h2,
+.behind-head h2,
+.how-head h2,
+.arrival-head h2,
+.trust-head h2,
+.price-left h2,
+.phase2-left h2,
+.close h2 {
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.08;
+  font-weight: 500;
+}
+
+/* Em inside display headlines: stays uppercase, gold-shifted, slightly
+   tighter tracking. NOT italic. */
+h1 em, h2 em, h3 em,
+.hero-col h1 em,
+.line-quote h2 .accent,
+.close h2 em,
+.intent-card h3 em,
+.step h3 em,
+.product-small .ps-name em,
+.product-hero .ph-name em,
+.phase2-card .name em,
+.trust-line em,
+.beat-text em,
+.tuesday-intro h2 em {
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  font-family: var(--font-display);
+}
+
+/* Cinzel runs tall in caps — pull display sizes down ~15% so they
+   don't blow out the layout. */
+.hero-col h1 { font-size: clamp(20px, 2.4vw, 30px); }
+.tuesday-intro h2,
+.line-quote h2,
+.intent-head h2,
+.con-head h2,
+.products-head h2,
+.behind-head h2,
+.how-head h2,
+.arrival-head h2,
+.trust-head h2,
+.price-left h2,
+.phase2-left h2,
+.close h2,
+.masthead-h1 { letter-spacing: 0.03em; }
+
+/* Body sans: tighten + activate Geist's modern figures */
+body, .nav-links, .eyebrow, .micro,
+.beat-text, .intent-card p, .room-card p,
+.step p, .trust-line, .price-card .name,
+.cta-primary, .cta-quiet {
+  font-feature-settings: 'tnum', 'ss01';
+  font-style: normal;
+}
+.beat-text em,
+.intent-card p em,
+.step p em,
+.trust-line em,
+.room-card p em {
+  font-style: italic;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+/* Eyebrows + mono details: medium weight pairs better with Cinzel's
+   stronger stone strokes. */
+.t-eyebrow, .eyebrow, .micro, .ps-meta, .beat-time .d {
+  font-weight: 500;
+}
+
+/* Wordmark: SiyAI in Cinzel reads as the ceremonial mark on every
+   surface — generous tracking, uppercase. */
+.nav .brand,
+.footer-brand .word,
+.s-brand {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+.nav .brand em,
+.footer-brand .word .ai {
+  font-style: normal;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+}
+
+/* Beat time stamps look better in mono on a Cinzel page */
+.beat-time .t {
+  font-family: var(--font-mono);
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 22px;
+  color: var(--ink);
+}
