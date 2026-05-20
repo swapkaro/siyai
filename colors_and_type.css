@@ -3,7 +3,7 @@
    The cinematic, emotional, premium design language.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
 :root {
   /* ─────────── COLOR · CORE PALETTE ─────────── */
@@ -56,6 +56,7 @@
 
   /* ─────────── TYPOGRAPHY ─────────── */
   --font-display: 'Fraunces', 'Instrument Serif', 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-stone:   'Cinzel', 'Trajan Pro', 'Cormorant Garamond', serif;  /* ceremonial wordmark */
   --font-body:    'Geist', ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
   --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 

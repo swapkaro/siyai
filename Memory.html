@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiyAI &middot; Memory palette &middot; Leave your memories to us.</title>
+<meta name="description" content="An emotional platform, end to end. By people, for the people you love. SiyAI turns a memory you carry into a cinematic film, voice letter, or song. Delivered on WhatsApp.">
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="landing.css">
+<link rel="stylesheet" href="memory.css">
+<script src="image-slot.js" defer></script>
+</head>
+<body>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     NAV
+     ═══════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="brand"><span class="orb"></span><span>S<em>iy</em>AI</span></a>
+  <div class="nav-links">
+    <a href="Films.html">Films</a>
+    <a href="#products">What we make</a>
+    <a href="#how">How it works</a>
+    <a href="About.html">About</a>
+  </div>
+  <a href="Watch.html" class="nav-cta">Watch a film</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO · B+ · Left-anchored cinema
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero" data-screen-label="01 Hero">
+
+  <video class="hero-bg" muted loop playsinline preload="metadata" poster="assets/generated/hero-still.png" aria-hidden="true"></video>
+
+  <div class="hero-now reveal">
+    <div class="live">NOW SHOWING &middot; N&deg; 014</div>
+    <div class="ts">9:14 am &middot; Tuesday</div>
+    <button class="hero-sound" id="heroSound" type="button" aria-label="Sound off" aria-pressed="false">
+      <span class="icn" aria-hidden="true">&#9835;</span><span class="lbl">Sound off</span>
+    </button>
+  </div>
+
+  <a class="hero-play reveal" href="Watch.html" aria-label="Watch the film full screen"></a>
+
+  <div class="hero-col reveal">
+    <div class="it"><em>It&rsquo;s Tuesday.</em></div>
+    <h1>
+      Her phone is <span class="accent"><em>about to buzz.</em></span>
+    </h1>
+    <div class="row">
+      <a class="cta-primary" href="#close">Make one like this <span class="arr">&rarr;</span></a>
+      <span class="micro">A FILM ARRIVES IN 48 HRS &middot; ON WHATSAPP</span>
+    </div>
+  </div>
+
+  <div class="hero-loop reveal" aria-hidden="true">
+    <span class="bar"></span>
+    <span class="lbl">A FILM, ON LOOP</span>
+    <span class="bar"></span>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     TUESDAY · the narrative (opens at Beat 2)
+     ═══════════════════════════════════════════════════════ -->
+<section class="tuesday" id="films" data-screen-label="02 The Tuesday">
+
+  <div class="tuesday-intro reveal">
+    <div class="eyebrow" style="margin-bottom:24px"><strong>A real morning, told plainly</strong></div>
+    <h2><em>Meanwhile,</em><br>in Bengaluru.</h2>
+  </div>
+
+  <article class="beat reveal">
+    <div class="beat-time">
+      <span class="t">9:11 am</span>
+      <span class="d">A few rooms away</span>
+    </div>
+    <div class="beat-content">
+      <p class="beat-text">In Bengaluru, Rohit finishes his coffee and sends a small message to <em>Maa &amp; Papa.</em></p>
+      <p class="beat-text quiet">He&rsquo;s been working on this for two weeks. It cost less than a nice dinner. He has not told them.</p>
+      <p class="beat-text whisper">The message is a single line: <em>&ldquo;Open this when Papa is in the room.&rdquo;</em></p>
+    </div>
+  </article>
+
+  <article class="beat reveal">
+    <div class="beat-time">
+      <span class="t">9:14 am</span>
+      <span class="d">The phone buzzes</span>
+    </div>
+    <div class="beat-content">
+      <div class="beat-row">
+        <div>
+          <p class="beat-text"><em>SiyAI</em>. The lock-screen lights up the corner of the table.</p>
+          <p class="beat-text quiet">She wipes her hands. She thinks it&rsquo;s the dhobi.</p>
+          <p class="beat-text whisper">It is not.</p>
+        </div>
+        <div class="phone lock">
+          <div class="notch"></div>
+          <div class="date">Tuesday &middot; 14 May</div>
+          <div class="clock">9:14</div>
+          <div class="notif">
+            <div class="ic"></div>
+            <div class="b">
+              <div class="row"><span class="app">SiyAI</span><span class="when">now</span></div>
+              <div class="ttl">A film, from your son.</div>
+              <div class="pv">&ldquo;Open this when Papa is in the room.&rdquo;</div>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="beat reveal">
+    <div class="beat-time">
+      <span class="t">9:17 am</span>
+      <span class="d">Papa walks in</span>
+    </div>
+    <div class="beat-content">
+      <div class="beat-row flip">
+        <div class="phone opening">
+          <div class="notch"></div>
+          <div class="slot-fill over-gradient"><image-slot id="tuesday-opening-still" placeholder="film still &middot; the road" src="assets/generated/tuesday-opening-still.png"></image-slot></div>
+          <video class="phone-video" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+          <div class="studio"><div class="siy">SIY<span class="ai">AI</span></div><div class="pr">presents</div></div>
+          <div class="credit"><div class="for">For Papa &middot; on his 60th</div><div class="ttl"><em>The road from Patna,</em><br>in his own words.</div></div>
+          <div class="home"></div>
+        </div>
+        <div>
+          <p class="beat-text">She holds the phone up so he can see. The room is suddenly <em>very quiet.</em></p>
+          <p class="beat-text quiet">He sees his own father&rsquo;s photograph, the one from 1968. He hears his own voice telling the story he&rsquo;s told a hundred times, except this time the road is moving behind him.</p>
+          <p class="beat-text whisper">It is a minute and forty-eight seconds long.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="beat reveal">
+    <div class="beat-time">
+      <span class="t">9:19 am</span>
+      <span class="d">After</span>
+    </div>
+    <div class="beat-content">
+      <p class="beat-text">Maa cries. <em>The good kind.</em></p>
+      <p class="beat-text quiet">She calls Rohit. He picks up on the second ring. He does not say <em>&ldquo;I made it with AI.&rdquo;</em> He says <em>&ldquo;I made it for you.&rdquo;</em></p>
+      <p class="beat-text whisper">That is the whole pitch. That is the whole company.</p>
+    </div>
+  </article>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     LINE-QUOTE
+     ═══════════════════════════════════════════════════════ -->
+<section class="line-quote grain" data-screen-label="03 The Line">
+  <div class="eyebrow eyebrow-dark">SIYAI &middot; the one thing we sell</div>
+  <h2 class="reveal">
+    Leave your <span class="accent">memories</span><br>to us.
+  </h2>
+  <div class="by">A team of filmmakers, writers, sound and engineers &middot; crafted in India</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     INTENT · three doors
+     ═══════════════════════════════════════════════════════ -->
+<section class="intent" data-screen-label="04 Intent">
+  <div class="intent-head reveal">
+    <div class="eyebrow"><strong>BEGIN SOMETHING</strong></div>
+    <h2>Three doors.<br><em>Same kind of magic.</em></h2>
+    <p class="sub">Whatever brought you here, we can do something with it. Take whichever door feels right.</p>
+  </div>
+
+  <div class="intent-grid">
+    <a class="intent-card reveal" href="#close">
+      <div class="image" style="background:radial-gradient(60% 60% at 30% 30%, rgba(246, 213, 138, 0.55), transparent 60%), linear-gradient(160deg, #E5BC8A 0%, #6F4424 100%)">
+        <span class="lab">N&deg; 01</span>
+      </div>
+      <div class="body">
+        <div class="eyebrow">FOR SOMEONE YOU LOVE</div>
+        <h3>A film, made <em>quietly,</em><br>for a person you carry.</h3>
+        <p>Maa on her birthday. Papa on his sixtieth. The grandmother whose laugh you don&rsquo;t want anyone to forget. Tell us about them. We&rsquo;ll handle the rest.</p>
+        <div class="arr-row"><span>BEGIN A FILM</span><span class="arr">&rarr;</span></div>
+      </div>
+    </a>
+
+    <a class="intent-card reveal" href="#close">
+      <div class="image" style="background:radial-gradient(60% 60% at 70% 40%, rgba(166, 227, 255, 0.55), transparent 60%), linear-gradient(180deg, #BFCAD5 0%, #4F5E72 100%)">
+        <span class="lab">N&deg; 02</span>
+      </div>
+      <div class="body">
+        <div class="eyebrow">FOR YOURSELF</div>
+        <h3>The story you&rsquo;ve <em>been carrying.</em><br>Made into a thing you can keep.</h3>
+        <p>Your first car. The road you came home on. The afternoon you don&rsquo;t want to forget. We&rsquo;ll keep it the way you tell it. Yours, kept.</p>
+        <div class="arr-row"><span>BEGIN A STORY</span><span class="arr">&rarr;</span></div>
+      </div>
+    </a>
+
+    <a class="intent-card reveal" href="#close">
+      <div class="image" style="background:radial-gradient(60% 60% at 40% 70%, rgba(154, 225, 157, 0.45), transparent 60%), linear-gradient(160deg, #D8DCB8 0%, #5B6E48 100%)">
+        <span class="lab">N&deg; 03</span>
+      </div>
+      <div class="body">
+        <div class="eyebrow">TOGETHER, AS A FAMILY</div>
+        <h3>Many hands.<br><em>One piece</em> nobody forgets.</h3>
+        <p>Cousins from three cities. Siblings from two timezones. Each contributes a memory; we braid them into one film. Cost split via UPI, kindly.</p>
+        <div class="arr-row"><span>BEGIN A GROUP GIFT</span><span class="arr">&rarr;</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     CONSTELLATION
+     ═══════════════════════════════════════════════════════ -->
+<section class="constellation" id="constellation" data-screen-label="05 Constellation">
+  <div class="wrap">
+    <div class="con-head reveal">
+      <div class="eyebrow eyebrow-dark"><strong>WANDER THE SKY</strong></div>
+      <h2>Every star is a memory<br>someone <em>kept.</em></h2>
+      <p class="sub">A quiet sky of what other families have made. Hover to lift one. Click to listen.</p>
+    </div>
+
+    <div class="con-canvas" aria-label="Drifting memories">
+      <a class="orb orb-1" href="Watch.html">
+        <div class="frame frame-warm"><div class="slot-fill over-gradient"><image-slot id="orb-1" placeholder="a road, in patna" src="assets/generated/orb-1.png"></image-slot></div><div class="ttl">The road from Patna, in his own words.</div></div>
+        <div class="meta"><span class="by"><em>For Papa &middot; 60th</em></span><span>01:48</span></div>
+      </a>
+      <a class="orb orb-2 featured" href="Watch.html">
+        <div class="frame frame-meadow"><div class="slot-fill over-gradient"><image-slot id="orb-2" placeholder="a kitchen, an afternoon" src="assets/generated/orb-2.png"></image-slot></div><div class="ttl">The kitchen, the radio, the afternoon.</div></div>
+        <div class="meta"><span class="by"><em>For Dadi, before forgetting</em></span><span>02:04</span></div>
+      </a>
+      <a class="orb orb-3" href="Watch.html">
+        <div class="frame frame-sea"><div class="slot-fill over-gradient"><image-slot id="orb-3" placeholder="a room, a laugh" src="assets/generated/orb-3.png"></image-slot></div><div class="ttl">Still the loudest room.</div></div>
+        <div class="meta"><span class="by"><em>For Maa &middot; karva chauth</em></span><span>01:12</span></div>
+      </a>
+      <a class="orb orb-4" href="Watch.html">
+        <div class="frame frame-rose"><div class="slot-fill over-gradient"><image-slot id="orb-4" placeholder="a couple, eleven years" src="assets/generated/orb-4.png"></image-slot></div><div class="ttl">Eleven years, in three minutes.</div></div>
+        <div class="meta"><span class="by"><em>For Aarti &middot; anniversary</em></span><span>02:46</span></div>
+      </a>
+      <a class="orb orb-5" href="Watch.html">
+        <div class="frame frame-dusk"><div class="slot-fill over-gradient"><image-slot id="orb-5" placeholder="a summer kitchen" src="assets/generated/orb-5.png"></image-slot></div><div class="ttl">A song from your kitchen, summer.</div></div>
+        <div class="meta"><span class="by"><em>For Bhai &middot; rakhi</em></span><span>01:32</span></div>
+      </a>
+      <a class="orb orb-6" href="Watch.html">
+        <div class="frame frame-ink"><div class="slot-fill over-gradient"><image-slot id="orb-6" placeholder="a sealed letter" src="assets/generated/orb-6.png"></image-slot></div><div class="ttl">A letter to my daughter, on her 18th.</div></div>
+        <div class="meta"><span class="by"><em>Sealed for 12 years</em></span><span>sealed</span></div>
+      </a>
+    </div>
+
+    <div class="con-bottom">
+      <div class="l">
+        <span class="big"><strong>1,407</strong> films kept</span>
+        <span>across 38 cities &middot; nine languages</span>
+      </div>
+      <div class="r">
+        <span class="big"><strong>14</strong> new memories tonight</span>
+        <span>each one, breathing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PRODUCTS
+     ═══════════════════════════════════════════════════════ -->
+<section class="products" id="products" data-screen-label="06 Products">
+  <div class="products-head reveal">
+    <div class="eyebrow" style="margin-bottom:28px"><strong>WHAT WE MAKE</strong></div>
+    <h2>Five quiet things,<br>for the people you <em>love.</em></h2>
+    <p class="sub">We do one kind of work: bringing memories to life. We do it in five different shapes.</p>
+  </div>
+
+  <div class="products-grid">
+    <a class="product-hero grain reveal" href="#close">
+      <div class="slot-fill over-gradient"><image-slot id="product-hero-still" placeholder="film still &middot; hero card" src="assets/generated/product-hero-still.png"></image-slot></div>
+      <div class="ph-top">
+        <span>N&deg; 01 &middot; the hero</span>
+        <span class="ph-tag">most loved</span>
+      </div>
+      <div class="ph-body">
+        <div class="ph-eyebrow">FILM YOUR MEMORY</div>
+        <h3 class="ph-name"><em>A film,</em> one or two minutes long.</h3>
+        <p class="ph-desc">Tell us about a moment. Your father&rsquo;s first car. The wedding morning before anyone had cried. A 90-second piece arrives on WhatsApp, ready to keep.</p>
+        <div class="ph-row">
+          <div class="play"></div>
+          <span>WATCH A TUESDAY &middot; 01:48</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="product-small voice reveal" href="#close">
+      <div class="ps-eyebrow"><span class="dot"></span>VOICE LETTER</div>
+      <h3 class="ps-name"><em>A voice,</em><br>for the morning of.</h3>
+      <p class="ps-desc">A short voice message, in someone&rsquo;s real voice. Sent on WhatsApp. The way Maa would&rsquo;ve said it, even from far away.</p>
+      <div class="ps-meta">FROM ₹999 &middot; FROM $19</div>
+    </a>
+
+    <a class="product-small group reveal" href="#close">
+      <div class="ps-eyebrow"><span class="dot"></span>GROUP GIFT</div>
+      <h3 class="ps-name"><em>The whole family,</em> one film.</h3>
+      <p class="ps-desc">Cousins, siblings, in-laws. Each contributes a memory; we braid them into one. Cost split via UPI.</p>
+      <div class="ps-meta">PER FAMILY &middot; SPLIT VIA UPI</div>
+    </a>
+
+    <a class="product-small vault reveal" href="Legacy.html">
+      <div class="ps-eyebrow"><span class="dot"></span>WHEN YOU&rsquo;RE READY</div>
+      <h3 class="ps-name">There&rsquo;s also a <em>quieter room.</em></h3>
+      <p class="ps-desc">Capture Dadi&rsquo;s voice once, kept forever. Seal a letter for your daughter&rsquo;s 18th. Phase II of SiyAI, <em>discovered</em> &mdash; never sold.</p>
+      <div class="ps-meta">STEP INSIDE THE VAULT &rarr;</div>
+    </a>
+
+    <a class="product-small capsule reveal" href="Legacy.html">
+      <div class="ps-eyebrow"><span class="dot"></span>TIME CAPSULE</div>
+      <h3 class="ps-name">A letter, <em>sealed for later.</em></h3>
+      <p class="ps-desc">Write it today. Choose a date in the years. <em>Sealed for 12 years &middot; arrives on a Tuesday in June.</em></p>
+      <div class="ps-meta">SEALED &middot; DELIVERED ON A FUTURE TUESDAY</div>
+    </a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     BEHIND THE SURFACE
+     ═══════════════════════════════════════════════════════ -->
+<section class="behind" data-screen-label="07 Behind the surface">
+  <div class="behind-head reveal">
+    <div class="eyebrow eyebrow-dark"><strong>BEHIND THE SURFACE</strong></div>
+    <h2>What you see is one film.<br>What&rsquo;s <em>behind it</em> is a production house.</h2>
+    <p class="sub">A team across India, working on hundreds of pieces every week. Six rooms, one purpose. Everything ends up sounding like a film, because a film is what comes out.</p>
+  </div>
+
+  <div class="rooms-grid">
+    <div class="room-card reveal">
+      <span class="lbl">N&deg; 01</span>
+      <h3>The <em>editing</em> room</h3>
+      <p>Real cutters who came from documentary, advertising, and indie cinema. Every frame is touched by someone who watches it twice.</p>
+      <div class="stat"><strong>17,000+</strong> minutes cut this year</div>
+    </div>
+    <div class="room-card reveal">
+      <span class="lbl">N&deg; 02</span>
+      <h3>The <em>voice</em> studio</h3>
+      <p>Voice artists, sound designers, the engineers who keep Maa&rsquo;s laugh sounding like Maa&rsquo;s laugh. Three checks before anything leaves.</p>
+      <div class="stat"><strong>9</strong> languages, growing</div>
+    </div>
+    <div class="room-card reveal">
+      <span class="lbl">N&deg; 03</span>
+      <h3>The <em>writers&rsquo;</em> room</h3>
+      <p>Writers who read every script aloud before it ships. The thread between a memory you carry and a film you can watch.</p>
+      <div class="stat">every piece <strong>read aloud,</strong> twice</div>
+    </div>
+    <div class="room-card reveal">
+      <span class="lbl">N&deg; 04</span>
+      <h3>The <em>music</em> room</h3>
+      <p>Composers and instrumentalists. A sarod line you&rsquo;ve heard before, a tabla you haven&rsquo;t, the silence between them.</p>
+      <div class="stat"><strong>recorded fresh</strong> for every piece</div>
+    </div>
+    <div class="room-card reveal">
+      <span class="lbl">N&deg; 05</span>
+      <h3>The <em>engineering</em> room</h3>
+      <p>The infrastructure that holds your memory safely, scales to a million voices, and lets the rest of us forget the AI is even there.</p>
+      <div class="stat">built to <strong>scale,</strong> built to last</div>
+    </div>
+    <div class="room-card reveal">
+      <span class="lbl">N&deg; 06</span>
+      <h3>The <em>family</em> desk</h3>
+      <p>The people who reply when you write. The ones who treat your grandmother&rsquo;s voice the way they&rsquo;d treat their own. The whole reason this works.</p>
+      <div class="stat"><strong>same-day reply,</strong> always</div>
+    </div>
+  </div>
+
+  <div class="behind-bottom">
+    <div>
+      <em>1,407 pieces, this year.</em>
+      Crafted in India &middot; for families everywhere
+    </div>
+    <div style="text-align:right">
+      <em>Same brief, every time.</em>
+      Make it feel like a film. Then make it feel like home.
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     HOW
+     ═══════════════════════════════════════════════════════ -->
+<section class="how" id="how" data-screen-label="08 How it works">
+  <div class="how-head reveal">
+    <div class="eyebrow" style="margin-bottom:28px"><strong>HOW IT WORKS</strong></div>
+    <h2>Three quiet steps.<br>None of them say <em>&ldquo;prompt.&rdquo;</em></h2>
+    <p class="sub">You won&rsquo;t see a workflow. You won&rsquo;t pick a model. You&rsquo;ll tell us about it, and we&rsquo;ll handle the rest.</p>
+  </div>
+
+  <div class="how-grid">
+    <div class="step reveal">
+      <div class="n">i.</div>
+      <h3>Tell us <em>about it.</em></h3>
+      <p>Write it out, or record a voice note. Photographs are welcome. So is silence. A few minutes is plenty.</p>
+      <div class="micro">~4 MIN &middot; ENGLISH OR HINDI</div>
+    </div>
+    <div class="step reveal">
+      <div class="n">ii.</div>
+      <h3>We work, <em>quietly.</em></h3>
+      <p>A team of editors, writers, sound designers, and engineers puts it together. You don&rsquo;t hear from us for a day or two. Then it&rsquo;s ready.</p>
+      <div class="micro">24&ndash;48 HOURS &middot; HUMAN-REVIEWED</div>
+    </div>
+    <div class="step reveal">
+      <div class="n">iii.</div>
+      <h3>It arrives on <em>WhatsApp.</em></h3>
+      <p>The way good news travels in your family already. Forward it. Keep it. Schedule it for a future date. Yours.</p>
+      <div class="micro">DELIVERED ON WHATSAPP &middot; KEEP FOREVER</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     ARRIVAL
+     ═══════════════════════════════════════════════════════ -->
+<section class="arrival" data-screen-label="09 Arrival">
+  <div class="arrival-head reveal">
+    <div class="eyebrow" style="margin-bottom:28px"><strong>THE ARRIVAL</strong></div>
+    <h2>The moment <em>it lights up</em> the kitchen table.</h2>
+    <p class="sub">Lockscreen. Chat. The first frame. Three small windows into the morning we just told you about.</p>
+  </div>
+
+  <div class="arrival-phones">
+
+    <div class="arrival-stage reveal">
+      <div class="phone lock">
+        <div class="notch"></div>
+        <div class="date">Tuesday &middot; 14 May</div>
+        <div class="clock">9:14</div>
+        <div class="notif">
+          <div class="ic"></div>
+          <div class="b">
+            <div class="row"><span class="app">SiyAI</span><span class="when">now</span></div>
+            <div class="ttl">A film, from your son.</div>
+            <div class="pv">&ldquo;Open this when Papa is in the room.&rdquo;</div>
+          </div>
+        </div>
+        <div class="home"></div>
+      </div>
+      <div class="tag">i. the lockscreen<em>quiet, no fanfare</em></div>
+    </div>
+
+    <div class="arrival-stage reveal">
+      <div class="phone chat">
+        <div class="notch"></div>
+        <div class="head">
+          <div class="av"></div>
+          <div>
+            <div class="nm">SiyAI</div>
+            <div class="st">online</div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="day"><span>TODAY</span></div>
+          <div class="gift">
+            <div class="poster">
+              <div class="slot-fill over-gradient"><image-slot id="arrival-gift-poster" placeholder="poster still" src="assets/generated/arrival-gift-poster.png"></image-slot></div>
+              <div class="seal" style="z-index:3"><span class="d"></span>FILM &middot; 01:48</div>
+              <div class="play" style="z-index:3"></div>
+              <div class="insc" style="position:absolute;bottom:8px;left:10px;right:10px;color:var(--ivory);z-index:3">
+                <div class="f">FOR PAPA &middot; 60TH</div>
+                <div class="t"><em>The road from</em><br>Patna, in his own words.</div>
+              </div>
+            </div>
+            <div class="cap"><strong>From <em>Rohit, Bengaluru</em></strong><br>Open this when Papa is in the room.</div>
+          </div>
+        </div>
+        <div class="home"></div>
+      </div>
+      <div class="tag">ii. the chat<em>delivered, not announced</em></div>
+    </div>
+
+    <div class="arrival-stage reveal">
+      <div class="phone opening">
+        <div class="notch"></div>
+        <div class="slot-fill over-gradient"><image-slot id="arrival-opening-still" placeholder="film still &middot; the opening" src="assets/generated/arrival-opening-still.png"></image-slot></div>
+        <video class="phone-video" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="studio"><div class="siy">SIY<span class="ai">AI</span></div><div class="pr">presents</div></div>
+        <div class="credit">
+          <div class="for">For Papa &middot; on his 60th</div>
+          <div class="ttl"><em>The road from Patna,</em><br>in his own words.</div>
+        </div>
+        <div class="home"></div>
+      </div>
+      <div class="tag">iii. the opening<em>a small studio bumper</em></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     TRUST
+     ═══════════════════════════════════════════════════════ -->
+<section class="trust" data-screen-label="10 Trust">
+  <div class="trust-head reveal">
+    <div class="eyebrow eyebrow-dark">SIYAI &middot; <strong>what we promise</strong></div>
+    <h2>You&rsquo;re giving us something <em>precious.</em></h2>
+  </div>
+
+  <div class="trust-lines">
+    <p class="trust-line reveal"><strong>What you share with us,</strong> stays with you.<br>We just hold the key.</p>
+    <p class="trust-line reveal">A team of <em>real people</em> reviews every piece.<br>No film arrives untouched by a human hand.</p>
+    <p class="trust-line reveal">If you ever want a voice, a face, a photograph <strong>taken down,</strong><br>just tell us. We say <em>&ldquo;yes, take this away.&rdquo;</em> Same day.</p>
+    <p class="trust-line reveal"><strong>No logos. No badges. No fine print here.</strong><br>Write to us and a person will reply.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PRICE
+     ═══════════════════════════════════════════════════════ -->
+<section class="price" id="price" data-screen-label="11 Price">
+  <div class="price-grid">
+    <div class="price-left reveal">
+      <div class="eyebrow"><strong>A SMALL NOTE ON PRICE</strong></div>
+      <h2>About the cost of <em>a nice dinner,</em> once.</h2>
+      <p class="body">No subscription, no discount badges, no countdown timer. You pay per piece, in your own currency. If something feels off, write to us and a person will reply.</p>
+    </div>
+    <div class="price-cards reveal">
+      <div class="price-card">
+        <div class="name">Film Your Memory</div>
+        <div class="qty">90&ndash;120 seconds &middot; cinematic</div>
+        <div class="amount">₹2,999<span class="alt">$39 abroad</span></div>
+      </div>
+      <div class="price-card">
+        <div class="name">Voice Letter</div>
+        <div class="qty">30&ndash;60 seconds &middot; one voice</div>
+        <div class="amount">₹999<span class="alt">$19 abroad</span></div>
+      </div>
+      <div class="price-card">
+        <div class="name">Group Gift</div>
+        <div class="qty">Multiple contributors &middot; split via UPI</div>
+        <div class="amount">₹4,999<span class="alt">from $59</span></div>
+      </div>
+      <div class="price-card">
+        <div class="name">Time Capsule</div>
+        <div class="qty">Sealed until a future date</div>
+        <div class="amount">₹1,499<span class="alt">$29 abroad</span></div>
+      </div>
+      <p class="price-note">Legacy Vault is a quieter offering, <em>found inside the product</em> after your first piece is made. We don&rsquo;t sell it on the front page.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PHASE 2
+     ═══════════════════════════════════════════════════════ -->
+<section class="phase2" data-screen-label="12 When you're ready">
+  <div class="phase2-grid">
+    <div class="phase2-left reveal">
+      <div class="eyebrow" style="margin-bottom:24px"><strong>WHEN YOU&rsquo;RE READY</strong></div>
+      <h2>Some pieces are not<br><em>for now.</em></h2>
+      <p class="body">Make your first gift. If, later, you&rsquo;d like to hold something bigger, the quieter rooms are waiting. No rush. Start with the film.</p>
+    </div>
+    <div class="phase2-cards">
+      <div class="phase2-card vault reveal">
+        <div class="label"><span class="d"></span>LEGACY VAULT</div>
+        <h3 class="name"><em>A voice,</em> before the chance is gone.</h3>
+        <p class="desc">Capture Dadi&rsquo;s voice once. Replayable forever, for the grandchildren she may not meet.</p>
+        <div class="micro">DISCOVERED INSIDE &middot; NOT SOLD</div>
+      </div>
+      <div class="phase2-card capsule reveal">
+        <div class="label"><span class="d"></span>TIME CAPSULE</div>
+        <h3 class="name"><em>A letter,</em> sealed for a date.</h3>
+        <p class="desc">A piece written today, locked until your daughter turns 18. Arrives, on a Tuesday in June, in the year you choose.</p>
+        <div class="micro">SEALED &middot; FUTURE DELIVERY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     CLOSE
+     ═══════════════════════════════════════════════════════ -->
+<section class="close" id="close" data-screen-label="13 Close">
+  <div class="eyebrow eyebrow-dark"><strong>NOW, YOUR TURN</strong></div>
+  <h2 class="reveal">Have your own <em>Tuesday.</em></h2>
+  <p class="sub">Tell us about a memory. We&rsquo;ll handle the rest. Delivery on WhatsApp, the way good news travels in your family already.</p>
+  <div class="actions">
+    <a class="cta-primary cta-pill-ivory" href="#" style="color:var(--ink)">Begin a film for someone <span class="arr" style="color:var(--emerald-deep)">&rarr;</span></a>
+    <a class="cta-quiet cta-quiet-dark" href="Watch.html">Watch another Tuesday</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="word">SIY<span class="ai">AI</span></div>
+      <div class="line" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,253,247,0.5);font-style:normal">AN EMOTIONAL PLATFORM &middot; END TO END</div>
+      <div class="line"><em>A living world made from the memories of the people we love.</em></div>
+      <div class="line" style="font-style:normal;font-size:13px;color:rgba(255,253,247,0.5);max-width:340px">Built by people, for the people you love. Crafted in India.</div>
+    </div>
+    <div class="footer-col">
+      <div class="lbl">What we make</div>
+      <a href="#products">Film Your Memory</a>
+      <a href="#products">Voice Letter</a>
+      <a href="#products">Group Gift</a>
+      <a href="#products">Time Capsule</a>
+      <a href="Legacy.html">Legacy Vault</a>
+    </div>
+    <div class="footer-col">
+      <div class="lbl">Read more</div>
+      <a href="About.html">About us</a>
+      <a href="Films.html">The films</a>
+      <a href="Press.html">Press &amp; story</a>
+      <a href="Legacy.html">Legacy Vault</a>
+    </div>
+    <div class="footer-col">
+      <div class="lbl">Find us</div>
+      <a href="mailto:hello@siyai.com">hello@siyai.com</a>
+      <a href="#">WhatsApp</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 SIYAI</span>
+    <span><em>Leave your memories to us.</em></span>
+    <span>CRAFTED IN INDIA &middot; FOR FAMILIES EVERYWHERE</span>
+  </div>
+</footer>
+
+
+<script>
+  // nav darkens over dark sections + hides on scroll-down past hero
+  const nav = document.getElementById('nav');
+  const darkSections = document.querySelectorAll('.hero, .line-quote, .constellation, .behind, .close, .footer');
+  let lastY = 0;
+  function syncNav() {
+    const y = window.scrollY || 0;
+    const navRect = nav.getBoundingClientRect();
+    const navMid = navRect.bottom - 4;
+    let overDark = false;
+    for (const s of darkSections) {
+      const r = s.getBoundingClientRect();
+      if (r.top <= navMid && r.bottom >= navMid) { overDark = true; break; }
+    }
+    nav.classList.toggle('is-dark', overDark);
+    const dy = y - lastY;
+    if (y > window.innerHeight * 0.4 && dy > 4) nav.classList.add('is-hidden');
+    else if (dy < -4 || y < window.innerHeight * 0.4) nav.classList.remove('is-hidden');
+    lastY = y;
+  }
+  document.addEventListener('scroll', syncNav, { passive: true });
+  syncNav();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '-10% 0px -10% 0px', threshold: 0.01 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  const heroBg = document.querySelector('.hero .hero-bg');
+  if (heroBg) {
+    const candidates = [
+      { src: 'assets/uploads/tuesday-reveal.mp4',  type: 'video/mp4' },
+      { src: 'assets/uploads/tuesday-reveal.webm', type: 'video/webm' }
+    ];
+    (async () => {
+      for (const c of candidates) {
+        try {
+          const r = await fetch(c.src, { method: 'HEAD' });
+          if (r.ok) {
+            const s = document.createElement('source');
+            s.src = c.src; s.type = c.type;
+            heroBg.appendChild(s);
+          }
+        } catch (_) {}
+      }
+      if (heroBg.querySelector('source')) {
+        heroBg.load();
+        const p = heroBg.play(); if (p && p.catch) p.catch(() => {});
+      }
+    })();
+    heroBg.addEventListener('playing', () => heroBg.classList.add('is-playing'));
+
+    const soundBtn = document.getElementById('heroSound');
+    if (soundBtn) {
+      soundBtn.addEventListener('click', () => {
+        heroBg.muted = !heroBg.muted;
+        const on = !heroBg.muted;
+        soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        soundBtn.setAttribute('aria-label', on ? 'Sound on' : 'Sound off');
+        soundBtn.classList.toggle('is-on', on);
+        const lbl = soundBtn.querySelector('.lbl');
+        if (lbl) lbl.textContent = on ? 'Sound on' : 'Sound off';
+        if (on) { const p = heroBg.play(); if (p && p.catch) p.catch(() => {}); }
+      });
+    }
+
+    const hero = document.querySelector('.hero');
+    if (hero && 'IntersectionObserver' in window) {
+      const ioHero = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { const p = heroBg.play(); if (p && p.catch) p.catch(() => {}); }
+          else { heroBg.pause(); }
+        });
+      }, { threshold: 0.05 });
+      ioHero.observe(hero);
+
+      const ioNav = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          nav.classList.toggle('is-on-hero', e.isIntersecting && e.intersectionRatio > 0.4);
+        });
+      }, { threshold: [0, 0.4] });
+      ioNav.observe(hero);
+    }
+  }
+
+  document.querySelectorAll('.phone.opening').forEach(async (phone) => {
+    const video = phone.querySelector('.phone-video');
+    if (!video) return;
+    const candidates = [
+      { src: 'assets/uploads/tuesday-reveal-vertical.mp4',  type: 'video/mp4' },
+      { src: 'assets/uploads/tuesday-reveal-vertical.webm', type: 'video/webm' },
+      { src: 'assets/uploads/tuesday-reveal.mp4',  type: 'video/mp4' },
+      { src: 'assets/uploads/tuesday-reveal.webm', type: 'video/webm' }
+    ];
+    for (const c of candidates) {
+      try {
+        const r = await fetch(c.src, { method: 'HEAD' });
+        if (r.ok) {
+          const s = document.createElement('source');
+          s.src = c.src; s.type = c.type;
+          video.appendChild(s);
+        }
+      } catch (_) {}
+    }
+    if (video.querySelector('source')) {
+      video.load();
+      const p = video.play(); if (p && p.catch) p.catch(() => {});
+      video.addEventListener('playing', () => {
+        video.classList.add('is-playing');
+        phone.classList.add('has-video-playing');
+      });
+    } else {
+      video.remove();
+    }
+  });
+</script>
+
+</body>
+</html>

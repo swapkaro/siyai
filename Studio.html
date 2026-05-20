@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiyAI Studio &middot; Welcome back, Rohit</title>
+<meta name="description" content="Your SiyAI Studio. Begin a new memory, pick up an unfinished piece, or revisit what you've kept.">
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="landing.css">
+<link rel="stylesheet" href="studio.css">
+<script src="image-slot.js" defer></script>
+</head>
+<body class="studio-page">
+
+<div class="studio-app">
+
+  <!-- ═════════════════════════════════════════════════════
+       SIDEBAR
+       ═════════════════════════════════════════════════════ -->
+  <aside class="s-side">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <a class="s-brand" href="index.html">
+        <span class="o"></span><span>S<em>iy</em>AI</span>
+      </a>
+      <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-40);padding-left:4px">AN EMOTIONAL PLATFORM &middot; END TO END</div>
+    </div>
+
+    <a class="s-cta" href="#begin">Begin a new memory <span class="arr">&rarr;</span></a>
+
+    <nav class="s-section">
+      <span class="lbl">Studio</span>
+      <a class="s-item is-active"><span class="dot dot-mint"></span>Make something <span class="count">1 in progress</span></a>
+      <a class="s-item"><span class="dot dot-ink"></span>Drafts <span class="count">3</span></a>
+      <a class="s-item"><span class="dot dot-sky"></span>Inbox <span class="count">2</span></a>
+    </nav>
+
+    <nav class="s-section">
+      <span class="lbl">Your library</span>
+      <a class="s-item"><span class="dot dot-mint"></span>Delivered <span class="count">11</span></a>
+      <a class="s-item"><span class="dot dot-gold"></span>Legacy Vault <span class="count">2</span></a>
+      <a class="s-item"><span class="dot dot-ink"></span>Time Capsules <span class="count">1</span></a>
+    </nav>
+
+    <nav class="s-section">
+      <span class="lbl">Family</span>
+      <a class="s-item">Group plan</a>
+      <a class="s-item">Invite someone</a>
+      <a class="s-item">For NRIs</a>
+    </nav>
+
+    <div class="s-foot">
+      <div class="av"></div>
+      <div class="col">
+        <span class="nm"><em>Rohit, Bengaluru</em></span>
+        <span class="meta">PERSONAL &middot; INR</span>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- ═════════════════════════════════════════════════════
+       MAIN
+       ═════════════════════════════════════════════════════ -->
+  <main class="s-main">
+
+    <!-- TOP · welcome -->
+    <header class="s-top">
+      <div class="greeting">
+        <span class="when">TUESDAY MORNING &middot; 9:14 AM &middot; BENGALURU</span>
+        <h1>Welcome back, Rohit.<br>What are we <em>making today?</em></h1>
+      </div>
+      <div class="actions">
+        <a class="s-pill" href="Films.html"><span class="ic">&#8599;</span>This week&rsquo;s issue</a>
+        <a class="s-pill" href="#"><span class="ic">&#9990;</span>Voice in</a>
+        <a class="s-pill" href="#"><span class="ic">?</span>Help</a>
+      </div>
+    </header>
+
+
+    <!-- WEAVE · in-progress -->
+    <section class="weave" data-screen-label="01 The Weave" aria-live="polite">
+      <div class="weave-grid">
+        <div>
+          <div class="breath-orb"></div>
+        </div>
+
+        <div class="weave-body">
+          <span class="lbl">IN PROGRESS &middot; THE WEAVE</span>
+          <h2 class="state" id="weaveState"><em id="weaveVerb">Finding the feeling</em><span class="ellipsis" id="weaveDots">.</span></h2>
+          <p class="for">A film, for <em>Papa, on his sixtieth.</em> The road from Patna.</p>
+          <p class="ready">READY ON WHATSAPP &middot; TOMORROW MORNING, BY 9 AM</p>
+
+          <div class="weave-moments">
+            <div class="m done"><span class="d"></span>Listening</div>
+            <div class="m done"><span class="d"></span>Gathering</div>
+            <div class="m now"><span class="d"></span>Finding the feeling</div>
+            <div class="m"><span class="d"></span>Weaving</div>
+            <div class="m"><span class="d"></span>Scoring</div>
+            <div class="m"><span class="d"></span>Ready</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- BEGIN · the input flow -->
+    <section class="begin" id="begin" data-screen-label="02 Begin">
+
+      <!-- left: the writing area -->
+      <div class="begin-card">
+        <span class="lbl">BEGIN SOMETHING NEW</span>
+        <h3>Tell us <em>about it.</em></h3>
+        <p class="hint">Write a few sentences. Record a voice note. Drop a photograph. Whatever you have. We&rsquo;ll do the rest.</p>
+
+        <div class="begin-write">
+          <textarea placeholder="A memory. The smaller and more specific, the better. The chai stall outside Mokama. The afternoon the radio was always on. The way Papa says &lsquo;arre, beta&rsquo; before he tells the story&hellip;"></textarea>
+          <div class="toolbar">
+            <button class="tool"><span class="ic">&#9990;</span> Record instead</button>
+            <button class="tool"><span class="ic">+</span> Add a photo</button>
+            <button class="tool"><span class="ic">&#8853;</span> Old voice note</button>
+            <button class="tool right"><span class="ic">&#8635;</span> Save as draft</button>
+          </div>
+        </div>
+
+        <div class="begin-meta">
+          <div class="begin-field">
+            <label>FOR WHOM</label>
+            <input type="text" placeholder="Papa, on his sixtieth" value="Papa, on his sixtieth">
+          </div>
+          <div class="begin-field">
+            <label>OCCASION</label>
+            <input type="text" placeholder="Birthday, anniversary, Tuesday&hellip;" value="Sixtieth birthday">
+          </div>
+        </div>
+
+        <div class="begin-photos">
+          <div class="begin-photo" style="background:radial-gradient(60% 60% at 30% 30%, rgba(246, 213, 138, 0.45), transparent 60%), linear-gradient(160deg, #E5BC8A 0%, #6F4424 100%)">
+            <div class="cap"><em>Papa, 1972</em></div>
+          </div>
+          <div class="begin-photo" style="background:radial-gradient(60% 60% at 70% 40%, rgba(255, 200, 160, 0.45), transparent 60%), linear-gradient(160deg, #E5C5A0 0%, #8B5538 100%)">
+            <div class="cap"><em>The road, monsoon</em></div>
+          </div>
+          <div class="begin-photo" style="background:radial-gradient(60% 60% at 40% 70%, rgba(166, 227, 255, 0.45), transparent 60%), linear-gradient(180deg, #BFCAD5 0%, #4F5E72 100%)">
+            <div class="cap"><em>Patna kitchen, 1985</em></div>
+          </div>
+          <div class="begin-photo add">drop a photo,<br>or pick from your library</div>
+        </div>
+
+        <div class="begin-submit">
+          <a class="cta-primary" href="#" id="beginCta">Begin the weave <span class="arr">&rarr;</span></a>
+          <span class="note">We&rsquo;ll have something for you by tomorrow morning.</span>
+        </div>
+      </div>
+
+      <!-- right: shape, tone, delivery -->
+      <div class="begin-right">
+
+        <div class="begin-card" style="padding:24px">
+          <span class="lbl">SHAPE OF THE PIECE</span>
+          <div class="shape-row">
+            <div class="shape is-on">
+              <span class="lbl">N&deg; 01</span>
+              <span class="name">A <em>film</em></span>
+              <span class="pr">~01:30 &middot; ₹2,999</span>
+            </div>
+            <div class="shape">
+              <span class="lbl">N&deg; 02</span>
+              <span class="name">A <em>voice letter</em></span>
+              <span class="pr">~00:40 &middot; ₹999</span>
+            </div>
+            <div class="shape">
+              <span class="lbl">N&deg; 03</span>
+              <span class="name">A <em>group gift</em></span>
+              <span class="pr">SPLIT &middot; ₹4,999</span>
+            </div>
+            <div class="shape">
+              <span class="lbl">N&deg; 04</span>
+              <span class="name">A <em>capsule</em></span>
+              <span class="pr">SEALED &middot; ₹1,499</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="begin-card" style="padding:24px">
+          <span class="lbl">TONE OF VOICE</span>
+          <div class="tone-row">
+            <button class="tone-chip is-on">Warm</button>
+            <button class="tone-chip is-on">Nostalgic</button>
+            <button class="tone-chip">Tender</button>
+            <button class="tone-chip">Playful</button>
+            <button class="tone-chip">Ceremonial</button>
+            <button class="tone-chip">Reflective</button>
+            <button class="tone-chip">Quiet</button>
+          </div>
+        </div>
+
+        <div class="begin-card" style="padding:24px">
+          <span class="lbl">LANGUAGE</span>
+          <div class="tone-row">
+            <button class="tone-chip is-on">Hindi &middot; English</button>
+            <button class="tone-chip">Hindi only</button>
+            <button class="tone-chip">English only</button>
+            <button class="tone-chip">Tamil</button>
+            <button class="tone-chip">Bengali</button>
+            <button class="tone-chip">Marathi</button>
+            <button class="tone-chip">Punjabi</button>
+          </div>
+        </div>
+
+        <div class="delivery">
+          <div class="ic">W</div>
+          <div class="b">
+            <span class="lbl">DELIVERY</span>
+            <span class="v"><em>WhatsApp to Maa &amp; Papa</em></span>
+          </div>
+          <a class="edit" href="#">CHANGE</a>
+        </div>
+
+        <div class="delivery">
+          <div class="ic">&#x2691;</div>
+          <div class="b">
+            <span class="lbl">ARRIVE ON</span>
+            <span class="v"><em>Tuesday, 14 May &middot; 9 am</em></span>
+          </div>
+          <a class="edit" href="#">CHANGE</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- LIBRARY -->
+    <section class="library" data-screen-label="03 Library">
+      <div class="library-head">
+        <h2>Your <em>library</em> &middot; eleven pieces, kept.</h2>
+        <div class="right">
+          <a>FILTER</a>
+          <a>SORT &middot; NEWEST</a>
+          <a>EXPORT ALL</a>
+        </div>
+      </div>
+
+      <div class="library-grid">
+
+        <a class="piece" href="Watch.html">
+          <div class="frame frame-warm">
+            <div class="slot-fill over-gradient"><image-slot id="lib-1" placeholder="the road"></image-slot></div>
+            <span class="for">FOR PAPA &middot; 60TH</span>
+            <span class="seal"><span class="d d-mint"></span>FILM &middot; 01:48</span>
+            <div class="ttl">The road from Patna, in his own words.</div>
+          </div>
+          <div class="meta"><span class="when">DELIVERED <em>&middot; 14 May</em></span><span class="runtime">WATCHED 11&times;</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-sea">
+            <div class="slot-fill over-gradient"><image-slot id="lib-2" placeholder="karva chauth"></image-slot></div>
+            <span class="for">FOR MAA &middot; KARVA CHAUTH</span>
+            <span class="seal"><span class="d d-mint"></span>VOICE &middot; 01:12</span>
+            <div class="ttl">Your laughter, still the loudest room.</div>
+          </div>
+          <div class="meta"><span class="when">DELIVERED <em>&middot; 2 Apr</em></span><span class="runtime">WATCHED 8&times;</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-meadow">
+            <div class="slot-fill over-gradient"><image-slot id="lib-3" placeholder="dadi afternoon"></image-slot></div>
+            <span class="for">FOR DADI &middot; A SUNDAY</span>
+            <span class="seal"><span class="d d-gold"></span>VAULT &middot; KEPT</span>
+            <div class="ttl">The kitchen, the radio, the afternoon.</div>
+          </div>
+          <div class="meta"><span class="when">VAULTED <em>&middot; 18 Mar</em></span><span class="runtime">KEPT FOREVER</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-ink">
+            <div class="slot-fill over-gradient"><image-slot id="lib-4" placeholder="a sealed letter"></image-slot></div>
+            <span class="for">FOR ANANYA &middot; HER 18TH</span>
+            <span class="seal"><span class="d d-ink"></span>SEALED &middot; 12 YRS</span>
+            <div class="ttl">A letter, for the woman you&rsquo;ll be.</div>
+          </div>
+          <div class="meta"><span class="when">SCHEDULED <em>&middot; June 2038</em></span><span class="runtime">SEALED</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-dusk">
+            <div class="slot-fill over-gradient"><image-slot id="lib-5" placeholder="summer kitchen"></image-slot></div>
+            <span class="for">FOR BHAI &middot; RAKHI</span>
+            <span class="seal"><span class="d d-mint"></span>FILM &middot; 01:32</span>
+            <div class="ttl">A song from your kitchen, summer.</div>
+          </div>
+          <div class="meta"><span class="when">DELIVERED <em>&middot; 19 Aug</em></span><span class="runtime">WATCHED 4&times;</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-rose">
+            <div class="slot-fill over-gradient"><image-slot id="lib-6" placeholder="anniversary"></image-slot></div>
+            <span class="for">FOR AARTI &middot; 11 YRS</span>
+            <span class="seal"><span class="d d-mint"></span>FILM &middot; 02:46</span>
+            <div class="ttl">Eleven years, in three minutes.</div>
+          </div>
+          <div class="meta"><span class="when">DELIVERED <em>&middot; 2 Feb</em></span><span class="runtime">WATCHED 22&times;</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-warm">
+            <div class="slot-fill over-gradient"><image-slot id="lib-7" placeholder="grandfather"></image-slot></div>
+            <span class="for">FOR PAPA &middot; FATHER&rsquo;S DAY</span>
+            <span class="seal"><span class="d d-mint"></span>VOICE &middot; 00:54</span>
+            <div class="ttl">A small thing I never got to say.</div>
+          </div>
+          <div class="meta"><span class="when">DELIVERED <em>&middot; 16 Jun</em></span><span class="runtime">WATCHED 6&times;</span></div>
+        </a>
+
+        <a class="piece" href="#">
+          <div class="frame frame-sea">
+            <div class="slot-fill over-gradient"><image-slot id="lib-8" placeholder="diwali"></image-slot></div>
+            <span class="for">FOR THE WHOLE FAMILY &middot; DIWALI</span>
+            <span class="seal"><span class="d d-sky"></span>GROUP &middot; 03:20</span>
+            <div class="ttl">The lamps, the corridor, the noise.</div>
+          </div>
+          <div class="meta"><span class="when">DELIVERED <em>&middot; 1 Nov</em></span><span class="runtime">WATCHED 14&times;</span></div>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- VAULT HINT -->
+    <section class="vault-hint" data-screen-label="04 Vault hint">
+      <div class="l">
+        <div class="lbl">WHEN YOU&rsquo;RE READY</div>
+        <h3>The Vault is where some things <em>go to stay.</em></h3>
+        <p class="p">Dadi&rsquo;s voice, kept once, replayable forever. A father&rsquo;s laugh, before the chance is gone. The quieter half of SiyAI, found inside the product.</p>
+      </div>
+      <a class="cta" href="Legacy.html">Step into the Vault <span class="arr">&rarr;</span></a>
+    </section>
+
+  </main>
+
+</div>
+
+
+<script>
+  // ─── "the weave" · cycle the state name through named moments ───
+  const VERBS = ['Listening', 'Gathering', 'Finding the feeling', 'Weaving', 'Scoring', 'Almost there'];
+  let i = 2; // start mid-cycle: "Finding the feeling"
+  const verbEl = document.getElementById('weaveVerb');
+  const dotsEl = document.getElementById('weaveDots');
+  setInterval(() => {
+    i = (i + 1) % VERBS.length;
+    if (verbEl) verbEl.style.opacity = '0';
+    setTimeout(() => {
+      if (verbEl) { verbEl.textContent = VERBS[i]; verbEl.style.transition = 'opacity 500ms'; verbEl.style.opacity = '1'; }
+
+      // Advance the moment-line "now" indicator (cosmetic only;
+      // labels inside each .m stay fixed)
+      const ms = document.querySelectorAll('.weave-moments .m');
+      ms.forEach((m, idx) => {
+        m.classList.remove('done');
+        m.classList.remove('now');
+        if (idx < i) m.classList.add('done');
+        if (idx === i) m.classList.add('now');
+      });
+    }, 320);
+  }, 4200);
+
+  // ellipsis pulse
+  let d = 0;
+  setInterval(() => {
+    d = (d + 1) % 4;
+    if (dotsEl) dotsEl.textContent = '.'.repeat(d || 1);
+  }, 380);
+
+  // begin-cta: pulse to show it's a "real" action
+  const cta = document.getElementById('beginCta');
+  if (cta) {
+    cta.addEventListener('click', (e) => {
+      e.preventDefault();
+      cta.style.transform = 'scale(0.97)';
+      setTimeout(() => { cta.style.transform = ''; }, 200);
+    });
+  }
+
+  // tone chips: toggle
+  document.querySelectorAll('.tone-chip').forEach((c) => {
+    c.addEventListener('click', () => c.classList.toggle('is-on'));
+  });
+
+  // shape selector: single-select
+  document.querySelectorAll('.shape-row').forEach((row) => {
+    row.querySelectorAll('.shape').forEach((s) => {
+      s.addEventListener('click', () => {
+        row.querySelectorAll('.shape').forEach((x) => x.classList.remove('is-on'));
+        s.classList.add('is-on');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

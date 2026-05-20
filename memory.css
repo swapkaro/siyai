@@ -1,0 +1,239 @@
+/* ============================================================
+   SiyAI · Memory Palette · Light Mode
+   Re-skins index.html via CSS variable overrides.
+   Source palette:
+     #49306B  Deep Emotional Purple   — depth, italic emphasis, text
+     #635380  Dreamy Memory Purple    — atmospheric layering
+     #90708C  Dusty Mauve             — human softness, hairlines
+     #ACE4AA  Soft Sage               — primary CTA fill
+     #8B7B65  Nostalgic Brown         — warm earthy "magic" accent
+   ============================================================ */
+
+:root {
+  /* core palette swap */
+  --ivory:        #FBF7EE;
+  --cloud:        #F3ECE0;
+  --mint:         #C5E9C3;          /* halo around primary action */
+  --seafoam:      #ACE4AA;
+  --emerald:      #ACE4AA;          /* primary action — sage */
+  --sky:          #C7B8D4;          /* atmospheric — light memory purple */
+  --gold:         #8B7B65;          /* nostalgic brown, the "magic" warm accent */
+  --ink:          #49306B;          /* deep emotional purple — text + grounding */
+
+  /* derived ink (now purple) */
+  --ink-90:       rgba(73, 48, 107, 0.90);
+  --ink-72:       rgba(73, 48, 107, 0.72);
+  --ink-56:       rgba(73, 48, 107, 0.56);
+  --ink-40:       rgba(73, 48, 107, 0.40);
+  --ink-24:       rgba(73, 48, 107, 0.24);
+  --ink-12:       rgba(73, 48, 107, 0.12);
+  --ink-08:       rgba(73, 48, 107, 0.08);
+  --ink-06:       rgba(73, 48, 107, 0.06);
+  --ink-04:       rgba(73, 48, 107, 0.04);
+
+  --mint-soft:    rgba(172, 228, 170, 0.20);
+  --seafoam-soft: rgba(172, 228, 170, 0.14);
+  --sky-soft:     rgba(199, 184, 212, 0.22);
+  --gold-soft:    rgba(139, 123, 101, 0.18);
+  --emerald-deep: #49306B;          /* italic accent shifts to deep purple */
+
+  --accent:       var(--emerald);
+  --accent-soft:  var(--mint);
+  --accent-hover: #BFEDBE;
+  --accent-press: #88C786;
+
+  /* semantic */
+  --bg:           var(--ivory);
+  --bg-sunken:    var(--cloud);
+  --bg-elevated:  #FFFCF5;
+  --bg-glass:     rgba(251, 247, 238, 0.66);
+}
+
+/* ─── primary CTA: sage on light, deep purple text ──────── */
+.cta-primary,
+.hero-col .row .cta-primary,
+.intent-card .cta-primary,
+.nav-cta,
+.cta-pill-ivory {
+  background: var(--emerald) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 0 0 7px rgba(172, 228, 170, 0.20),
+              0 24px 60px -18px rgba(73, 48, 107, 0.28) !important;
+}
+.cta-primary:hover,
+.nav-cta:hover {
+  background: #BFEDBE !important;
+  box-shadow: 0 0 0 9px rgba(172, 228, 170, 0.28),
+              0 28px 70px -10px rgba(73, 48, 107, 0.38) !important;
+}
+
+/* ─── HERO · cinematic mauve light wash ─────────────────── */
+.hero {
+  color: var(--ivory);
+  background:
+    radial-gradient(60% 50% at 30% 30%, rgba(199, 184, 212, 0.55) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(139, 123, 101, 0.42) 0%, transparent 60%),
+    linear-gradient(160deg, #C7B8D4 0%, #635380 50%, #2E1F45 100%);
+}
+.hero::before {
+  background:
+    linear-gradient(180deg, rgba(46, 31, 69, 0.42) 0%, transparent 30%, transparent 52%, rgba(30, 18, 50, 0.86) 100%);
+}
+.hero-col h1 .accent {
+  color: #ACE4AA;          /* sage on the mauve hero */
+}
+.hero-now .live::before,
+.hero-now .live, .hero-now .ts { color: rgba(251, 247, 238, 0.85); }
+.hero-col .row .cta-primary {
+  background: var(--emerald) !important;
+  color: #2E1F45 !important;
+}
+
+/* ─── LINE-QUOTE · warm sunset becomes deep purple-mauve ── */
+.line-quote {
+  background:
+    radial-gradient(60% 60% at 30% 30%, rgba(199, 184, 212, 0.45) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(139, 123, 101, 0.38) 0%, transparent 60%),
+    linear-gradient(160deg, #B89FCC 0%, #635380 55%, #49306B 100%);
+}
+.line-quote h2 .accent { color: #ACE4AA; }
+
+/* ─── CONSTELLATION · purple night, sage stars ──────────── */
+.constellation {
+  background:
+    radial-gradient(60% 70% at 20% 20%, rgba(172, 228, 170, 0.10) 0%, transparent 60%),
+    radial-gradient(60% 60% at 80% 80%, rgba(199, 184, 212, 0.12) 0%, transparent 60%),
+    radial-gradient(50% 50% at 50% 50%, #2E1F45 0%, #1A0F2A 70%, #14081F 100%);
+}
+.constellation h2 em { color: #ACE4AA; }
+
+/* ─── PHASE 2 · sage on cream ───────────────────────────── */
+.phase2 { background: var(--cloud); }
+.phase2-card.vault { background: linear-gradient(160deg, #FFFCF5 0%, rgba(139, 123, 101, 0.14) 100%); }
+.phase2-card.vault .label .d { background: var(--gold); box-shadow: 0 0 8px rgba(139, 123, 101, 0.5); }
+
+/* ─── BEHIND · darker purple production house ───────────── */
+.behind {
+  background: linear-gradient(180deg, #2E1F45 0%, #1A0F2A 50%, #2E1F45 100%);
+}
+.behind h2 em { color: #ACE4AA; }
+.room-card .lbl { color: var(--gold); }
+
+/* ─── PRODUCTS · cream sunken with sage accents ─────────── */
+.products { background: var(--cloud); }
+.product-hero {
+  background:
+    radial-gradient(60% 50% at 30% 30%, rgba(199, 184, 212, 0.55) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(139, 123, 101, 0.42) 0%, transparent 60%),
+    linear-gradient(160deg, #B89FCC 0%, #635380 55%, #2E1F45 100%);
+}
+
+/* product-small dots */
+.product-small.voice .ps-eyebrow .dot { background: var(--emerald); box-shadow: 0 0 10px rgba(172, 228, 170, 0.6); }
+.product-small.vault .ps-eyebrow .dot { background: var(--gold); box-shadow: 0 0 10px rgba(139, 123, 101, 0.5); }
+.product-small.group .ps-eyebrow .dot { background: var(--sky); box-shadow: 0 0 10px rgba(199, 184, 212, 0.6); }
+.product-small.vault { background: linear-gradient(160deg, #FFFCF5 0%, rgba(139, 123, 101, 0.14) 100%); }
+
+/* ─── poster gradient variants (constellation orbs etc.) ─ */
+.frame-warm   { background:
+  radial-gradient(60% 60% at 30% 30%, rgba(139, 123, 101, 0.55), transparent 60%),
+  linear-gradient(160deg, #8B7B65 0%, #4A4030 100%); }
+.frame-dusk   { background:
+  radial-gradient(60% 60% at 70% 40%, rgba(199, 184, 212, 0.55), transparent 60%),
+  linear-gradient(160deg, #B89FCC 0%, #635380 100%); }
+.frame-sea    { background:
+  radial-gradient(60% 60% at 40% 70%, rgba(199, 184, 212, 0.55), transparent 60%),
+  linear-gradient(180deg, #C7B8D4 0%, #635380 100%); }
+.frame-meadow { background:
+  radial-gradient(60% 60% at 30% 70%, rgba(172, 228, 170, 0.50), transparent 60%),
+  linear-gradient(160deg, #C5E9C3 0%, #5F7A5C 100%); }
+.frame-ink    { background:
+  radial-gradient(60% 60% at 50% 30%, rgba(139, 123, 101, 0.32), transparent 60%),
+  linear-gradient(180deg, #4A3866 0%, #1A0F2A 100%); }
+.frame-rose   { background:
+  radial-gradient(60% 60% at 70% 30%, rgba(199, 184, 212, 0.55), transparent 60%),
+  linear-gradient(160deg, #C7B8D4 0%, #90708C 100%); }
+
+/* intent card backgrounds — re-tint to memory palette */
+.intent-card:nth-child(1) .image {
+  background: radial-gradient(60% 60% at 30% 30%, rgba(139, 123, 101, 0.55), transparent 60%),
+              linear-gradient(160deg, #8B7B65 0%, #4A4030 100%) !important;
+}
+.intent-card:nth-child(2) .image {
+  background: radial-gradient(60% 60% at 70% 40%, rgba(199, 184, 212, 0.55), transparent 60%),
+              linear-gradient(180deg, #C7B8D4 0%, #635380 100%) !important;
+}
+.intent-card:nth-child(3) .image {
+  background: radial-gradient(60% 60% at 40% 70%, rgba(172, 228, 170, 0.45), transparent 60%),
+              linear-gradient(160deg, #C5E9C3 0%, #5F7A5C 100%) !important;
+}
+
+/* ─── TRUST · misty mauve, sage italic ──────────────────── */
+.trust {
+  background:
+    radial-gradient(60% 70% at 30% 30%, rgba(199, 184, 212, 0.45) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(251, 247, 238, 0.18) 0%, transparent 60%),
+    linear-gradient(160deg, #B89FCC 0%, #8C7AA3 100%);
+}
+.trust h2 em { color: #ACE4AA; }
+
+/* ─── CLOSE · sage glow over deep purple ────────────────── */
+.close {
+  background:
+    radial-gradient(50% 80% at 50% 100%, rgba(172, 228, 170, 0.30), transparent 70%),
+    radial-gradient(40% 60% at 50% 0%, rgba(139, 123, 101, 0.22), transparent 60%),
+    #2E1F45;
+}
+.close h2 em { color: #ACE4AA; }
+
+/* ─── FOOTER · keep dark, retint to purple ─────────────── */
+.footer {
+  background: #1F1331;
+  border-top-color: rgba(251, 247, 238, 0.08);
+}
+.footer-brand .word .ai { color: var(--gold); }
+
+/* ─── NAV ────────────────────────────────────────────── */
+.nav .brand em { color: var(--emerald-deep); }
+.nav.is-dark .brand em { color: var(--gold); }
+
+/* dot color updates */
+.constellation .orb .meta .by { color: rgba(251, 247, 238, 0.85); }
+.constellation .orb .frame .ttl { color: var(--ivory); }
+.behind-bottom em { color: var(--ivory); }
+.behind-head h2 em { color: #ACE4AA; }
+.room-card .stat strong { color: var(--ivory); }
+
+/* arrival app icon */
+.phone.lock .notif .ic,
+.phone.chat .head .av,
+.nav .brand .orb {
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #C5E9C3 30%, #ACE4AA 70%, #C7B8D4 100%) !important;
+}
+
+/* hero loop bar, sound toggle on sage glow */
+.hero-sound.is-on {
+  background: rgba(172, 228, 170, 0.28);
+  border-color: rgba(172, 228, 170, 0.65);
+}
+
+/* the studio bumper inside .phone.opening — stays warm against mauve */
+.phone.opening {
+  background:
+    radial-gradient(60% 50% at 30% 30%, rgba(199, 184, 212, 0.55) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(139, 123, 101, 0.42) 0%, transparent 60%),
+    linear-gradient(160deg, #B89FCC 0%, #635380 60%, #2E1F45 100%);
+}
+.phone.opening .siy .ai { color: var(--gold); }
+.studio .siy .ai { color: var(--gold); }
+
+/* gift poster in WhatsApp arrival */
+.phone.chat .gift .poster {
+  background:
+    radial-gradient(60% 60% at 30% 30%, rgba(199, 184, 212, 0.55), transparent 60%),
+    linear-gradient(160deg, #B89FCC 0%, #635380 60%, #2E1F45 100%);
+}
+.phone.chat .gift .cap em { color: #635380; }
+
+/* WhatsApp head retint slightly */
+.phone.chat .head { background: #5F4A78; }

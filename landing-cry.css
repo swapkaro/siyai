@@ -1,0 +1,381 @@
+/* ============================================================
+   SiyAI · /Landing-cry · paid-traffic variant
+   Video-first hero. "Make Maa cry. (The good kind.)"
+   Short, punchy, conversion-optimised. Same brand, different door.
+   ============================================================ */
+
+/* inherits landing.css for nav, footer, primitives, room cards, etc. */
+
+.cry-page { background: var(--ink); color: var(--ivory); }
+
+/* ═════════════════════════════════════════════════════════
+   HERO · full-bleed video, big headline, single CTA
+   ═════════════════════════════════════════════════════════ */
+.cry-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+  /* fallback warm gradient — visible if the video file isn't present. */
+  background:
+    radial-gradient(60% 60% at 30% 30%, rgba(246, 213, 138, 0.55) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(255, 170, 120, 0.40) 0%, transparent 60%),
+    linear-gradient(160deg, #E8B98F 0%, #8B5536 50%, #1F1108 100%);
+}
+.cry-hero .video-bg {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out-cinema);
+  pointer-events: none;
+}
+.cry-hero .video-bg.is-playing { opacity: 1; }
+
+/* warm grain overlay always present */
+.cry-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+  opacity: 0.18; mix-blend-mode: overlay;
+}
+/* dark gradient overlay so the type is always readable */
+.cry-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(13, 15, 23, 0.55) 0%, rgba(13, 15, 23, 0.30) 35%, rgba(13, 15, 23, 0.45) 70%, rgba(13, 15, 23, 0.95) 100%);
+}
+
+.cry-hero-content {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; justify-content: space-between;
+  width: 100%;
+  padding: 110px 56px 56px;
+  color: var(--ivory);
+}
+
+.cry-hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255, 253, 247, 0.6);
+}
+.cry-hero-top strong { color: var(--ivory); font-weight: 400; }
+.cry-hero-top .live {
+  display: flex; align-items: center; gap: 8px; color: var(--ivory);
+}
+.cry-hero-top .live::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--emerald); box-shadow: 0 0 10px var(--emerald);
+  animation: live-pulse 2.4s ease-in-out infinite;
+}
+
+.cry-hero-body {
+  display: flex; flex-direction: column; gap: 24px;
+  max-width: 1400px;
+}
+.cry-hero-eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255, 253, 247, 0.7);
+  margin-bottom: 8px;
+}
+.cry-hero-eyebrow em {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 18px; letter-spacing: -0.005em; text-transform: none;
+  color: var(--gold);
+}
+.cry-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 11vw, 200px); line-height: 0.9; letter-spacing: -0.045em;
+  margin: 0;
+  text-shadow: 0 4px 60px rgba(0, 0, 0, 0.45);
+}
+.cry-hero h1 em { font-style: italic; color: var(--gold); }
+.cry-hero h1 .paren {
+  display: block;
+  font-style: italic;
+  font-size: 0.46em;
+  color: rgba(255, 253, 247, 0.78);
+  letter-spacing: -0.025em;
+  margin-top: 0.18em;
+}
+.cry-hero .sub {
+  margin-top: 8px;
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(20px, 1.9vw, 26px); line-height: 1.4;
+  color: rgba(255, 253, 247, 0.85);
+  max-width: 700px;
+}
+.cry-hero .sub strong { font-style: normal; font-weight: 400; color: var(--ivory); }
+
+.cry-hero-actions {
+  margin-top: 28px;
+  display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+}
+.cry-hero-actions .cta-primary {
+  padding: 22px 36px; font-size: 17px;
+}
+.cry-hero-actions .cta-primary .arr { font-size: 22px; }
+
+.cry-hero-meta {
+  margin-top: 32px;
+  display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255, 253, 247, 0.6);
+}
+.cry-hero-meta em {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 16px; letter-spacing: -0.005em; text-transform: none;
+  color: var(--ivory);
+}
+.cry-hero-meta .pip {
+  width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 253, 247, 0.4);
+}
+
+@media (max-width: 980px) {
+  .cry-hero-content { padding: 90px 24px 40px; }
+  .cry-hero-actions .cta-primary { padding: 16px 26px; font-size: 15px; }
+}
+
+/* ═════════════════════════════════════════════════════════
+   PROOF · "what comes out" mini-row of three pieces
+   Visible, scannable, low cognitive load. Conversion fuel.
+   ═════════════════════════════════════════════════════════ */
+.cry-proof {
+  padding: 140px 56px 100px;
+  background: var(--ivory);
+  color: var(--ink);
+}
+.cry-proof-head {
+  max-width: 1080px; margin: 0 auto 60px;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+}
+.cry-proof-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px); line-height: 1.0; letter-spacing: -0.03em; margin: 0;
+}
+.cry-proof-head h2 em { font-style: italic; color: var(--emerald-deep); }
+.cry-proof-head .hint {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 17px; color: var(--ink-72);
+  max-width: 320px; text-align: right;
+}
+
+.cry-proof-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  max-width: 1320px; margin: 0 auto;
+}
+.cry-proof-card {
+  position: relative; aspect-ratio: 3/4; border-radius: 22px; overflow: hidden;
+  text-decoration: none; color: inherit;
+  cursor: pointer;
+  box-shadow: 0 30px 60px -28px rgba(13, 15, 23, 0.22);
+  transition: transform 360ms var(--ease-out-cinema);
+}
+.cry-proof-card:hover { transform: translateY(-6px); }
+.cry-proof-card::after {
+  content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+  opacity: 0.18; mix-blend-mode: overlay;
+}
+.cry-proof-card::before {
+  content: ''; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(180deg, transparent 40%, rgba(13, 15, 23, 0.78) 100%);
+}
+.cry-proof-card .lab {
+  position: absolute; top: 18px; left: 18px; z-index: 4;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255, 253, 247, 0.85);
+}
+.cry-proof-card .play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 4;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(255, 253, 247, 0.20); backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(255, 253, 247, 0.45);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 280ms;
+}
+.cry-proof-card:hover .play { opacity: 1; }
+.cry-proof-card .play::after {
+  content: ''; width: 0; height: 0;
+  border-left: 14px solid var(--ivory);
+  border-top: 9px solid transparent; border-bottom: 9px solid transparent;
+  margin-left: 4px;
+}
+.cry-proof-card .body {
+  position: absolute; bottom: 20px; left: 22px; right: 22px; z-index: 4;
+  color: var(--ivory);
+}
+.cry-proof-card .for {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255, 253, 247, 0.7);
+  margin-bottom: 8px;
+}
+.cry-proof-card .ttl {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 22px; line-height: 1.15; letter-spacing: -0.015em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 980px) {
+  .cry-proof { padding: 80px 24px; }
+  .cry-proof-head { grid-template-columns: 1fr; gap: 14px; }
+  .cry-proof-head .hint { text-align: left; }
+  .cry-proof-grid { grid-template-columns: 1fr; gap: 14px; }
+}
+
+/* ═════════════════════════════════════════════════════════
+   HOW · three steps, condensed
+   ═════════════════════════════════════════════════════════ */
+.cry-how {
+  padding: 120px 56px;
+  background: var(--cloud);
+  color: var(--ink);
+  border-top: 1px solid var(--ink-08);
+}
+.cry-how-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;
+}
+.cry-how .left h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em; margin: 0;
+}
+.cry-how .left h2 em { font-style: italic; color: var(--emerald-deep); }
+.cry-how .left .body {
+  margin-top: 24px;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 20px; line-height: 1.55; color: var(--ink-72);
+  max-width: 420px;
+}
+.cry-how .steps {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.cry-how .step {
+  display: grid; grid-template-columns: 70px 1fr auto; gap: 24px; align-items: center;
+  padding: 22px 4px;
+  border-top: 1px solid var(--ink-12);
+}
+.cry-how .step:last-child { border-bottom: 1px solid var(--ink-12); }
+.cry-how .step .n {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 40px; line-height: 1; letter-spacing: -0.025em;
+  color: var(--emerald-deep);
+}
+.cry-how .step .t {
+  font-family: var(--font-display);
+  font-size: 24px; line-height: 1.2; letter-spacing: -0.018em;
+}
+.cry-how .step .t em { font-style: italic; }
+.cry-how .step .t .quiet {
+  display: block; margin-top: 4px;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 16px; color: var(--ink-56);
+}
+.cry-how .step .meta {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-40);
+  text-align: right;
+}
+
+@media (max-width: 980px) {
+  .cry-how { padding: 80px 24px; }
+  .cry-how-inner { grid-template-columns: 1fr; gap: 32px; }
+  .cry-how .step { grid-template-columns: 50px 1fr; gap: 14px; }
+  .cry-how .step .meta { grid-column: 1 / -1; padding-left: 64px; text-align: left; }
+}
+
+/* ═════════════════════════════════════════════════════════
+   TRUST · single line, conversion-tuned
+   ═════════════════════════════════════════════════════════ */
+.cry-trust {
+  padding: 120px 56px;
+  background: var(--ivory);
+  color: var(--ink);
+}
+.cry-trust-inner {
+  max-width: 980px; margin: 0 auto;
+  text-align: center;
+}
+.cry-trust .eyebrow { margin-bottom: 24px; }
+.cry-trust h2 {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(32px, 4vw, 56px); line-height: 1.2; letter-spacing: -0.022em; margin: 0;
+}
+.cry-trust h2 em { color: var(--emerald-deep); }
+.cry-trust .signals {
+  margin-top: 56px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.cry-trust .sig {
+  border-top: 1px solid var(--ink-12);
+  padding-top: 20px;
+  display: flex; flex-direction: column; gap: 6px;
+  text-align: left;
+}
+.cry-trust .sig .v {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 30px; letter-spacing: -0.022em; color: var(--ink);
+}
+.cry-trust .sig .v em { color: var(--emerald-deep); font-style: italic; }
+.cry-trust .sig .k {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-56);
+}
+
+@media (max-width: 980px) {
+  .cry-trust { padding: 80px 24px; }
+  .cry-trust .signals { grid-template-columns: 1fr 1fr; gap: 16px; }
+}
+
+/* ═════════════════════════════════════════════════════════
+   FINAL CTA · the close
+   ═════════════════════════════════════════════════════════ */
+.cry-close {
+  padding: 180px 56px;
+  background:
+    radial-gradient(60% 60% at 30% 30%, rgba(246, 213, 138, 0.55) 0%, transparent 60%),
+    radial-gradient(50% 60% at 70% 70%, rgba(255, 170, 120, 0.40) 0%, transparent 60%),
+    linear-gradient(160deg, #F0CFA4 0%, #B47547 60%, #6B3F22 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.cry-close::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.18; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+}
+.cry-close > * { position: relative; z-index: 2; }
+.cry-close .eyebrow { color: rgba(255, 253, 247, 0.65); margin-bottom: 32px; }
+.cry-close .eyebrow strong { color: var(--ivory); font-weight: 400; }
+.cry-close h2 {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 144px); line-height: 0.94; letter-spacing: -0.04em;
+  margin: 0; color: var(--ivory);
+  max-width: 1280px; margin-inline: auto;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.18);
+}
+.cry-close h2 em { font-style: italic; color: #B8F2D1; }
+.cry-close h2 .paren {
+  display: block; font-style: italic;
+  font-size: 0.48em; color: rgba(255, 253, 247, 0.78); letter-spacing: -0.025em;
+  margin-top: 0.18em;
+}
+.cry-close .sub {
+  margin-top: 36px;
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(20px, 1.8vw, 26px); line-height: 1.5; color: rgba(255, 253, 247, 0.85);
+  max-width: 640px; margin-inline: auto;
+}
+.cry-close .actions {
+  margin-top: 56px;
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+.cry-close .micro {
+  margin-top: 32px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255, 253, 247, 0.65);
+}
+
+@media (max-width: 980px) {
+  .cry-close { padding: 120px 24px; }
+}
