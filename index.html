@@ -676,10 +676,24 @@
 
     const hero = document.querySelector('.hero');
     if (hero && 'IntersectionObserver' in window) {
+      // Idempotent + debounced play/pause: only toggle if state actually
+      // needs to change, and absorb rapid scroll direction reversals so
+      // the decoder doesn't thrash. Once `.is-playing` lands, it sticks —
+      // the opacity transition doesn't re-fire on later resumes.
+      let toggleTimer = 0;
       const ioHero = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) { const p = heroBg.play(); if (p && p.catch) p.catch(() => {}); }
-          else { heroBg.pause(); }
+          clearTimeout(toggleTimer);
+          toggleTimer = setTimeout(() => {
+            if (e.isIntersecting) {
+              if (heroBg.paused) {
+                const p = heroBg.play();
+                if (p && p.catch) p.catch(() => {});
+              }
+            } else if (!heroBg.paused) {
+              heroBg.pause();
+            }
+          }, 200);
         });
       }, { threshold: 0.05 });
       ioHero.observe(hero);
