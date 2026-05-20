@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · The why behind the brand</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --pad-x: 112px;
+    --pad-y: 84px;
+  }
+
+  body { margin: 0; background: #0D0F17; color: var(--fg); }
+
+  deck-stage section {
+    width: 1920px; height: 1080px;
+    background: var(--ivory);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: var(--font-body);
+    color: var(--fg);
+  }
+
+  /* Paper grain on every slide */
+  deck-stage section::before {
+    content: ''; position: absolute; inset: 0; z-index: 0;
+    pointer-events: none;
+    opacity: 0.04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  deck-stage section > * { position: relative; z-index: 1; }
+
+  /* ── Masthead row on each slide ────── */
+  .masthead {
+    position: absolute; top: 56px; left: var(--pad-x); right: var(--pad-x);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 14px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);
+    z-index: 2;
+  }
+  .masthead .left { display: flex; gap: 16px; align-items: center;}
+  .masthead .brand-mark {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #9AE19D 30%, #40E0B0 70%, #A6E3FF 100%);
+  }
+  .masthead .brand-word {
+    font-family: var(--font-display); font-size: 18px; letter-spacing: -0.025em; text-transform: none; color: var(--ink);
+  }
+  .masthead .brand-word em { font-style: italic; color: var(--emerald-deep);}
+
+  /* dark slide masthead */
+  .dark .masthead { color: rgba(255,253,247,0.5); }
+  .dark .masthead .brand-word { color: var(--ivory); }
+  .dark .masthead .brand-word em { color: var(--gold);}
+
+  /* Footer rule on each slide */
+  .baseline {
+    position: absolute; bottom: 56px; left: var(--pad-x); right: var(--pad-x);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);
+    z-index: 2;
+  }
+  .baseline em {
+    font-family: var(--font-display); font-style: italic; font-size: 18px; letter-spacing: -0.01em; text-transform: none; color: var(--ink); margin-left: 12px;
+  }
+  .dark .baseline { color: rgba(255,253,247,0.5);}
+  .dark .baseline em { color: var(--ivory);}
+
+  /* ── Cover ─────────────────────────── */
+  .cover { display: flex; flex-direction: column; justify-content: space-between; padding: 0; }
+  .cover-body { padding: 180px var(--pad-x) 0; }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: 224px;
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    margin: 0;
+  }
+  .cover h1 em { font-style: italic; color: var(--emerald-deep);}
+  .cover .sub {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 48px; letter-spacing: -0.02em;
+    color: var(--fg-muted);
+    margin-top: 40px;
+  }
+  .cover-bottom {
+    padding: 0 var(--pad-x) 64px;
+    display: flex; justify-content: space-between; align-items: end;
+  }
+  .cover-bottom .label {
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);
+  }
+  .cover-bottom .label em {
+    font-family: var(--font-display); font-style: italic; font-size: 22px; letter-spacing: -0.015em; text-transform: none; color: var(--ink); display: block; margin-top: 8px;
+  }
+
+  /* ── Common slide chrome ───────────── */
+  .slide-eyebrow {
+    font-family: var(--font-mono); font-size: 14px;
+    letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-quiet);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .slide-eyebrow .num { color: var(--emerald-deep); font-weight: 500;}
+  .slide-eyebrow .rule { width: 32px; height: 1px; background: var(--ink-24); }
+
+  .slide-title {
+    font-family: var(--font-display);
+    font-size: 112px; line-height: 0.98;
+    letter-spacing: -0.035em; margin: 24px 0 0;
+  }
+  .slide-title em { font-style: italic;}
+  .slide-title .accent { color: var(--emerald-deep); font-style: italic;}
+
+  .slide-body { padding: 160px var(--pad-x) 130px; }
+
+  .lede {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 32px; line-height: 1.3;
+    color: var(--fg-muted);
+    max-width: 1100px;
+    margin-top: 40px;
+  }
+  .lede strong { font-style: normal; font-weight: normal; color: var(--ink);}
+
+  /* ── Slide: brand essence is/isn't ── */
+  .essence-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1px 1fr;
+    gap: 64px; align-items: start;
+  }
+  .essence-grid .sep { background: var(--ink-12); height: 320px;}
+  .essence-col h3 {
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase;
+    margin: 0 0 24px;
+  }
+  .essence-col.is h3 { color: var(--emerald-deep);}
+  .essence-col.isnt h3 { color: #883333;}
+  .essence-line {
+    font-family: var(--font-display); font-size: 38px; line-height: 1.18;
+    letter-spacing: -0.02em; padding: 14px 0;
+    border-top: 1px solid var(--ink-12);
+  }
+  .essence-line em { font-style: italic;}
+
+  /* ── Slide: palette ─────────────────── */
+  .palette-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 22px;
+  }
+  .pal-cell { display: flex; flex-direction: column; gap: 10px;}
+  .pal-chip {
+    aspect-ratio: 1/1; border-radius: 18px;
+    border: 1px solid var(--border);
+  }
+  .pal-name { font-family: var(--font-display); font-size: 28px; letter-spacing: -0.02em; }
+  .pal-hex { font-family: var(--font-mono); font-size: 13px; color: var(--fg-quiet); letter-spacing: 0.08em;}
+  .pal-job { font-family: var(--font-body); font-size: 15px; color: var(--fg-muted); line-height: 1.4;}
+
+  /* ── Slide: rule of 70/80 ───────────── */
+  .bar-big {
+    margin-top: 56px;
+    display: flex; height: 180px; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .bar-big > div { height: 100%; display: flex; align-items: end; justify-content: flex-start; padding: 18px 22px;}
+  .bar-big .lbl {
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .bar-big .lbl em { font-family: var(--font-display); font-style: italic; font-size: 24px; letter-spacing: -0.015em; text-transform: none; display: block; margin-top: 4px;}
+
+  /* ── Slide: each green has a job ───── */
+  .jobs-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+  .job {
+    padding: 36px 32px;
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 400px;
+    position: relative;
+  }
+  .job-chip {
+    width: 56px; height: 56px; border-radius: 50%;
+  }
+  .job h3 {
+    font-family: var(--font-display); font-size: 56px; letter-spacing: -0.025em; margin: 0;
+  }
+  .job h3 em { font-style: italic; }
+  .job .verb {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-quiet);
+  }
+  .job p {
+    font-family: var(--font-body); font-size: 19px; line-height: 1.5; color: var(--fg-muted);
+    margin: auto 0 0;
+  }
+  .job p em { font-style: italic; color: var(--fg);}
+
+  /* ── Slide: decision (cta) ─────────── */
+  .twoup {
+    margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .twoup .pane {
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    overflow: hidden; background: var(--ivory);
+    position: relative;
+  }
+  .twoup .pane.winner { border: 2px solid var(--emerald); box-shadow: 0 0 0 4px rgba(64,224,176,0.14);}
+  .twoup .pane-tag {
+    position: absolute; top: 18px; right: 18px; z-index: 4;
+    background: var(--ink); color: var(--ivory);
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 999px;
+  }
+  .twoup .pane.winner .pane-tag { background: var(--emerald-deep);}
+  .twoup .pane-tag.warn { background: rgba(180,60,60,0.95);}
+  .twoup .stage {
+    padding: 48px 48px;
+    min-height: 320px;
+    background: var(--ivory);
+    display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+    position: relative;
+  }
+  .twoup .stage.dawn {
+    background:
+      radial-gradient(60% 50% at 70% 20%, rgba(166,227,255,0.30) 0%, transparent 60%),
+      radial-gradient(50% 40% at 20% 80%, rgba(126,242,193,0.22) 0%, transparent 60%),
+      var(--ivory);
+  }
+  .twoup .stage.white { background: #FFFFFF;}
+  .twoup .stage .hl {
+    font-family: var(--font-display); font-size: 64px; line-height: 0.97; letter-spacing: -0.03em;
+  }
+  .twoup .stage .hl em { font-style: italic; }
+  .twoup .stage .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px; border-radius: 999px;
+    font-family: var(--font-body); font-size: 18px; font-weight: 500;
+    border: 0; background: var(--emerald); color: var(--ink);
+    box-shadow: 0 20px 50px -20px rgba(64,224,176,0.55), 0 0 0 6px rgba(154,225,157,0.18);
+    width: fit-content;
+  }
+  .twoup .stage .cta.mint { background: var(--mint); box-shadow: 0 20px 50px -20px rgba(154,225,157,0.45);}
+  .twoup .pane-foot {
+    padding: 22px 28px 26px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+  .twoup .pane-foot .name { font-family: var(--font-display); font-size: 32px; letter-spacing: -0.02em;}
+  .twoup .pane-foot .name em { font-style: italic; color: var(--emerald-deep); margin-left: 6px;}
+  .twoup .pane-foot .note { font-size: 18px; color: var(--fg-muted); margin-top: 10px; line-height: 1.45;}
+
+  /* ── Slide: 4 legal pairings ────────── */
+  .pairings { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;}
+  .pair {
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--bg-elevated);
+  }
+  .pair .swatch { height: 180px; position: relative; overflow: hidden; }
+  .pair .meta { padding: 22px 26px 26px; }
+  .pair .nm { font-family: var(--font-display); font-style: italic; font-size: 28px; letter-spacing: -0.02em;}
+  .pair .use { font-size: 16px; color: var(--fg-muted); margin-top: 8px; line-height: 1.45;}
+
+  .sw-1 { background: var(--ivory);}
+  .sw-1::after { content:''; position:absolute; left: 26px; top: 70px; right: 26px; height: 12px; background: var(--ink); border-radius: 3px;}
+  .sw-1::before { content:''; position:absolute; left: 26px; top: 96px; right: 120px; height: 6px; background: var(--ink-40); border-radius: 3px;}
+
+  .sw-2 { background: var(--ivory); display:flex; align-items:center; justify-content:center;}
+  .sw-2::after {
+    content: 'Begin'; padding: 12px 24px; background: var(--emerald); color: var(--ink);
+    border-radius: 999px; font-family: var(--font-body); font-size: 16px; font-weight: 500;
+    box-shadow: 0 20px 40px -16px rgba(64,224,176,0.5), 0 0 0 8px rgba(154,225,157,0.16);
+  }
+
+  .sw-3 { background: var(--ivory); position: relative;}
+  .sw-3::after { content:''; position:absolute; inset:-10%;
+    background: radial-gradient(60% 50% at 50% 50%, rgba(154,225,157,0.45) 0%, rgba(126,242,193,0.28) 35%, rgba(166,227,255,0.16) 65%, transparent 80%);
+  }
+
+  .sw-4 { background: var(--ink); position: relative; display:flex; align-items:center; justify-content:center;}
+  .sw-4::before { content:''; position: absolute; inset: 0; background: radial-gradient(50% 80% at 50% 100%, rgba(246,213,138,0.35), transparent 70%);}
+  .sw-4::after { content:'made.'; position: relative; font-family: var(--font-display); font-style: italic; font-size: 56px; color: var(--gold); letter-spacing: -0.02em;}
+
+  /* ── Slide: type pair ──────────────── */
+  .type-show {
+    margin-top: 32px;
+    display: grid; grid-template-columns: 6fr 5fr; gap: 48px; align-items: center;
+  }
+  .type-spec {
+    font-family: var(--font-display);
+    font-size: 200px; line-height: 0.9; letter-spacing: -0.05em;
+    margin: 0;
+  }
+  .type-spec em { font-style: italic; color: var(--emerald-deep);}
+  .type-side {
+    padding-bottom: 24px;
+    display: flex; flex-direction: column; gap: 36px;
+  }
+  .type-name {
+    font-family: var(--font-display); font-size: 64px; letter-spacing: -0.025em; line-height: 1;
+  }
+  .type-name em { font-style: italic; color: var(--emerald-deep);}
+  .type-meta {
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);
+    line-height: 1.7;
+  }
+  .type-body {
+    font-family: var(--font-body); font-size: 22px; line-height: 1.5; color: var(--fg);
+  }
+  .type-body em { font-style: italic;}
+
+  /* ── Slide: type comparison (rejected) ── */
+  .reject-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px;
+  }
+  .reject-card {
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    padding: 32px 28px 28px;
+    background: var(--bg-elevated);
+    position: relative;
+  }
+  .reject-card.x { opacity: 0.85;}
+  .reject-card .strike {
+    position: absolute; top: 16px; right: 16px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(180,60,60,0.12); color: #883333;
+  }
+  .reject-card .strike.ok { background: rgba(64,224,176,0.16); color: #086e54;}
+  .reject-card .nm {
+    font-family: var(--font-display); font-size: 44px; letter-spacing: -0.02em; margin: 0;
+  }
+  .reject-card .nm em { font-style: italic;}
+  .reject-card .pair-meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-quiet); margin: 8px 0 16px;}
+  .reject-card .sample {
+    font-family: 'Playfair Display', serif; font-size: 44px; line-height: 0.96; letter-spacing: -0.022em;
+    color: var(--ink);
+    margin: 14px 0;
+  }
+  .reject-card.fr .sample { font-family: 'Fraunces', serif; font-optical-sizing: auto;}
+  .reject-card.fr .sample em { font-style: italic;}
+  .reject-card.in .sample em { font-style: normal; font-weight: 500;}
+  .reject-card.in .sample { font-style: normal;}
+
+  .reject-card .why {
+    font-size: 18px; color: var(--fg-muted); line-height: 1.5; margin-top: 12px;
+  }
+  .reject-card .why em { font-style: italic;}
+
+  /* ── Italics matter ─────────────────── */
+  .ital-block {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+  }
+  .ital-col h4 {
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; margin: 0 0 20px;
+  }
+  .ital-col.no h4 { color: #883333;}
+  .ital-col.yes h4 { color: #086e54;}
+  .ital-line {
+    font-family: var(--font-display); font-size: 44px; letter-spacing: -0.02em;
+    border-top: 1px solid var(--ink-12); padding: 18px 0 10px; line-height: 1.12;
+  }
+  .ital-line.no { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 30px;}
+  .ital-line em { font-style: italic;}
+  .ital-note { font-size: 16px; color: var(--fg-muted); padding-bottom: 18px;}
+
+  /* ── Type hierarchy ──────────────────── */
+  .hier-grid {
+    margin-top: 48px;
+    display: grid; grid-template-columns: 200px 1fr; gap: 22px 48px; align-items: baseline;
+  }
+  .hier-name { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);}
+  .hier-disp { font-family: var(--font-display);}
+  .hier-disp em { font-style: italic;}
+  .hier-sans { font-family: var(--font-body); }
+  .hier-mono { font-family: var(--font-mono); letter-spacing: 0.06em;}
+
+  /* ── In use ─────────────────────────── */
+  .inuse {
+    margin-top: 48px;
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    background:
+      radial-gradient(60% 50% at 70% 20%, rgba(166,227,255,0.30) 0%, transparent 60%),
+      radial-gradient(50% 40% at 20% 80%, rgba(126,242,193,0.22) 0%, transparent 60%),
+      var(--ivory);
+    padding: 56px 64px;
+    position: relative;
+    min-height: 480px;
+  }
+  .inuse-orb {
+    position: absolute; right: 64px; top: 64px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #FFFFFF 0%, #C8F1D2 18%, #9AE19D 35%, #7EF2C1 55%, #40E0B0 75%, transparent 100%);
+    box-shadow: 0 0 120px rgba(64,224,176,0.35);
+  }
+  .inuse-eb { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-quiet); margin-bottom: 24px;}
+  .inuse-hl { font-family: var(--font-display); font-size: 104px; line-height: 0.94; letter-spacing: -0.035em; margin: 0; max-width: 1100px;}
+  .inuse-hl em { font-style: italic;}
+  .inuse-sub { font-size: 20px; color: var(--fg-muted); max-width: 700px; margin: 24px 0 32px; line-height: 1.5;}
+  .inuse-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 28px; border-radius: 999px; font-size: 18px; font-weight: 500;
+    background: var(--emerald); color: var(--ink); border: 0;
+    box-shadow: 0 20px 50px -20px rgba(64,224,176,0.55), 0 0 0 6px rgba(154,225,157,0.18);
+  }
+  /* annotation pins */
+  .pin {
+    position: absolute; display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-quiet);
+    z-index: 5;
+  }
+  .pin .num { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--ivory); display:flex; align-items:center; justify-content:center; font-family: var(--font-body); font-size: 13px; letter-spacing: 0;}
+
+  /* ── Rule book ───────────────────────── */
+  .rules-2col {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  }
+  .rules-col h4 {
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase;
+    margin: 0 0 20px;
+  }
+  .rules-col.do h4 { color: #086e54;}
+  .rules-col.dont h4 { color: #883333;}
+  .rule {
+    display: flex; align-items: flex-start; gap: 16px; padding: 14px 0;
+    border-top: 1px solid var(--ink-12);
+    font-family: var(--font-display); font-size: 26px; line-height: 1.3; letter-spacing: -0.015em;
+  }
+  .rule em { font-style: italic; }
+  .rule .mark { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display:flex; align-items:center; justify-content:center; margin-top: 6px;}
+  .rule.do   .mark { background: var(--mint-soft); color: #086e54;}
+  .rule.dont .mark { background: rgba(200,80,80,0.14); color: #883333;}
+  .rule .mark svg { width: 16px; height: 16px;}
+
+  /* ── Closing slide ───────────────────── */
+  .closing {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+  .closing::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(40% 80% at 50% 100%, rgba(64,224,176,0.20), transparent 70%),
+      radial-gradient(30% 60% at 50% 0%, rgba(246,213,138,0.16), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .closing .slide-body { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 100%; padding: 160px var(--pad-x);}
+  .closing .slide-title {
+    font-size: 176px; line-height: 0.92;
+  }
+  .closing .slide-title em { color: var(--gold); }
+  .closing .lede { color: rgba(255,253,247,0.7); text-align: center;}
+  .closing .lede strong { color: var(--ivory);}
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+<!-- ────────────────────────────────────
+     01 · Cover
+     ──────────────────────────────────── -->
+<section class="cover" data-screen-label="01 Cover">
+  <div class="masthead">
+    <div class="left">
+      <div class="brand-mark"></div>
+      <span class="brand-word">Siy<em>AI</em></span>
+    </div>
+    <div>Vol. I · Spring chapter</div>
+  </div>
+
+  <div class="cover-body">
+    <h1>The <em>why</em><br>behind<br>the brand.</h1>
+    <div class="sub">Colour, type, and the rules that hold it together.</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="label">A presentation for the team<em>Read in 12 minutes</em></div>
+    <div class="label">Drafted spring 2026<em>Living document</em></div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     02 · What SiyAI is
+     ──────────────────────────────────── -->
+<section data-screen-label="02 What we're building">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>02 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 01</span><span class="rule"></span><span>What we are making</span></div>
+    <h2 class="slide-title">A place where stories<br><em>come alive.</em></h2>
+    <p class="lede"><strong>SiyAI is a personalised storytelling platform.</strong> People share a memory, a feeling, a thought. We turn it into a film, a song, or an immersive piece. No prompting. No editing. No directing. <em>An army of filmmakers, musicians and writers, working personally for you.</em></p>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 01<em>For the team</em></span>
+    <span>02 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     03 · Brand essence
+     ──────────────────────────────────── -->
+<section data-screen-label="03 Brand essence">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>03 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 02</span><span class="rule"></span><span>The brand essence</span></div>
+    <h2 class="slide-title">What it <em>is</em>, what<br>it <em class="accent">isn't.</em></h2>
+
+    <div class="essence-grid">
+      <div class="essence-col is">
+        <h3>It is</h3>
+        <div class="essence-line"><em>Emotional</em> futurism</div>
+        <div class="essence-line"><em>Cinematic</em> storytelling</div>
+        <div class="essence-line"><em>Calm</em>, premium, magical</div>
+        <div class="essence-line"><em>Human</em>-first technology</div>
+      </div>
+      <div class="sep"></div>
+      <div class="essence-col isnt">
+        <h3>It is not</h3>
+        <div class="essence-line">Generic SaaS</div>
+        <div class="essence-line">Corporate AI</div>
+        <div class="essence-line">Productivity software</div>
+        <div class="essence-line">Cold, futuristic interfaces</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 02<em>Brand essence</em></span>
+    <span>03 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     04 · The palette
+     ──────────────────────────────────── -->
+<section data-screen-label="04 The palette">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>04 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 03</span><span class="rule"></span><span>The palette</span></div>
+    <h2 class="slide-title">Seven colours.<br><em>One brand.</em></h2>
+
+    <div class="palette-grid">
+      <div class="pal-cell"><div class="pal-chip" style="background:#FFFDF7"></div><div class="pal-name">Ivory</div><div class="pal-hex">#FFFDF7</div><div class="pal-job">The canvas</div></div>
+      <div class="pal-cell"><div class="pal-chip" style="background:#9AE19D"></div><div class="pal-name">Mint</div><div class="pal-hex">#9AE19D</div><div class="pal-job">The glow</div></div>
+      <div class="pal-cell"><div class="pal-chip" style="background:#7EF2C1"></div><div class="pal-name">Seafoam</div><div class="pal-hex">#7EF2C1</div><div class="pal-job">The air</div></div>
+      <div class="pal-cell"><div class="pal-chip" style="background:#40E0B0"></div><div class="pal-name">Emerald</div><div class="pal-hex">#40E0B0</div><div class="pal-job">The action</div></div>
+      <div class="pal-cell"><div class="pal-chip" style="background:#A6E3FF"></div><div class="pal-name">Sky</div><div class="pal-hex">#A6E3FF</div><div class="pal-job">The atmosphere</div></div>
+      <div class="pal-cell"><div class="pal-chip" style="background:#F6D58A"></div><div class="pal-name">Gold</div><div class="pal-hex">#F6D58A</div><div class="pal-job">The magic</div></div>
+      <div class="pal-cell"><div class="pal-chip" style="background:#0D0F17"></div><div class="pal-name">Ink</div><div class="pal-hex">#0D0F17</div><div class="pal-job">The grounding</div></div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 03<em>The palette</em></span>
+    <span>04 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     05 · Light, not paint (70/80 rule)
+     ──────────────────────────────────── -->
+<section data-screen-label="05 Light not paint">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>05 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 04</span><span class="rule"></span><span>The colour philosophy</span></div>
+    <h2 class="slide-title">Colour enters as<br><em class="accent">light, not paint.</em></h2>
+    <p class="lede">Seventy to eighty percent of any screen is Ivory. <strong>Colour is never a fill of the room. It is the lamp that's on, the light spilling from a window, the moment that catches your eye.</strong> If a screen feels coloured, we have done it wrong.</p>
+
+    <div class="bar-big">
+      <div style="width: 78%; background: #FFFDF7;"><span class="lbl"><em>78%</em>Ivory</span></div>
+      <div style="width: 14%; background: #0D0F17; color: var(--ivory);"><span class="lbl"><em>14%</em>Ink (as text)</span></div>
+      <div style="width: 5%; background: #40E0B0;"><span class="lbl"><em>5%</em>CTA</span></div>
+      <div style="width: 3%; background: linear-gradient(90deg, #7EF2C1, #A6E3FF);"><span class="lbl"><em>3%</em>Air</span></div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 04<em>Light, not paint</em></span>
+    <span>05 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     06 · Each green has one job
+     ──────────────────────────────────── -->
+<section data-screen-label="06 Three greens">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>06 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 05</span><span class="rule"></span><span>The three greens</span></div>
+    <h2 class="slide-title">Mint is the glow.<br>Seafoam is the air.<br><em>Emerald</em> is the action.</h2>
+
+    <div class="jobs-grid">
+      <div class="job">
+        <div class="job-chip" style="background:#9AE19D;"></div>
+        <div class="verb">The glow</div>
+        <h3>Mint</h3>
+        <p>The halo around the primary action. The soft shadow under the button. <em>Never a surface.</em></p>
+      </div>
+      <div class="job">
+        <div class="job-chip" style="background:#7EF2C1;"></div>
+        <div class="verb">The air</div>
+        <h3>Seafoam</h3>
+        <p>Atmospheric washes. Aurora halos. Hero backgrounds. <em>Never a fill.</em></p>
+      </div>
+      <div class="job">
+        <div class="job-chip" style="background:#40E0B0; box-shadow: 0 0 60px rgba(64,224,176,0.5);"></div>
+        <div class="verb">The action</div>
+        <h3>Emerald</h3>
+        <p>The fill of the single primary CTA on every screen. <em>One per view.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 05<em>Each green has one job</em></span>
+    <span>06 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     07 · Decision: Emerald, not Mint
+     ──────────────────────────────────── -->
+<section data-screen-label="07 Why Emerald not Mint">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>07 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 06</span><span class="rule"></span><span>Decision 01 · CTA</span></div>
+    <h2 class="slide-title">Why <em>Emerald,</em><br>not Mint, claims the button.</h2>
+
+    <div class="twoup">
+      <div class="pane">
+        <div class="pane-tag warn">Too quiet</div>
+        <div class="stage dawn">
+          <div class="hl">Where stories<br><em>come alive.</em></div>
+          <button class="cta mint">Begin a story</button>
+        </div>
+        <div class="pane-foot">
+          <div class="name">Mint <em>· #9AE19D</em></div>
+          <div class="note">Pastel green on warm ivory is too low-contrast. The CTA reads as decoration, not as <em>do this</em>.</div>
+        </div>
+      </div>
+
+      <div class="pane winner">
+        <div class="pane-tag">Recommended</div>
+        <div class="stage dawn">
+          <div class="hl">Where stories<br><em>come alive.</em></div>
+          <button class="cta">Begin a story</button>
+        </div>
+        <div class="pane-foot">
+          <div class="name">Emerald <em>· #40E0B0</em></div>
+          <div class="note">Confident at rest, premium, unmistakably the action. Mint becomes the <em>glow halo</em> around it, not the fill.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 06<em>Emerald, not Mint</em></span>
+    <span>07 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     08 · Decision: Ivory, never white
+     ──────────────────────────────────── -->
+<section data-screen-label="08 Why Ivory not white">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>08 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 07</span><span class="rule"></span><span>Decision 02 · Background</span></div>
+    <h2 class="slide-title">Why <em>Ivory,</em><br>never pure white.</h2>
+
+    <div class="twoup">
+      <div class="pane winner">
+        <div class="pane-tag">Recommended</div>
+        <div class="stage dawn">
+          <div class="hl">Where stories<br><em>come alive.</em></div>
+          <button class="cta">Begin a story</button>
+        </div>
+        <div class="pane-foot">
+          <div class="name">Ivory <em>· #FFFDF7</em></div>
+          <div class="note">Reads as <em>paper, morning light, a gallery</em>. The warmth holds hands with serif type and human imagery.</div>
+        </div>
+      </div>
+
+      <div class="pane">
+        <div class="pane-tag warn">Cold</div>
+        <div class="stage white">
+          <div class="hl">Where stories<br><em>come alive.</em></div>
+          <button class="cta">Begin a story</button>
+        </div>
+        <div class="pane-foot">
+          <div class="name">Pure White <em>· #FFFFFF</em></div>
+          <div class="note">Cold, software-y, clinical. Turns <em>cinematic</em> into <em>interface</em>. This is Notion, Linear, Stripe. Not SiyAI.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 07<em>Ivory, never white</em></span>
+    <span>08 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     09 · Four legal pairings
+     ──────────────────────────────────── -->
+<section data-screen-label="09 Legal pairings">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>09 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 08</span><span class="rule"></span><span>How colours combine</span></div>
+    <h2 class="slide-title">Four <em>legal pairings.</em><br>Use these. Avoid the rest.</h2>
+
+    <div class="pairings">
+      <div class="pair">
+        <div class="swatch sw-1"></div>
+        <div class="meta">
+          <div class="nm">Ivory + Ink</div>
+          <div class="use">The default. Body, UI, every quiet moment.</div>
+        </div>
+      </div>
+      <div class="pair">
+        <div class="swatch sw-2"></div>
+        <div class="meta">
+          <div class="nm">Ivory + Mint glow</div>
+          <div class="use">A primary action. The button and its halo.</div>
+        </div>
+      </div>
+      <div class="pair">
+        <div class="swatch sw-3"></div>
+        <div class="meta">
+          <div class="nm">Aurora halo</div>
+          <div class="use">Seafoam and Sky, blurred. Hero washes, ambient.</div>
+        </div>
+      </div>
+      <div class="pair">
+        <div class="swatch sw-4"></div>
+        <div class="meta">
+          <div class="nm">Ink + Gold</div>
+          <div class="use">The magic moment. A story is born.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 08<em>Legal pairings</em></span>
+    <span>09 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     10 · Type pair
+     ──────────────────────────────────── -->
+<section data-screen-label="10 Type pair">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>10 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 09</span><span class="rule"></span><span>Type · the pair</span></div>
+    <h2 class="slide-title">The <em>voice</em><br>is the type.</h2>
+
+    <div class="type-show">
+      <p class="type-spec">A<em>a</em></p>
+      <div class="type-side">
+        <div>
+          <div class="type-name"><em>Fraunces</em></div>
+          <div class="type-meta">Display · Free · Google Fonts</div>
+        </div>
+        <p class="type-body">Warm, characterful, optically-sized. At large sizes it shows soft expressive details. At UI sizes it stays clean. <em>The Apple-Music-storytelling vibe.</em> Italics carry the brand's emotional voice.</p>
+        <div>
+          <div class="type-name">Geist</div>
+          <div class="type-meta">Body · Free · Google Fonts</div>
+        </div>
+        <p class="type-body">Quiet, modern, neutral. All UI, body, captions. Geist Mono for dates, durations, technical metadata.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 09<em>Fraunces + Geist</em></span>
+    <span>10 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     11 · Type: what we said no to
+     ──────────────────────────────────── -->
+<section data-screen-label="11 What we rejected">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>11 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 10</span><span class="rule"></span><span>What we said no to</span></div>
+    <h2 class="slide-title">Type we considered.<br><em>And rejected.</em></h2>
+
+    <div class="reject-grid">
+      <div class="reject-card x">
+        <span class="strike">Rejected</span>
+        <h3 class="nm">Playfair Display</h3>
+        <div class="pair-meta">2014 editorial blog · wedding sites</div>
+        <p class="sample">Where stories<br>come <em>alive.</em></p>
+        <p class="why">Beautiful, but the thin-thick strokes are <em>everywhere</em>. SiyAI would land in lifestyle-blog territory.</p>
+      </div>
+      <div class="reject-card x in">
+        <span class="strike">Rejected</span>
+        <h3 class="nm">Inter</h3>
+        <div class="pair-meta">The SaaS default · Vercel · Linear</div>
+        <p class="sample">Where stories<br>come <em>alive.</em></p>
+        <p class="why">The literal typeface of <em>"corporate AI"</em> and <em>"developer tools"</em>. The two things the brief explicitly avoids.</p>
+      </div>
+      <div class="reject-card fr">
+        <span class="strike ok">Chosen</span>
+        <h3 class="nm">Fraunces</h3>
+        <div class="pair-meta">Editorial · variable · modern</div>
+        <p class="sample">Where stories<br>come <em>alive.</em></p>
+        <p class="why">Warm enough for a 16-year-old. Refined enough for a 50-year-old. <em>Less seen.</em> Italic carries the voice.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 10<em>What we said no to</em></span>
+    <span>11 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     12 · Italics matter
+     ──────────────────────────────────── -->
+<section data-screen-label="12 Italics matter">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>12 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 11</span><span class="rule"></span><span>Italics · the voice</span></div>
+    <h2 class="slide-title">Without italics,<br>copy stops <em>sounding human.</em></h2>
+
+    <div class="ital-block">
+      <div class="ital-col no">
+        <h4>× No italics</h4>
+        <div class="ital-line no">What are we making today?</div>
+        <div class="ital-note">Sounds like a UI prompt.</div>
+        <div class="ital-line no">A song for my mother.</div>
+        <div class="ital-note">Sounds like a filename.</div>
+      </div>
+      <div class="ital-col yes">
+        <h4>✓ With italics</h4>
+        <div class="ital-line">What are we <em>making today?</em></div>
+        <div class="ital-note">Sounds like a friend leaning in.</div>
+        <div class="ital-line"><em>A song</em> for my mother.</div>
+        <div class="ital-note">Sounds like a title card.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 11<em>Italics carry the voice</em></span>
+    <span>12 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     13 · Type hierarchy
+     ──────────────────────────────────── -->
+<section data-screen-label="13 Type hierarchy">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>13 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 12</span><span class="rule"></span><span>The hierarchy</span></div>
+    <h2 class="slide-title">A scale you can <em>see</em><br>and <em>hear.</em></h2>
+
+    <div class="hier-grid">
+      <span class="hier-name">Hero · Fraunces</span>
+      <span class="hier-disp" style="font-size: 120px; line-height: 0.96; letter-spacing: -0.035em;">Where stories <em>live.</em></span>
+
+      <span class="hier-name">Display · Fraunces</span>
+      <span class="hier-disp" style="font-size: 64px; line-height: 1; letter-spacing: -0.025em;">A song for my mother.</span>
+
+      <span class="hier-name">Headline · Fraunces</span>
+      <span class="hier-disp" style="font-size: 40px; letter-spacing: -0.02em;">From your library.</span>
+
+      <span class="hier-name">Body · Geist</span>
+      <span class="hier-sans" style="font-size: 22px; line-height: 1.55; color: var(--fg-muted);">Tell us a moment, a memory, a feeling. We'll turn it into a piece of cinema.</span>
+
+      <span class="hier-name">Mono · Geist Mono</span>
+      <span class="hier-mono" style="font-size: 15px; color: var(--fg-quiet); text-transform: uppercase;">FILM · 02:14 · SCORED · MAR 04</span>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 12<em>Type hierarchy</em></span>
+    <span>13 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     14 · In use
+     ──────────────────────────────────── -->
+<section data-screen-label="14 In use">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>14 / 16</div>
+  </div>
+
+  <div class="slide-body" style="padding: 200px var(--pad-x) 100px;">
+    <div class="slide-eyebrow"><span class="num">№ 13</span><span class="rule"></span><span>One screen, all the rules</span></div>
+    <h2 class="slide-title" style="font-size: 80px; margin-bottom: 0;">All <em>together,</em> on a real hero.</h2>
+
+    <div class="inuse">
+      <div class="inuse-orb"></div>
+      <div class="inuse-eb">A new place for memory</div>
+      <h1 class="inuse-hl">Where stories<br>come <em>alive.</em></h1>
+      <p class="inuse-sub">Share a memory, a feeling, a thought. SiyAI turns it into a film, a song, or an immersive piece, made just for you.</p>
+      <button class="inuse-cta">Begin a story</button>
+
+      <span class="pin" style="left: 36px; bottom: 32px;"><span class="num">1</span>Ivory canvas · 78%</span>
+      <span class="pin" style="left: 380px; top: 240px;"><span class="num">2</span>Ink, as text · 14%</span>
+      <span class="pin" style="left: 480px; bottom: 80px;"><span class="num">3</span>Emerald CTA</span>
+      <span class="pin" style="right: 36px; top: 36px;"><span class="num">4</span>Mint + Seafoam aurora halo</span>
+      <span class="pin" style="right: 36px; bottom: 32px;"><span class="num">5</span>Gold · absent · saved for the magic moment</span>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 13<em>In use</em></span>
+    <span>14 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     15 · Rule book
+     ──────────────────────────────────── -->
+<section data-screen-label="15 Rule book">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>15 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-eyebrow"><span class="num">№ 14</span><span class="rule"></span><span>The rule book</span></div>
+    <h2 class="slide-title">If you remember<br>nothing else, <em>remember these.</em></h2>
+
+    <div class="rules-2col">
+      <div class="rules-col do">
+        <h4>Always</h4>
+        <div class="rule do"><span class="mark"><i data-lucide="check"></i></span><span><em>Ivory</em> on at least 70% of every screen.</span></div>
+        <div class="rule do"><span class="mark"><i data-lucide="check"></i></span><span><em>One</em> Emerald CTA per view.</span></div>
+        <div class="rule do"><span class="mark"><i data-lucide="check"></i></span><span><em>Italics</em> for emotional moments. Always.</span></div>
+        <div class="rule do"><span class="mark"><i data-lucide="check"></i></span><span><em>Fraunces</em> serif. <em>Geist</em> sans. <em>Geist Mono</em> for dates.</span></div>
+      </div>
+      <div class="rules-col dont">
+        <h4>Never</h4>
+        <div class="rule dont"><span class="mark"><i data-lucide="x"></i></span><span>Pure <em>white</em> as a page background.</span></div>
+        <div class="rule dont"><span class="mark"><i data-lucide="x"></i></span><span><em>Em dashes</em> in copy. Use periods or commas.</span></div>
+        <div class="rule dont"><span class="mark"><i data-lucide="x"></i></span><span><em>Emoji</em>, sparkles, or "AI-startup" gradients.</span></div>
+        <div class="rule dont"><span class="mark"><i data-lucide="x"></i></span><span><em>Two CTAs</em> in the same eye-line.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="baseline">
+    <span>The why · 14<em>The rule book</em></span>
+    <span>15 / 16</span>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     16 · Closing
+     ──────────────────────────────────── -->
+<section class="closing dark" data-screen-label="16 Closing">
+  <div class="masthead">
+    <div class="left"><div class="brand-mark"></div><span class="brand-word">Siy<em>AI</em></span></div>
+    <div>16 / 16</div>
+  </div>
+
+  <div class="slide-body">
+    <h2 class="slide-title">When in doubt,<br>choose <em>calm.</em></h2>
+    <p class="lede" style="margin-top: 64px; max-width: 1300px;">SiyAI is a place where stories come alive. <strong>Quiet, premium, human, cinematic.</strong> If a design decision adds noise, adds chrome, adds another colour, it's the wrong one. Less is the brand.</p>
+  </div>
+
+  <div class="baseline">
+    <span>SiyAI · Vol. I<em>The why behind the brand</em></span>
+    <span>End</span>
+  </div>
+</section>
+
+</deck-stage>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.6 }});</script>
+</body>
+</html>

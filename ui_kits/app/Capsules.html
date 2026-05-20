@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>SiyAI · Capsules · Future deliveries</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { background: var(--ivory); color: var(--fg); position: relative;}
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    opacity: 0.035; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .app { width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 248px 1fr; min-height: 1100px;}
+
+  /* ── Sidebar ───────────────────── */
+  aside {
+    border-right: 1px solid var(--border);
+    padding: 26px 18px;
+    display: flex; flex-direction: column; gap: 22px;
+    background: var(--ivory); position: relative;
+  }
+  .brand { display:flex; align-items:center; gap: 10px; padding: 0 8px;}
+  .brand-glyph { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #9AE19D 30%, #40E0B0 70%, #A6E3FF 100%);}
+  .brand-word { font-family: var(--font-display); font-size: 24px; letter-spacing: -0.04em;}
+  .brand-word em { font-style: italic; color: var(--emerald-deep);}
+
+  .nav { display:flex; flex-direction:column; gap: 2px; }
+  .nav-item {
+    display:flex; align-items:center; gap: 12px;
+    padding: 10px 12px; border-radius: 12px;
+    color: var(--fg-muted); font-size: 14px; font-weight: 500;
+    cursor: pointer;
+  }
+  .nav-item:hover { background: var(--ink-04); color: var(--fg);}
+  .nav-item.active { background: var(--ink-04); color: var(--fg); }
+  .nav-item svg { width: 18px; height: 18px; stroke-width: 1.5;}
+  .nav-section {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fg-faint); padding: 0 12px; margin-top: 4px; margin-bottom: 6px;
+  }
+
+  .sidebar-spacer { flex: 1; }
+
+  .me {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px; border-radius: 12px; background: var(--ink-04);
+  }
+  .me-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--seafoam), var(--sky)); flex-shrink: 0;}
+  .me-name { font-size: 13px; font-weight: 500;}
+  .me-sub { font-size: 11px; color: var(--fg-quiet);}
+
+  /* ── Main ──────────────────────── */
+  main {
+    position: relative; overflow: hidden;
+    background: var(--ivory);
+  }
+
+  .topbar {
+    display:flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px; border-bottom: 1px solid var(--border);
+  }
+  .crumbs { display: flex; align-items: center; gap: 10px;}
+  .crumbs .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-quiet); }
+  .crumbs em { font-family: var(--font-display); font-style: italic; font-size: 18px; letter-spacing: -0.02em; color: var(--fg);}
+  .topbar-right { display: flex; align-items: center; gap: 10px;}
+  .search { display:flex; align-items:center; gap:8px; background: var(--bg-elevated); border: 1px solid var(--border); padding: 8px 14px; border-radius: 999px; font-size: 13px; color: var(--fg-quiet); width: 260px;}
+  .search svg { width: 14px; height: 14px;}
+
+  /* ── Header ─────────────────────── */
+  .head {
+    padding: 56px 56px 28px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+    border-bottom: 1px solid var(--ink-12);
+  }
+  .head-eyebrow {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--fg-quiet); margin-bottom: 16px;
+  }
+  .head h1 {
+    font-family: var(--font-display); font-size: 88px; line-height: 0.96; letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .head h1 em { font-style: italic;}
+  .head .stats { display: flex; gap: 36px; align-items: baseline;}
+  .stat { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-quiet);}
+  .stat .num { font-family: var(--font-display); font-style: italic; font-size: 40px; letter-spacing: -0.02em; color: var(--ink); display: block; margin-bottom: 4px; line-height: 1;}
+
+  /* ── Timeline strip ─────────────── */
+  .timeline {
+    margin: 0 56px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--ink-12);
+    display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: center;
+  }
+  .timeline-label {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--fg-quiet);
+  }
+  .timeline-rail { position: relative; height: 56px; }
+  .timeline-rail::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 50%;
+    height: 1px; background: var(--ink-12);
+  }
+  .marker {
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .marker .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ink); border: 2px solid var(--ivory);
+    z-index: 2; position: relative;
+  }
+  .marker .lbl {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--fg-quiet);
+    position: absolute; top: 12px; white-space: nowrap;
+  }
+  .marker .when {
+    font-family: var(--font-display); font-style: italic; font-size: 15px; letter-spacing: -0.01em;
+    color: var(--ink);
+    position: absolute; bottom: 14px; white-space: nowrap;
+  }
+  .marker.now .dot { background: var(--emerald); box-shadow: 0 0 0 4px rgba(64,224,176,0.18);}
+  .marker.now .lbl { color: var(--emerald-deep); font-weight: 500;}
+  .marker.gold .dot { background: var(--gold);}
+  .marker.locked .dot { background: var(--ivory); border: 1px solid var(--ink); box-shadow: inset 0 0 0 2px var(--ivory);}
+
+  /* ── Capsule grid ───────────────── */
+  .grid-wrap { padding: 36px 56px 56px;}
+  .grid-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 28px;
+  }
+  .grid-head h2 { font-family: var(--font-display); font-size: 36px; letter-spacing: -0.02em; margin: 0;}
+  .grid-head h2 em { font-style: italic;}
+  .grid-head .sub { font-size: 13px; color: var(--fg-muted); margin-top: 4px;}
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;}
+
+  /* Capsule card. The new pattern */
+  .capsule {
+    position: relative;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .cap-cover {
+    aspect-ratio: 5/4; position: relative; overflow: hidden;
+  }
+  .cap-cover::after {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+    opacity: 0.14; mix-blend-mode: overlay;
+  }
+  .cover-1 { background:
+      radial-gradient(60% 50% at 70% 30%, rgba(255,255,255,0.4), transparent 60%),
+      linear-gradient(160deg, #E5C998 0%, #92653B 100%);}
+  .cover-2 { background:
+      radial-gradient(60% 60% at 40% 70%, rgba(166,227,255,0.5), transparent 60%),
+      linear-gradient(180deg, #C2D2DF 0%, #57697E 100%);}
+  .cover-3 { background:
+      radial-gradient(50% 60% at 50% 50%, rgba(154,225,157,0.4), transparent 60%),
+      linear-gradient(135deg, #C5D5B6 0%, #6F8A5C 100%);}
+  .cover-4 { background:
+      radial-gradient(60% 60% at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
+      linear-gradient(135deg, #B0A18D 0%, #564737 100%);
+  }
+  .cover-5 { background:
+      radial-gradient(60% 60% at 70% 60%, rgba(246,213,138,0.5), transparent 60%),
+      linear-gradient(160deg, #E3CDA0 0%, #B58054 100%);}
+  .cover-6 { background:
+      radial-gradient(60% 60% at 40% 40%, rgba(166,227,255,0.5), transparent 60%),
+      linear-gradient(180deg, #ABBCD0 0%, #3F4E62 100%);}
+
+  /* The seal. Capsule's signature mark */
+  .seal {
+    position: absolute; top: 16px; right: 16px;
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 10px 6px 8px;
+    background: rgba(255, 253, 247, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(13,15,23,0.06);
+    border-radius: 999px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink);
+    z-index: 3;
+  }
+  .seal .seal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink);}
+  .seal .seal-dot.scheduled { background: var(--emerald); box-shadow: 0 0 8px var(--emerald);}
+  .seal .seal-dot.locked { background: var(--ink); border: 2px solid var(--ivory); width: 8px; height: 8px;}
+  .seal .seal-dot.delivered { background: var(--sky); }
+  .seal .seal-dot.recurring { background: var(--gold);}
+
+  /* Locked overlay */
+  .locked-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(13,15,23,0) 40%, rgba(13,15,23,0.7) 100%);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 24px;
+    color: var(--ivory);
+    z-index: 2;
+  }
+  .lock-mark {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,253,247,0.1);
+    border: 1px solid rgba(255,253,247,0.4);
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+  .lock-mark svg { width: 22px; height: 22px; color: var(--ivory);}
+
+  /* The big inscribed date. Capsule signature */
+  .inscribed {
+    position: absolute; bottom: 16px; left: 20px; right: 20px;
+    z-index: 3;
+    color: var(--ivory);
+  }
+  .inscribed .for {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .inscribed .what {
+    font-family: var(--font-display); font-style: italic; font-size: 24px; letter-spacing: -0.02em; line-height: 1.05;
+    margin-top: 4px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  }
+
+  .cap-body { padding: 18px 22px 20px; }
+  .cap-title { font-family: var(--font-display); font-size: 22px; line-height: 1.15; letter-spacing: -0.015em;}
+  .cap-title em { font-style: italic; }
+  .cap-meta {
+    margin-top: 8px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--fg-quiet);
+  }
+  .cap-meta .when {
+    font-family: var(--font-display); font-style: italic; font-size: 14px; letter-spacing: -0.005em; text-transform: none; color: var(--ink);
+  }
+  .cap-meta .dotsep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-24);}
+
+  .cap-countdown {
+    padding: 0 22px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    padding-top: 14px;
+  }
+  .cap-countdown .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-quiet);}
+  .cap-countdown .num { font-family: var(--font-display); font-style: italic; font-size: 28px; letter-spacing: -0.02em; line-height: 1; }
+  .cap-countdown .num.imminent { color: var(--emerald-deep);}
+  .cap-countdown .num.sealed { color: var(--ink); }
+
+  /* ── Compose row ────────────────── */
+  .compose {
+    margin: 36px 56px 0;
+    padding: 28px 32px;
+    border: 1px dashed var(--ink-24);
+    border-radius: var(--r-xl);
+    background:
+      radial-gradient(50% 50% at 50% 50%, rgba(154,225,157,0.06), transparent 70%),
+      var(--ivory);
+    display: flex; align-items: center; gap: 24px;
+  }
+  .compose-glyph {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #9AE19D 30%, #40E0B0 70%, #A6E3FF 100%);
+    flex-shrink: 0;
+    box-shadow: 0 0 30px rgba(64,224,176,0.4);
+  }
+  .compose-body { flex: 1; }
+  .compose-title { font-family: var(--font-display); font-size: 26px; letter-spacing: -0.02em;}
+  .compose-title em { font-style: italic;}
+  .compose-sub { font-size: 13px; color: var(--fg-muted); margin-top: 4px;}
+
+  /* ── Footer strip ───────────────── */
+  .footer-strip {
+    padding: 24px 56px 36px;
+    border-top: 1px solid var(--border);
+    margin-top: 56px;
+    display:flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="app" data-screen-label="App · Capsules">
+  <aside>
+    <div class="brand">
+      <div class="brand-glyph"></div>
+      <span class="brand-word">Siy<em>AI</em></span>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-item"><i data-lucide="sparkles"></i>Studio</div>
+      <div class="nav-item"><i data-lucide="library"></i>Library</div>
+      <div class="nav-item active"><i data-lucide="hourglass"></i>Capsules</div>
+      <div class="nav-item"><i data-lucide="gift"></i>Gifts</div>
+      <div class="nav-item"><i data-lucide="bell"></i>Occasions</div>
+      <div class="nav-item"><i data-lucide="moon-star"></i>Dreams</div>
+    </nav>
+
+    <div>
+      <div class="nav-section">Upcoming</div>
+      <div class="nav-item" style="font-size: 13px; padding: 6px 12px;"><i data-lucide="calendar-check" style="width:14px;height:14px;"></i>Mum's birthday · Jun 14</div>
+      <div class="nav-item" style="font-size: 13px; padding: 6px 12px;"><i data-lucide="calendar-check" style="width:14px;height:14px;"></i>Our anniversary · Aug 03</div>
+      <div class="nav-item" style="font-size: 13px; padding: 6px 12px;"><i data-lucide="calendar-check" style="width:14px;height:14px;"></i>Karan turns 30 · Dec 11</div>
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="me">
+      <div class="me-avatar"></div>
+      <div style="flex:1; min-width:0;">
+        <div class="me-name">Priya R.</div>
+        <div class="me-sub">12 memories · 4 capsules</div>
+      </div>
+      <i data-lucide="settings" style="width:16px;height:16px; color:var(--fg-faint);"></i>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div class="crumbs">
+        <span class="eyebrow">Capsules</span>
+        <span style="color: var(--ink-24);">/</span>
+        <em>Future deliveries</em>
+      </div>
+      <div class="topbar-right">
+        <div class="search">
+          <i data-lucide="search"></i>
+          Search your capsules
+        </div>
+      </div>
+    </div>
+
+    <section class="head">
+      <div>
+        <div class="head-eyebrow">№ 03 · Time capsules · for the long quiet</div>
+        <h1>Stories sent forward,<br><em>into the years.</em></h1>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="num">4</span>sealed</div>
+        <div class="stat"><span class="num">2</span>arriving soon</div>
+        <div class="stat"><span class="num">7y</span>longest seal</div>
+      </div>
+    </section>
+
+    <!-- Timeline strip -->
+    <div class="timeline">
+      <div class="timeline-label">From here → forward</div>
+      <div class="timeline-rail">
+        <div class="marker now" style="left: 4%;">
+          <span class="lbl" style="color: var(--emerald-deep)">Today</span>
+          <span class="dot"></span>
+          <span class="when" style="color: var(--emerald-deep)">May 18</span>
+        </div>
+        <div class="marker" style="left: 14%;">
+          <span class="lbl">In 27 days</span>
+          <span class="dot"></span>
+          <span class="when"><em>Mum's birthday</em></span>
+        </div>
+        <div class="marker gold" style="left: 28%;">
+          <span class="lbl">Aug</span>
+          <span class="dot"></span>
+          <span class="when"><em>Anniversary</em></span>
+        </div>
+        <div class="marker" style="left: 46%;">
+          <span class="lbl">Dec</span>
+          <span class="dot"></span>
+          <span class="when"><em>Karan · 30</em></span>
+        </div>
+        <div class="marker locked" style="left: 68%;">
+          <span class="lbl">2029</span>
+          <span class="dot"></span>
+          <span class="when"><em>Sealed</em></span>
+        </div>
+        <div class="marker locked" style="left: 92%;">
+          <span class="lbl">2033</span>
+          <span class="dot"></span>
+          <span class="when"><em>For my daughter, at 18</em></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Capsules grid -->
+    <section class="grid-wrap">
+      <div class="grid-head">
+        <div>
+          <h2>Your <em>capsules.</em></h2>
+          <div class="sub">Four sealed. Two arriving soon.</div>
+        </div>
+        <button class="btn btn-primary">
+          <i data-lucide="plus" style="width:14px;height:14px;"></i>
+          Begin a capsule
+        </button>
+      </div>
+
+      <div class="grid">
+        <!-- Arriving soon: Mum's birthday -->
+        <article class="capsule">
+          <div class="cap-cover cover-1">
+            <div class="seal"><span class="seal-dot scheduled is-breathing"></span>Scheduled</div>
+            <div class="inscribed">
+              <div class="for">For Maa · on her birthday</div>
+              <div class="what">A song from your <em>Maa's kitchen, summer.</em></div>
+            </div>
+          </div>
+          <div class="cap-countdown">
+            <div>
+              <div class="label">Arrives in</div>
+              <div class="num imminent">27 days · <em>Jun 14</em></div>
+            </div>
+            <button class="btn btn-quiet btn-sm"><i data-lucide="pencil" style="width:13px;height:13px;"></i>Edit</button>
+          </div>
+        </article>
+
+        <!-- Recurring: Anniversary -->
+        <article class="capsule">
+          <div class="cap-cover cover-3">
+            <div class="seal"><span class="seal-dot recurring"></span>Recurring</div>
+            <div class="inscribed">
+              <div class="for">For us · each anniversary</div>
+              <div class="what">A film of <em>the year that passed.</em></div>
+            </div>
+          </div>
+          <div class="cap-countdown">
+            <div>
+              <div class="label">Next delivery</div>
+              <div class="num"><em>Aug 03 · every year</em></div>
+            </div>
+            <button class="btn btn-quiet btn-sm"><i data-lucide="pencil" style="width:13px;height:13px;"></i>Edit</button>
+          </div>
+        </article>
+
+        <!-- Locked: For my daughter -->
+        <article class="capsule">
+          <div class="cap-cover cover-4">
+            <div class="locked-overlay">
+              <div class="lock-mark"><i data-lucide="lock"></i></div>
+              <div class="inscribed" style="position:relative; left:0; right:0; bottom:0;">
+                <div class="for">For my daughter</div>
+                <div class="what"><em>Sealed until she is 18.</em></div>
+              </div>
+            </div>
+            <div class="seal"><span class="seal-dot locked"></span>Sealed</div>
+          </div>
+          <div class="cap-countdown">
+            <div>
+              <div class="label">Opens</div>
+              <div class="num sealed">in <em>7 years</em> · 2033</div>
+            </div>
+            <span class="t-mono" style="font-size: 11px; color: var(--fg-faint);">cannot edit</span>
+          </div>
+        </article>
+
+        <!-- Delivered -->
+        <article class="capsule" style="opacity: 0.95;">
+          <div class="cap-cover cover-2">
+            <div class="seal"><span class="seal-dot delivered"></span>Delivered</div>
+            <div class="inscribed">
+              <div class="for">For Papa · on his 60th</div>
+              <div class="what">A letter from <em>the boy you raised.</em></div>
+            </div>
+          </div>
+          <div class="cap-countdown">
+            <div>
+              <div class="label">Delivered</div>
+              <div class="num"><em>Mar 04 · he listened twice</em></div>
+            </div>
+            <button class="btn btn-quiet btn-sm"><i data-lucide="play" style="width:13px;height:13px;"></i>Listen</button>
+          </div>
+        </article>
+
+        <!-- Scheduled · Karan -->
+        <article class="capsule">
+          <div class="cap-cover cover-5">
+            <div class="seal"><span class="seal-dot scheduled"></span>Scheduled</div>
+            <div class="inscribed">
+              <div class="for">For Karan · turning 30</div>
+              <div class="what">A film of <em>our twenties.</em></div>
+            </div>
+          </div>
+          <div class="cap-countdown">
+            <div>
+              <div class="label">Arrives in</div>
+              <div class="num">208 days · <em>Dec 11</em></div>
+            </div>
+            <button class="btn btn-quiet btn-sm"><i data-lucide="pencil" style="width:13px;height:13px;"></i>Edit</button>
+          </div>
+        </article>
+
+        <!-- Locked: For myself in 2029 -->
+        <article class="capsule">
+          <div class="cap-cover cover-6">
+            <div class="locked-overlay">
+              <div class="lock-mark"><i data-lucide="lock"></i></div>
+              <div class="inscribed" style="position:relative; left:0; right:0; bottom:0;">
+                <div class="for">For myself · in five years</div>
+                <div class="what"><em>A letter I needed to write.</em></div>
+              </div>
+            </div>
+            <div class="seal"><span class="seal-dot locked"></span>Sealed</div>
+          </div>
+          <div class="cap-countdown">
+            <div>
+              <div class="label">Opens</div>
+              <div class="num sealed">in <em>3 years</em> · 2029</div>
+            </div>
+            <span class="t-mono" style="font-size: 11px; color: var(--fg-faint);">cannot edit</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- Compose row -->
+      <div class="compose">
+        <div class="compose-glyph is-breathing"></div>
+        <div class="compose-body">
+          <div class="compose-title">Make a <em>new capsule.</em></div>
+          <div class="compose-sub">Write a memory now. Choose who it's for, when it arrives, and how long it sleeps.</div>
+        </div>
+        <button class="btn btn-primary">Begin a capsule</button>
+      </div>
+    </section>
+
+    <div class="footer-strip">
+      <span>SiyAI · capsules in spring</span>
+      <span>v 1.04 · soft launch</span>
+    </div>
+  </main>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.5 }});</script>
+</body>
+</html>

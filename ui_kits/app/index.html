@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>SiyAI · App</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { background: var(--bg); color: var(--fg); }
+
+  .app {
+    width: 1440px;
+    margin: 0 auto;
+    min-height: 920px;
+    display: grid;
+    grid-template-columns: 248px 1fr;
+    position: relative;
+  }
+
+  /* ── Sidebar ───────────────────────── */
+  aside {
+    border-right: 1px solid var(--border);
+    padding: 26px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    background: var(--ivory);
+    position: relative;
+  }
+  .brand { display:flex; align-items:center; gap: 10px; padding: 0 8px;}
+  .brand-glyph {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #9AE19D 30%, #40E0B0 70%, #A6E3FF 100%);
+  }
+  .brand-word { font-family: var(--font-display); font-size: 24px; letter-spacing: -0.04em;}
+  .brand-word em { font-style: italic; color: var(--emerald);}
+
+  .nav { display:flex; flex-direction:column; gap: 2px; }
+  .nav-item {
+    display:flex; align-items:center; gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    color: var(--fg-muted);
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    transition: background var(--t-quick) var(--ease-out-cinema), color var(--t-quick);
+  }
+  .nav-item:hover { background: var(--ink-04); color: var(--fg);}
+  .nav-item.active { background: var(--ink-04); color: var(--fg); }
+  .nav-item svg { width: 18px; height: 18px; stroke-width: 1.5;}
+
+  .nav-section {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fg-faint); padding: 0 12px; margin-top: 4px; margin-bottom: 6px;
+  }
+
+  .collection {
+    display:flex; align-items:center; gap: 10px;
+    padding: 8px 12px; border-radius: 10px; cursor: pointer;
+    color: var(--fg-muted); font-size: 13px;
+    transition: background var(--t-quick);
+  }
+  .collection:hover { background: var(--ink-04); color: var(--fg);}
+  .collection-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;}
+
+  .sidebar-spacer { flex: 1; }
+
+  .me {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px; border-radius: 12px;
+    background: var(--ink-04);
+  }
+  .me-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--seafoam), var(--sky));
+    flex-shrink: 0;
+  }
+  .me-name { font-size: 13px; font-weight: 500;}
+  .me-sub { font-size: 11px; color: var(--fg-quiet);}
+
+  /* ── Main ──────────────────────────── */
+  main {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 40% at 60% 0%, rgba(166,227,255,0.30) 0%, transparent 60%),
+      radial-gradient(50% 40% at 10% 30%, rgba(126,242,193,0.22) 0%, transparent 60%),
+      var(--ivory);
+  }
+
+  .topbar {
+    display:flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative; z-index: 2;
+    background: rgba(255,253,247,0.6);
+    backdrop-filter: blur(14px);
+  }
+  .crumbs { display: flex; align-items: center; gap: 10px;}
+  .crumbs .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-quiet); }
+  .crumbs em { font-family: var(--font-display); font-style: italic; font-size: 18px; letter-spacing: -0.02em; color: var(--fg);}
+  .topbar-right { display: flex; align-items: center; gap: 10px;}
+  .search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    padding: 8px 14px; border-radius: var(--r-pill);
+    font-size: 13px; color: var(--fg-quiet); width: 260px;
+  }
+  .search svg { width: 14px; height: 14px;}
+
+  /* ── Hero prompt ───────────────────── */
+  .hero {
+    padding: 80px 80px 60px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-quiet); margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero-eyebrow .dot { background: var(--emerald); box-shadow: 0 0 12px var(--emerald);}
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 80px;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin: 0;
+    max-width: 880px;
+  }
+  .hero-title em { font-style: italic; }
+  .hero-sub {
+    font-size: 19px;
+    color: var(--fg-muted);
+    margin: 22px 0 36px;
+    max-width: 540px;
+    line-height: 1.55;
+  }
+
+  .prompt {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: 28px;
+    padding: 18px 18px 14px 24px;
+    max-width: 820px;
+    box-shadow: var(--shadow-glow-soft), var(--shadow-card);
+    position: relative;
+  }
+  .prompt::before {
+    content:''; position:absolute; inset: -1px; border-radius: 29px;
+    background: linear-gradient(135deg, rgba(154,225,157,0.5), rgba(166,227,255,0.5), transparent 60%);
+    z-index: -1; filter: blur(20px); opacity: 0.6;
+  }
+  .prompt textarea {
+    width: 100%; border: 0; outline: 0; resize: none;
+    font-family: var(--font-display);
+    font-size: 28px; line-height: 1.25; letter-spacing: -0.02em;
+    color: var(--fg);
+    background: transparent;
+    min-height: 84px;
+  }
+  .prompt textarea::placeholder { color: var(--fg-faint); font-style: italic;}
+  .prompt-foot { display:flex; align-items:center; justify-content: space-between; gap: 14px; padding-top: 6px;}
+  .prompt-tools { display: flex; gap: 6px; }
+  .tool {
+    display: flex; align-items:center; gap: 6px;
+    padding: 8px 12px; border-radius: var(--r-pill);
+    color: var(--fg-muted); font-size: 13px; font-weight: 500;
+    background: transparent;
+    cursor: pointer; transition: background var(--t-quick);
+  }
+  .tool:hover { background: var(--ink-04); color: var(--fg);}
+  .tool svg { width: 14px; height: 14px; stroke-width: 1.6;}
+
+  .modes { display: flex; gap: 6px; padding: 6px; background: var(--ink-04); border-radius: var(--r-pill); align-items: center;}
+  .mode-chip {
+    padding: 6px 14px; border-radius: var(--r-pill);
+    font-size: 13px; font-weight: 500; color: var(--fg-muted);
+    cursor: pointer; display:flex; align-items:center; gap: 6px;
+  }
+  .mode-chip.active { background: var(--ivory); color: var(--fg); box-shadow: var(--shadow-card);}
+  .mode-chip svg { width: 13px; height: 13px;}
+
+  /* ── Suggestion chips ──────────────── */
+  .suggests { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; max-width: 820px;}
+  .suggest {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: background var(--t-quick), border-color var(--t-quick);
+  }
+  .suggest:hover { background: var(--ivory); border-color: var(--border-strong); color: var(--fg);}
+  .suggest em { font-style: italic; font-family: var(--font-display); font-size: 15px;}
+
+  /* ── Library ───────────────────────── */
+  .lib {
+    padding: 40px 80px 80px;
+    position: relative;
+  }
+  .lib-head {
+    display: flex; align-items: end; justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .lib-title { font-family: var(--font-display); font-size: 36px; letter-spacing: -0.02em; margin: 0;}
+  .lib-title em { font-style: italic;}
+  .lib-sub { font-size: 14px; color: var(--fg-muted); margin-top: 4px;}
+  .lib-filters { display:flex; gap: 8px;}
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .story {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform var(--t-medium) var(--ease-out-cinema), box-shadow var(--t-medium);
+    box-shadow: var(--shadow-card);
+    position: relative;
+  }
+  .story:hover { box-shadow: var(--shadow-card), var(--shadow-glow-soft); transform: translateY(-2px);}
+  .poster {
+    aspect-ratio: 16/10; position: relative; overflow: hidden;
+  }
+  .poster::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(13,15,23,0.18) 100%);
+  }
+  .poster-label {
+    position:absolute; left:16px; bottom:14px; z-index: 2;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 17px; color: rgba(255,253,247,0.85);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .pl-1 { background:
+    radial-gradient(60% 60% at 30% 30%, rgba(166,227,255,0.7), transparent 60%),
+    radial-gradient(70% 60% at 70% 70%, rgba(126,242,193,0.6), transparent 60%),
+    linear-gradient(135deg, #E5D0AC 0%, #C4A88A 100%);}
+  .pl-2 { background:
+    radial-gradient(50% 60% at 80% 20%, rgba(246,213,138,0.7), transparent 60%),
+    radial-gradient(60% 50% at 20% 80%, rgba(255,170,140,0.45), transparent 70%),
+    linear-gradient(160deg, #F4DDB4 0%, #C57F5D 100%);}
+  .pl-3 { background:
+    radial-gradient(50% 60% at 30% 70%, rgba(166,227,255,0.65), transparent 60%),
+    radial-gradient(60% 60% at 70% 30%, rgba(255,255,255,0.5), transparent 60%),
+    linear-gradient(180deg, #A4B8CB 0%, #5A6A7E 100%);}
+  .pl-4 { background:
+    radial-gradient(60% 50% at 50% 50%, rgba(154,225,157,0.5), transparent 60%),
+    linear-gradient(135deg, #C7D8B4 0%, #6F8557 100%);}
+  .pl-5 { background:
+    radial-gradient(60% 60% at 30% 30%, rgba(246,213,138,0.6), transparent 60%),
+    linear-gradient(160deg, #E8C9A0 0%, #A07757 100%);}
+  .pl-6 { background:
+    radial-gradient(60% 60% at 70% 30%, rgba(166,227,255,0.55), transparent 60%),
+    radial-gradient(40% 40% at 30% 70%, rgba(246,213,138,0.4), transparent 60%),
+    linear-gradient(135deg, #DCC9B6 0%, #836C5A 100%);}
+
+  .play-fab {
+    position: absolute; right: 14px; bottom: 14px; z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--bg-glass); backdrop-filter: var(--blur-glass);
+    border: 1px solid rgba(255,255,255,0.6);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: var(--shadow-float);
+  }
+  .play-fab svg { width: 13px; height: 13px; color: var(--ink);}
+
+  .story-body { padding: 16px 20px 18px;}
+  .story-title { font-family: var(--font-display); font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 6px;}
+  .story-meta { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--fg-quiet); letter-spacing: 0.06em; text-transform: uppercase;}
+  .story-meta .sep { color: var(--ink-24);}
+
+  /* in-progress story card */
+  .story-progress {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-card);
+  }
+  .progress-poster {
+    aspect-ratio: 16/10;
+    background:
+      radial-gradient(70% 70% at 50% 50%, rgba(154,225,157,0.7), transparent 70%),
+      radial-gradient(50% 50% at 30% 30%, rgba(255,255,255,0.6), transparent 60%),
+      linear-gradient(135deg, #B7D6BF 0%, #6E9C84 100%);
+    position: relative;
+    display:flex; align-items:center; justify-content: center;
+  }
+  .progress-orb {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #9AE19D 35%, #40E0B0 70%, transparent 100%);
+    box-shadow: 0 0 60px rgba(64,224,176,0.8);
+    animation: breathe 4s ease-in-out infinite;
+  }
+  .progress-body { padding: 16px 20px 18px; }
+  .progress-status { display:flex; align-items:center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--emerald); margin-bottom: 6px;}
+  .progress-title { font-family: var(--font-display); font-style: italic; font-size: 20px; line-height: 1.2;}
+
+  /* ── Right-side ambient orb ────────── */
+  .ambient-orb {
+    position: absolute; pointer-events: none;
+    width: 600px; height: 600px; border-radius: 50%;
+    right: -200px; top: -180px;
+    background: var(--grad-aurora);
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: breathe 6s ease-in-out infinite;
+  }
+
+  .footer-strip {
+    padding: 24px 80px 36px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    display:flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="app" data-screen-label="App · Story Studio">
+  <aside>
+    <div class="brand">
+      <div class="brand-glyph"></div>
+      <span class="brand-word">Siy<em>AI</em></span>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-item active"><i data-lucide="sparkles"></i>Studio</div>
+      <div class="nav-item"><i data-lucide="library"></i>Library</div>
+      <div class="nav-item"><i data-lucide="film"></i>Films</div>
+      <div class="nav-item"><i data-lucide="music"></i>Songs</div>
+      <div class="nav-item"><i data-lucide="bookmark"></i>Saved</div>
+      <div class="nav-item"><i data-lucide="moon-star"></i>Dreams</div>
+    </nav>
+
+    <div>
+      <div class="nav-section">Collections</div>
+      <div class="collection"><span class="collection-dot" style="background:#F6D58A"></span>Family</div>
+      <div class="collection"><span class="collection-dot" style="background:#A6E3FF"></span>Travel</div>
+      <div class="collection"><span class="collection-dot" style="background:#7EF2C1"></span>Quiet mornings</div>
+      <div class="collection"><span class="collection-dot" style="background:#9AE19D"></span>Voice Letters to me</div>
+      <div class="collection" style="color:var(--fg-faint);"><i data-lucide="plus" style="width:14px;height:14px;"></i>New collection</div>
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="me">
+      <div class="me-avatar"></div>
+      <div style="flex:1; min-width:0;">
+        <div class="me-name">Priya R.</div>
+        <div class="me-sub">12 memories made</div>
+      </div>
+      <i data-lucide="settings" style="width:16px;height:16px; color:var(--fg-faint);"></i>
+    </div>
+  </aside>
+
+  <main>
+    <div class="ambient-orb"></div>
+
+    <div class="topbar">
+      <div class="crumbs">
+        <span class="eyebrow">Studio</span>
+        <span style="color: var(--ink-24);">/</span>
+        <em>A new story</em>
+      </div>
+      <div class="topbar-right">
+        <div class="search">
+          <i data-lucide="search"></i>
+          Search your memories
+        </div>
+        <button class="btn btn-quiet btn-sm" style="display:flex;align-items:center;gap:6px;">
+          <i data-lucide="bell" style="width:14px;height:14px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-eyebrow"><span class="dot is-breathing"></span>SiyAI is listening</div>
+      <h1 class="hero-title">Good morning, Priya.<br>What are we <em>making today?</em></h1>
+      <p class="hero-sub">Share a memory, a feeling, a thought. No prompting, no directing. We'll turn it into a piece of cinema, a song, or an immersive experience. Yours alone.</p>
+
+      <div class="prompt">
+        <textarea>The last summer evening with my brother, before he moved away. We sat on the steps. The sky went pink.</textarea>
+        <div class="prompt-foot">
+          <div class="prompt-tools">
+            <button class="tool"><i data-lucide="image"></i>Add a photo</button>
+            <button class="tool"><i data-lucide="mic"></i>Voice note</button>
+            <button class="tool"><i data-lucide="map-pin"></i>Place</button>
+          </div>
+          <div style="display:flex; align-items:center; gap: 14px;">
+            <div class="modes">
+              <span class="mode-chip active"><i data-lucide="film"></i>Film</span>
+              <span class="mode-chip"><i data-lucide="music"></i>Song</span>
+              <span class="mode-chip"><i data-lucide="sparkles"></i>Experience</span>
+            </div>
+            <button class="btn btn-primary">
+              Bring it to life
+              <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="suggests">
+        <span class="suggest">A song from <em>a Sunday afternoon at Nani's</em></span>
+        <span class="suggest">A film about <em>Dadi's kitchen</em></span>
+        <span class="suggest">A letter to <em>myself, in five years</em></span>
+        <span class="suggest">A score for <em>the moment everything changed</em></span>
+      </div>
+    </section>
+
+    <section class="lib">
+      <div class="lib-head">
+        <div>
+          <h2 class="lib-title">From your <em>library.</em></h2>
+          <p class="lib-sub">Twelve stories. Made between March and May.</p>
+        </div>
+        <div class="lib-filters">
+          <span class="badge badge-mint" style="padding:8px 14px; font-size:12px;"><span class="dot dot-mint"></span> All</span>
+          <span class="badge" style="padding:8px 14px; font-size:12px;">Films</span>
+          <span class="badge" style="padding:8px 14px; font-size:12px;">Songs</span>
+          <span class="badge" style="padding:8px 14px; font-size:12px;">Voice Letters</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="story-progress">
+          <div class="progress-poster"><div class="progress-orb"></div></div>
+          <div class="progress-body">
+            <div class="progress-status"><span class="dot dot-mint is-breathing"></span><span class="shimmer-text">Finding the feeling…</span></div>
+            <div class="progress-title"><em>The last summer evening.</em></div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="poster pl-1">
+            <span class="poster-label">a hand at the diya</span>
+          </div>
+          <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="story-body">
+            <div class="story-title">The morning of Diwali.</div>
+            <div class="story-meta">Film<span class="sep">·</span>02:14<span class="sep">·</span>private</div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="poster pl-2">
+            <span class="poster-label">Maa's Maa's kitchen, summer</span>
+          </div>
+          <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="story-body">
+            <div class="story-title">A song for Maa.</div>
+            <div class="story-meta">Song<span class="sep">·</span>03:42<span class="sep">·</span>shared</div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="poster pl-3">
+            <span class="poster-label">diwali at nani's house, paris</span>
+          </div>
+          <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="story-body">
+            <div class="story-title">The morning everything went quiet.</div>
+            <div class="story-meta">Film<span class="sep">·</span>01:48<span class="sep">·</span>ambient</div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="poster pl-4">
+            <span class="poster-label">a field at dusk</span>
+          </div>
+          <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="story-body">
+            <div class="story-title">Walking back to Dadu's farm.</div>
+            <div class="story-meta">Film<span class="sep">·</span>02:32</div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="poster pl-5">
+            <span class="poster-label">a gift, for Maa</span>
+          </div>
+          <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="story-body">
+            <div class="story-title">For Maa, on her birthday.</div>
+            <div class="story-meta">Experience<span class="sep">·</span>05:02<span class="sep">·</span><span style="color: #7a5a16;">gifted</span></div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="poster pl-6">
+            <span class="poster-label">the long drive</span>
+          </div>
+          <div class="play-fab"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="story-body">
+            <div class="story-title">The drive to the village.</div>
+            <div class="story-meta">Song<span class="sep">·</span>04:08<span class="sep">·</span>folk</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer-strip">
+      <span>SiyAI · made for storytellers</span>
+      <span>v 1.04 · spring chapter</span>
+    </div>
+  </main>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.5 }});</script>
+</body>
+</html>

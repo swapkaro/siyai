@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiyAI · Studio intro</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: #0D0F17; width: 100%; height: 100%; overflow: hidden;}
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh;}
+  #root { width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center;}
+
+  /* Cinzel weight 500 is the canonical ceremonial mark */
+  .stone { font-family: var(--font-stone); font-weight: 500;}
+  .voice { font-family: var(--font-display); font-style: italic;}
+  .mono  { font-family: var(--font-mono);}
+
+  /* The animation scene fills its parent with a fixed 1920x1080 stage that gets scaled. */
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="../animations.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+// ═══════════════════════════════════════════════════════════════════
+//  SiyAI · Studio intro · 9-second cinematic bumper
+//
+//  Beat sheet:
+//    0.0 → 0.8s   Black silence. Paper grain settling in.
+//    0.8 → 2.2s   Two thin gold hairlines draw outward from center.
+//                  (Like an opening shutter, or a film leader countdown.)
+//    1.6 → 3.2s   A warm gold halo blooms from where SIYAI will be.
+//    2.6 → 4.6s   Five letters of SIYAI carve in one by one (fade + rise).
+//    4.4 → 5.4s   "AI" shifts from ivory to gold — the magic moment.
+//    5.0 → 6.0s   Italic Fraunces subtitle rises beneath: "a place for memory"
+//    6.0 → 7.5s   Hold. The mark breathes once.
+//    7.5 → 9.0s   Slow fade to black.
+// ═══════════════════════════════════════════════════════════════════
+
+const { useEffect, useState } = React;
+
+// Helpers from animations.jsx — these are global after Babel resolves
+const E = window.Easing;
+const interp = window.interpolate;
+
+// ─── Background grain + ambient star drift ──────────────────────────
+const Backdrop = () => {
+  const t = window.useTime();
+  // Slow drift of two ambient halos far behind everything
+  const drift1X = Math.sin(t * 0.5) * 30;
+  const drift1Y = Math.cos(t * 0.3) * 20;
+  return (
+    <div style={{
+      position: 'absolute', inset: 0, background: '#0D0F17', overflow: 'hidden',
+    }}>
+      {/* Paper-grain overlay */}
+      <div style={{
+        position: 'absolute', inset: 0, opacity: 0.07,
+        mixBlendMode: 'overlay',
+        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")`,
+      }} />
+      {/* Far drifting ambient halo */}
+      <div style={{
+        position: 'absolute', left: '50%', top: '50%',
+        width: 1600, height: 1600, borderRadius: '50%',
+        transform: `translate(${-800 + drift1X}px, ${-800 + drift1Y}px)`,
+        background: 'radial-gradient(circle, rgba(64,224,176,0.05) 0%, transparent 60%)',
+        filter: 'blur(60px)',
+      }} />
+      <div style={{
+        position: 'absolute', right: -200, bottom: -200,
+        width: 900, height: 900, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(246,213,138,0.08) 0%, transparent 60%)',
+        filter: 'blur(60px)',
+      }} />
+    </div>
+  );
+};
+
+// ─── Opening hairlines ──────────────────────────────────────────────
+// Two thin gold rules expand outward from center, like a film leader
+const Hairlines = () => {
+  const { progress } = window.useSprite();
+  // ease the spread
+  const eased = E.easeOutQuart(progress);
+  const widthVw = eased * 38; // up to 38% of stage width
+  const opacity = interp([0, 0.2, 0.8, 1], [0, 1, 1, 0.4])(progress);
+  const yOffset = interp([0, 1], [0, -1])(progress);
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+      {[0, 1].map((i) => (
+        <div key={i} style={{
+          position: 'absolute',
+          left: '50%', top: `calc(50% + ${i === 0 ? -180 : 180}px)`,
+          width: `${widthVw}%`,
+          maxWidth: 720,
+          height: 1,
+          transform: 'translateX(-50%)',
+          background: `linear-gradient(90deg, transparent 0%, rgba(246,213,138,${0.7 * opacity}) 50%, transparent 100%)`,
+        }} />
+      ))}
+    </div>
+  );
+};
+
+// ─── Gold halo bloom ────────────────────────────────────────────────
+const GoldHalo = () => {
+  const { progress } = window.useSprite();
+  const eased = E.easeOutQuart(progress);
+  const scale = interp([0, 1], [0.2, 1])(eased);
+  const opacity = interp([0, 0.6, 1], [0, 0.9, 0.85])(progress);
+  return (
+    <div style={{
+      position: 'absolute', left: '50%', top: '50%',
+      width: 1200, height: 1200, borderRadius: '50%',
+      transform: `translate(-50%, -50%) scale(${scale})`,
+      background: 'radial-gradient(circle, rgba(246,213,138,0.40) 0%, rgba(64,224,176,0.10) 35%, transparent 70%)',
+      filter: 'blur(60px)',
+      opacity,
+      pointerEvents: 'none',
+    }} />
+  );
+};
+
+// ─── SIYAI letters — carve in one by one ────────────────────────────
+const Wordmark = () => {
+  const time = window.useTime();
+  const letters = ['S', 'I', 'Y', 'A', 'I'];
+
+  // Each letter starts at staggered time, and once "AI" lands (~4.4s) it
+  // begins to shift toward gold over the next second.
+  const letterStart = 2.6;
+  const letterStagger = 0.36;
+  const aiGoldStart = 4.4;
+  const aiGoldEnd = 5.4;
+  const aiGoldProgress = Math.max(0, Math.min(1, (time - aiGoldStart) / (aiGoldEnd - aiGoldStart)));
+  const goldT = E.easeInOutQuad(aiGoldProgress);
+
+  return (
+    <div style={{
+      position: 'absolute', left: '50%', top: '50%',
+      transform: 'translate(-50%, -50%)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      paddingLeft: '0.42em', // counter the trailing tracking
+    }}>
+      {letters.map((ch, i) => {
+        const start = letterStart + i * letterStagger;
+        const local = Math.max(0, Math.min(1, (time - start) / 0.8));
+        const eased = E.easeOutQuart(local);
+        const opacity = eased;
+        const ty = (1 - eased) * 24;
+
+        // Whether this letter is part of the "AI" suffix (positions 3, 4)
+        const isAI = i >= 3;
+        // Interpolate color from ivory to gold for AI letters
+        const color = isAI
+          ? blendColor([255, 253, 247], [246, 213, 138], goldT)
+          : 'rgb(255, 253, 247)';
+
+        return (
+          <span key={i} className="stone" style={{
+            fontSize: 200,
+            letterSpacing: '0.42em',
+            color,
+            opacity,
+            transform: `translateY(${ty}px)`,
+            display: 'inline-block',
+            textShadow: isAI && goldT > 0.5
+              ? `0 0 ${30 + goldT * 40}px rgba(246,213,138,${0.5 * goldT})`
+              : 'none',
+          }}>
+            {ch}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+
+function blendColor(a, b, t) {
+  const r = Math.round(a[0] + (b[0] - a[0]) * t);
+  const g = Math.round(a[1] + (b[1] - a[1]) * t);
+  const bb = Math.round(a[2] + (b[2] - a[2]) * t);
+  return `rgb(${r}, ${g}, ${bb})`;
+}
+
+// ─── Subtitle ────────────────────────────────────────────────────────
+const Subtitle = () => {
+  const { progress } = window.useSprite();
+  const eased = E.easeOutQuart(progress);
+  const opacity = interp([0, 0.6, 1], [0, 1, 1])(eased);
+  const ty = (1 - eased) * 14;
+
+  return (
+    <div style={{
+      position: 'absolute', left: '50%', top: 'calc(50% + 180px)',
+      transform: `translate(-50%, ${ty}px)`,
+      opacity,
+      textAlign: 'center',
+    }}>
+      <div className="voice" style={{
+        fontSize: 38,
+        color: 'rgba(255,253,247,0.85)',
+        letterSpacing: '-0.01em',
+        marginBottom: 16,
+      }}>
+        a place where <em style={{ color: '#F6D58A' }}>stories</em> live
+      </div>
+      <div className="mono" style={{
+        fontSize: 13,
+        letterSpacing: '0.42em',
+        textTransform: 'uppercase',
+        color: 'rgba(255,253,247,0.4)',
+      }}>
+        MMXXVI · Vol. I · Spring chapter
+      </div>
+    </div>
+  );
+};
+
+// ─── Final mark breath ───────────────────────────────────────────────
+// Adds a subtle gold rim around the whole mark area once it settles
+const FinalGlow = () => {
+  const { progress } = window.useSprite();
+  // Breathe in once over the duration of this sprite
+  const breath = Math.sin(progress * Math.PI) * 0.45 + 0.55;
+  return (
+    <div style={{
+      position: 'absolute', left: '50%', top: '50%',
+      width: 1400, height: 600, borderRadius: '50%',
+      transform: 'translate(-50%, -50%)',
+      background: `radial-gradient(ellipse, rgba(246,213,138,${0.12 * breath}) 0%, transparent 60%)`,
+      filter: 'blur(30px)',
+      pointerEvents: 'none',
+    }} />
+  );
+};
+
+// ─── Final fade to black ─────────────────────────────────────────────
+const FadeOut = () => {
+  const { progress } = window.useSprite();
+  return (
+    <div style={{
+      position: 'absolute', inset: 0,
+      background: '#0D0F17',
+      opacity: E.easeInQuart(progress),
+      pointerEvents: 'none',
+    }} />
+  );
+};
+
+// ─── Open-credit overlays (tiny corner stamps) ──────────────────────
+const CornerMarks = () => {
+  const t = window.useTime();
+  const fadeIn = Math.max(0, Math.min(1, (t - 6.0) / 1.0));
+  return (
+    <>
+      <div className="mono" style={{
+        position: 'absolute', top: 40, left: 56,
+        fontSize: 11, letterSpacing: '0.32em', textTransform: 'uppercase',
+        color: `rgba(255,253,247,${0.4 * fadeIn})`,
+      }}>
+        SiyAI Studios · presents
+      </div>
+      <div className="mono" style={{
+        position: 'absolute', top: 40, right: 56,
+        fontSize: 11, letterSpacing: '0.32em', textTransform: 'uppercase',
+        color: `rgba(255,253,247,${0.4 * fadeIn})`,
+      }}>
+        № 01
+      </div>
+    </>
+  );
+};
+
+// ─── Scene ──────────────────────────────────────────────────────────
+const Scene = () => (
+  <>
+    <Backdrop />
+
+    {/* 0.8 → 2.2s · hairlines drawing outward */}
+    <window.Sprite start={0.8} end={2.4}><Hairlines /></window.Sprite>
+
+    {/* 1.6 → 3.2s · gold halo bloom (lives behind the wordmark) */}
+    <window.Sprite start={1.6} end={3.2}><GoldHalo /></window.Sprite>
+
+    {/* 2.6 → onward · the wordmark itself (renders constantly, fades letters in via time) */}
+    <Wordmark />
+
+    {/* 5.0 → 7.0s · subtitle rises */}
+    <window.Sprite start={5.0} end={7.0}><Subtitle /></window.Sprite>
+
+    {/* 5.5 → 8.5s · final breath behind the mark */}
+    <window.Sprite start={5.5} end={8.5}><FinalGlow /></window.Sprite>
+
+    {/* 6.0 → 9.0s · corner stamps */}
+    <CornerMarks />
+
+    {/* 7.8 → 9.0s · fade to black */}
+    <window.Sprite start={7.8} end={9.0}><FadeOut /></window.Sprite>
+  </>
+);
+
+// ─── Mount ──────────────────────────────────────────────────────────
+function App() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    // animations.jsx mounts after this script, so wait one frame for window.Stage etc.
+    const check = () => {
+      if (window.Stage && window.Sprite && window.useTime && window.useSprite) setReady(true);
+      else requestAnimationFrame(check);
+    };
+    check();
+  }, []);
+
+  if (!ready) {
+    return <div style={{ color: '#FFFDF7', fontFamily: 'Geist Mono', fontSize: 12, opacity: 0.4, letterSpacing: '0.3em' }}>LOADING</div>;
+  }
+
+  return (
+    <window.Stage width={1920} height={1080} duration={9} background="#0D0F17">
+      <Scene />
+    </window.Stage>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
