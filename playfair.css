@@ -1,0 +1,84 @@
+/* ============================================================
+   SiyAI · Playfair + Inter type variant
+   Re-fonts index.html via CSS variable + import overrides.
+   Loads Playfair Display (display serif) + Inter (body sans).
+   Leaves Cinzel (ceremonial) and Geist Mono (technical) intact.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-display: 'Playfair Display', 'Times New Roman', serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Playfair has wider letterforms than Fraunces at display sizes — pull
+   the negative tracking in slightly and loosen line-height so it doesn't
+   feel cramped. Body Inter prefers neutral tracking. */
+.hero-col h1,
+.hero h1,
+.tuesday-intro h2,
+.line-quote h2,
+.intent-head h2,
+.con-head h2,
+.products-head h2,
+.behind-head h2,
+.how-head h2,
+.arrival-head h2,
+.trust-head h2,
+.price-left h2,
+.phase2-left h2,
+.close h2 {
+  letter-spacing: -0.025em;
+  line-height: 0.96;
+}
+
+/* Playfair italics are markedly more cursive than Fraunces — keep
+   emphasis usage but tighten spacing around emphasised runs. */
+.hero-col h1 em,
+h1 em, h2 em, h3 em,
+.beat-text em,
+.line-quote h2 .accent {
+  font-style: italic;
+  letter-spacing: -0.015em;
+}
+
+/* Inter UI: don't optical-size, do tighten letter-spacing on body */
+body,
+.cta-primary, .cta-quiet, .nav-cta,
+.nav-links, .eyebrow, .micro,
+.beat-text,
+.intent-card p, .room-card p, .step p, .trust-line, .price-card .name {
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+}
+
+/* Italic Inter is geometrically distinct from Playfair italics — keep
+   italic emphasis on the serif side, never on Inter body. */
+.beat-text em,
+.intent-card h3 em,
+.step h3 em,
+.product-small .ps-name em,
+.product-hero .ph-name em,
+.phase2-card .name em,
+.close h2 em,
+.trust-line em {
+  font-family: var(--font-display);
+}
+
+/* Eyebrows + mono details — Geist Mono is great, keep it. But
+   stamps using --font-mono should sit a touch heavier on a Playfair
+   page to balance the more decorative serif. */
+.t-eyebrow, .eyebrow, .micro, .ps-meta, .beat-time .d {
+  font-weight: 500;
+}
+
+/* Wordmark refinement: Playfair "Siy" + small caps "AI" reads warmer
+   if the italic is slightly looser */
+.nav .brand,
+.footer-brand .word,
+.s-brand {
+  font-family: var(--font-display);
+}
+.nav .brand em { font-style: italic; }
+
+/* The brand orb-glyph mark stays as-is */
