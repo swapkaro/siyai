@@ -102,6 +102,27 @@ body::after {
               visibility 0s linear 0s,
               transform 360ms var(--ease-out-cinema);
 }
+/* on the hero, also drop the nav's own background — let the film breathe */
+.nav.is-on-hero {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom-color: transparent !important;
+}
+/* slide the nav up on scroll-down, slide it back on scroll-up */
+.nav {
+  transform: translateY(0);
+  transition: background 420ms var(--ease-out-cinema),
+              color 420ms var(--ease-out-cinema),
+              border-color 420ms var(--ease-out-cinema),
+              transform 360ms var(--ease-out-cinema),
+              opacity 360ms var(--ease-out-cinema);
+}
+.nav.is-hidden {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* ─── shared primitives ───────────────────────────────── */
 .eyebrow {
@@ -830,10 +851,11 @@ image-slot {
   width: 240px;
   border-radius: 22px;
   padding: 16px;
-  background: rgba(255, 253, 247, 0.05);
+  background: rgba(45, 25, 70, 0.35);
   border: 1px solid rgba(255, 253, 247, 0.12);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  /* backdrop-filter removed — it was repainting all six orbs over the
+     complex constellation background on every scroll frame. The deeper
+     translucent fill keeps the glass feel without the cost. */
   display: flex; flex-direction: column; gap: 12px;
   transition: transform 420ms var(--ease-out-cinema),
               background 320ms var(--ease-out-cinema),
@@ -843,6 +865,7 @@ image-slot {
   animation: orb-drift 14s ease-in-out infinite;
   text-decoration: none; color: inherit;
   box-sizing: border-box;
+  will-change: transform;
 }
 .con-canvas .orb:hover {
   background: rgba(255, 253, 247, 0.10);
