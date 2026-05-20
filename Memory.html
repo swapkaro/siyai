@@ -35,16 +35,6 @@
 
   <video class="hero-bg" muted loop playsinline preload="metadata" poster="assets/generated/hero-still.png" aria-hidden="true"></video>
 
-  <div class="hero-now reveal">
-    <div class="live">NOW SHOWING &middot; N&deg; 014</div>
-    <div class="ts">9:14 am &middot; Tuesday</div>
-    <button class="hero-sound" id="heroSound" type="button" aria-label="Sound off" aria-pressed="false">
-      <span class="icn" aria-hidden="true">&#9835;</span><span class="lbl">Sound off</span>
-    </button>
-  </div>
-
-  <a class="hero-play reveal" href="Watch.html" aria-label="Watch the film full screen"></a>
-
   <div class="hero-col reveal">
     <div class="it"><em>It&rsquo;s Tuesday.</em></div>
     <h1>
@@ -56,11 +46,6 @@
     </div>
   </div>
 
-  <div class="hero-loop reveal" aria-hidden="true">
-    <span class="bar"></span>
-    <span class="lbl">A FILM, ON LOOP</span>
-    <span class="bar"></span>
-  </div>
 
 </section>
 
@@ -693,20 +678,6 @@
       }
     })();
     heroBg.addEventListener('playing', () => heroBg.classList.add('is-playing'));
-
-    const soundBtn = document.getElementById('heroSound');
-    if (soundBtn) {
-      soundBtn.addEventListener('click', () => {
-        heroBg.muted = !heroBg.muted;
-        const on = !heroBg.muted;
-        soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        soundBtn.setAttribute('aria-label', on ? 'Sound on' : 'Sound off');
-        soundBtn.classList.toggle('is-on', on);
-        const lbl = soundBtn.querySelector('.lbl');
-        if (lbl) lbl.textContent = on ? 'Sound on' : 'Sound off';
-        if (on) { const p = heroBg.play(); if (p && p.catch) p.catch(() => {}); }
-      });
-    }
 
     const hero = document.querySelector('.hero');
     if (hero && 'IntersectionObserver' in window) {
