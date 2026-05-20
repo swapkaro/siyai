@@ -1,0 +1,106 @@
+/* Landing variant — Memory Light palette (experimental).
+   Uses the deep purple / mauve / sage / brown set against a soft warm ivory.
+   This file ONLY overrides what's needed; landing/styles.css still loads first. */
+
+:root{
+  /* keep the ivory base; warm it just a touch toward the brown/mauve world */
+  --ivory: #F8F3EA;
+  --ivory-deep: #F1EAD9;
+  --ivory-darker: #E8DFCB;
+
+  /* re-cast the brand palette */
+  --ink: #2D1F2D;                  /* deep emotional purple, near-black */
+  --ink-soft: #49306B;             /* deep emotional purple */
+  --ink-quiet: #8B7B65;            /* nostalgic brown */
+
+  /* "mint / seafoam / emerald" are now the soft sage scale */
+  --mint:        #D6EEC4;
+  --seafoam:     #BFE2A8;
+  --emerald:     #7AB068;          /* deeper sage as the action color */
+  --emerald-deep:#5E8E50;
+
+  /* "sky" is now dusty mauve, "gold" is nostalgic brown */
+  --sky:  #D9BFC4;
+  --gold: #B49870;
+
+  --rule:      #D9CFBC;
+  --rule-soft: #E9E1CE;
+  --letterbox: #2D1F2D;            /* if bars are ever turned on, they're deep purple */
+
+  /* light tokens (overridden again at runtime by app.jsx) */
+  --tk-bar: 0px;
+  --tk-orb: 0.7;
+  --tk-light-h1: rgba(73, 48, 107, 0.20);   /* deep purple bloom */
+  --tk-light-h2: rgba(99, 83, 128, 0.30);   /* dreamy purple */
+  --tk-light-mid: rgba(217, 191, 196, 0.35);/* dusty mauve */
+  --tk-light-end: rgba(180, 152, 112, 0.32);/* nostalgic brown */
+}
+
+/* The orb — sage glow with a deep purple core, like a lit memory */
+.orb{
+  background: radial-gradient(circle at 35% 35%, #EEF7E2 0%, #D6EEC4 55%, #BFE2A8 100%);
+  box-shadow:
+    0 0 0 calc(14px * var(--tk-orb)) rgba(172, 228, 170, 0.18),
+    0 0 0 calc(32px * var(--tk-orb)) rgba(172, 228, 170, 0.08),
+    0 0 0 calc(64px * var(--tk-orb)) rgba(217, 191, 196, 0.06);
+}
+.orb::after{
+  background: radial-gradient(circle at 35% 35%, rgba(73, 48, 107, 0.95) 0%, rgba(45, 31, 45, 0.92) 100%);
+}
+
+/* Emerald-named CTA renders as deep emotional purple */
+.cta{
+  background: var(--ink-soft);
+  color: var(--ivory);
+}
+.cta:hover{ background: #382453; }
+
+/* The "em" italic accent in body is dreamy memory purple */
+.em, .it.em, .ser .em{ color: var(--ink-soft); }
+
+/* Eyebrow + meta read as nostalgic brown */
+.eyebrow, .meta-tl, .meta-bl, .meta-br, .label, .foot-meta, .mono{
+  color: var(--ink-quiet);
+}
+
+/* Placeholder frames get a softer warm tone */
+.placeholder{
+  background: var(--ivory-deep);
+  background-image:
+    repeating-linear-gradient(135deg,
+      rgba(73, 48, 107, 0.04) 0 1px,
+      transparent 1px 6px);
+  border: 1px solid var(--rule);
+}
+
+/* Stop indicator on the left */
+.stop-indicator .idx{ color: var(--ink-soft); }
+
+/* Scroll progress hairline matches deep purple */
+.scroll-progress-bar{ background: var(--ink-soft); }
+
+/* Navbar dot — sage with purple core */
+.top-nav .mark .dot{
+  background: var(--emerald);
+}
+
+/* Pills (safekeeping) */
+.pill{
+  border-color: var(--rule);
+  background: rgba(248, 243, 234, 0.65);
+  color: var(--ink-quiet);
+}
+
+/* Hero bloom — deep purple */
+section.stop .stage{
+  /* untouched, but make sure radials show through */
+}
+
+/* Selection */
+.siy *::selection, ::selection{
+  background: rgba(217, 191, 196, 0.55);
+  color: var(--ink);
+}
+
+/* Cinema bars (deep purple if ever shown) */
+.letterbox-top, .letterbox-bottom{ background: var(--letterbox); }
