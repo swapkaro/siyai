@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SiyAI · Three-mark hierarchy</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 28px 32px; background: var(--ivory); font-family: var(--font-body);}
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;}
+  .card {
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-elevated);
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .card.dark { background: var(--ink); color: var(--ivory);}
+  .tag {
+    position: absolute; top: 12px; right: 12px; z-index: 4;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+    background: var(--ink-04); color: var(--ink-72);
+  }
+  .card.dark .tag { background: rgba(255,253,247,0.10); color: rgba(255,253,247,0.7);}
+
+  .stage {
+    flex: 1; min-height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 28px;
+  }
+
+  .meta {
+    padding: 14px 18px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+  .card.dark .meta {
+    background: rgba(255,253,247,0.04);
+    border-top-color: rgba(255,253,247,0.08);
+    color: var(--ivory);
+  }
+  .role {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--emerald-deep);
+    margin-bottom: 4px;
+  }
+  .card.dark .role { color: var(--gold);}
+  .name {
+    font-family: var(--font-display); font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .name em { font-style: italic;}
+  .use {
+    font-size: 12px; color: var(--fg-muted);
+    margin-top: 6px; line-height: 1.45;
+  }
+  .card.dark .use { color: rgba(255,253,247,0.7);}
+
+  /* Renders */
+  .orb { width: 52px; height: 52px;}
+  .orb svg { width: 100%; height: 100%; display: block;}
+
+  .m-fraunces {
+    font-family: var(--font-display); font-size: 48px; letter-spacing: -0.04em; color: var(--ink);
+  }
+  .m-fraunces em { font-style: italic; color: var(--emerald-deep);}
+
+  .m-stone {
+    font-family: var(--font-stone); font-weight: 500;
+    font-size: 32px; letter-spacing: 0.42em;
+    color: var(--ivory);
+    padding-left: 0.42em;
+  }
+  .m-stone .ai { color: var(--gold);}
+</style>
+</head>
+<body>
+  <div class="grid">
+
+    <div class="card">
+      <span class="tag">Tiny</span>
+      <div class="stage">
+        <div class="orb">
+          <svg viewBox="0 0 64 64">
+            <defs>
+              <radialGradient id="o1" cx="40%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="22%" stop-color="#C8F1D2"/>
+                <stop offset="50%" stop-color="#9AE19D"/>
+                <stop offset="78%" stop-color="#40E0B0"/>
+                <stop offset="100%" stop-color="#A6E3FF"/>
+              </radialGradient>
+            </defs>
+            <circle cx="32" cy="32" r="28" fill="url(#o1)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="role">Smallest · the orb alone</div>
+        <div class="name">The <em>mark</em></div>
+        <div class="use">Favicon, browser tab, app icon, OS dock, watch face, any context under 32px where letters would crush.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="tag">Everyday</span>
+      <div class="stage">
+        <span class="m-fraunces">Siy<em>AI</em></span>
+      </div>
+      <div class="meta">
+        <div class="role">Primary · the working mark</div>
+        <div class="name">Fraunces <em>Siy AI</em></div>
+        <div class="use">App nav, marketing nav, email signature, social handle, product UI. Carries the brand's italic voice.</div>
+      </div>
+    </div>
+
+    <div class="card dark">
+      <span class="tag">Ceremonial</span>
+      <div class="stage">
+        <span class="m-stone">SIY<span class="ai">AI</span></span>
+      </div>
+      <div class="meta">
+        <div class="role">Cinematic · the studio mark</div>
+        <div class="name">Cinzel <em>SIYAI</em></div>
+        <div class="use">Start of every film SiyAI delivers, end credits, posters, gift packaging, deck covers. The "film studio" mark.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
