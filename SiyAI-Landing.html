@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SiyAI — A place where stories live.</title>
+<meta name="description" content="SiyAI keeps the things a phone can hold but never quite remembers. A voice. A face. A film of an afternoon nobody filmed." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { background: #FBF8EF; }
+</style>
+<style id="landing-styles">
+:root{
+  --ivory: #FBF8EF;
+  --ivory-deep: #F4F0E2;
+  --ivory-darker: #ECE6D4;
+  --ink: #14181A;
+  --ink-soft: #2A2F30;
+  --ink-quiet: #6B6E68;
+  --mint: #C9E7C2;
+  --seafoam: #B7E3CB;
+  --emerald: #2E9F7E;
+  --emerald-deep: #1C6E58;
+  --sky: #BFD6E6;
+  --gold: #D7B96A;
+  --rule: #D9D3C2;
+  --rule-soft: #ECE6D4;
+  --letterbox: #0E1216;
+  --tk-bar: 64px;
+  --tk-orb: 1.0;
+  --tk-light-h1: rgba(46, 159, 126, 0.18);
+  --tk-light-h2: rgba(201, 231, 194, 0.40);
+  --tk-light-mid: rgba(183, 227, 203, 0.36);
+  --tk-light-end: rgba(215, 185, 106, 0.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{ scroll-behavior: smooth; }
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:'Geist', ui-sans-serif, system-ui, sans-serif;
+  font-weight:400;
+  font-size:17px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{ background: var(--mint); color: var(--ink); }
+.grain::after{
+  content:""; position: fixed; inset: 0; pointer-events:none; z-index: 200;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply; opacity: 0.55;
+}
+.ser{ font-family:'Fraunces', serif; font-variation-settings: "opsz" 144, "SOFT" 100; }
+.it{ font-style: italic; }
+.em{ font-style: italic; color: var(--emerald); }
+.mono{ font-family: 'Geist Mono', ui-monospace, monospace; }
+.eyebrow{
+  font-family:'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-quiet);
+}
+.top-nav{
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 56px;
+  z-index: 100;
+  pointer-events: none;
+  transition: color 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
+}
+.top-nav > *{ pointer-events: auto; }
+.top-nav .mark{
+  font-family:'Fraunces', serif; font-style: italic; font-weight: 500;
+  font-size: 19px; letter-spacing: -0.01em; color: var(--ink);
+}
+.top-nav .mark .dot{
+  display: inline-block; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--emerald);
+  margin: 0 8px 2px 0; vertical-align: middle;
+}
+.top-nav .links{
+  display: flex; gap: 24px;
+  font-family:'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.top-nav .links a{ color: inherit; text-decoration: none; transition: color 0.2s; }
+.top-nav .links a:hover{ color: var(--ink); }
+.top-nav .links a.primary{ color: var(--ink); }
+.top-nav.on-dark .mark, .top-nav.on-dark .links, .top-nav.on-dark .links a{ color: rgba(251,248,239,0.75); }
+.top-nav.on-dark .mark{ color: var(--ivory); }
+.top-nav.on-dark .links a.primary{ color: var(--ivory); }
+.top-nav{ transform: translateY(0); }
+.top-nav.is-hidden{ transform: translateY(-110%); opacity: 0; pointer-events: none; }
+.orb{
+  position: relative;
+  width: calc(32px * var(--tk-orb));
+  height: calc(32px * var(--tk-orb));
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #DCEED4 0%, #C9E7C2 55%, #B7E3CB 100%);
+  box-shadow:
+    0 0 0 calc(14px * var(--tk-orb)) rgba(201, 231, 194, 0.18),
+    0 0 0 calc(32px * var(--tk-orb)) rgba(201, 231, 194, 0.08),
+    0 0 0 calc(64px * var(--tk-orb)) rgba(201, 231, 194, 0.04);
+  animation: orb-breathe 6s ease-in-out infinite;
+}
+.orb::after{
+  content:"";
+  position:absolute; inset: calc(7px * var(--tk-orb));
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(46,159,126,0.95) 0%, rgba(28,110,88,0.85) 100%);
+}
+.orb.small{ width: calc(20px * var(--tk-orb)); height: calc(20px * var(--tk-orb)); box-shadow: 0 0 0 calc(9px * var(--tk-orb)) rgba(201,231,194,0.2), 0 0 0 calc(20px * var(--tk-orb)) rgba(201,231,194,0.08); }
+.orb.small::after{ inset: calc(5px * var(--tk-orb)); }
+.orb.big{ width: calc(56px * var(--tk-orb)); height: calc(56px * var(--tk-orb)); box-shadow: 0 0 0 calc(32px * var(--tk-orb)) rgba(201,231,194,0.18), 0 0 0 calc(64px * var(--tk-orb)) rgba(201,231,194,0.08); }
+.orb.big::after{ inset: calc(14px * var(--tk-orb)); }
+.orb.gold{
+  background: radial-gradient(circle at 35% 35%, #F4E3AC 0%, #E5C97A 55%, #D7B96A 100%);
+  box-shadow: 0 0 0 calc(14px * var(--tk-orb)) rgba(215, 185, 106, 0.18), 0 0 0 calc(32px * var(--tk-orb)) rgba(215, 185, 106, 0.08);
+}
+.orb.gold::after{ background: radial-gradient(circle at 35% 35%, rgba(229, 201, 122, 0.95) 0%, rgba(155, 130, 64, 0.85) 100%); }
+@keyframes orb-breathe{ 0%, 100% { transform: scale(1.0); } 50% { transform: scale(1.04); } }
+@media (prefers-reduced-motion: reduce){ .orb{ animation: none !important; } }
+.letterbox-top, .letterbox-bottom{
+  position: absolute; left: 0; right: 0;
+  background: var(--letterbox);
+  height: var(--tk-bar);
+  z-index: 5;
+  transition: height 0.6s ease;
+}
+.letterbox-top{ top: 0; }
+.letterbox-bottom{ bottom: 0; }
+section.stop{ position: relative; width: 100%; overflow: hidden; background: var(--ivory); }
+section.stop .stage{
+  position: absolute;
+  top: var(--tk-bar); bottom: var(--tk-bar); left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+section.stop.no-bars .stage{ position: relative; top: auto; bottom: auto; min-height: 100%; }
+.foot-meta{
+  position: absolute; right: 56px;
+  bottom: calc(var(--tk-bar) + 18px);
+  font-family:'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-quiet); z-index: 6;
+}
+.foot-meta.dark{ color: var(--ink-quiet); bottom: 28px; }
+.pad{ padding: 0 56px; }
+.pad-l{ padding: 0 64px; }
+.hero-stage{ text-align: center; }
+.hero-line{
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(48px, 6.6vw, 84px);
+  line-height: 1.0;
+  letter-spacing: -0.022em;
+}
+.hero-eyebrow{ margin-bottom: 56px; }
+.hero-orb-wrap{ display: flex; justify-content: center; margin-bottom: 56px; }
+.hero-cue{
+  margin-top: 56px;
+  font-family:'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.remembered-word{
+  font-family:'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(56px, 8vw, 96px);
+  letter-spacing: -0.022em; color: var(--ink);
+}
+.waiting-head{
+  display: grid; grid-template-columns: 1fr auto; gap: 32px;
+  align-items: flex-end; margin-bottom: 48px; padding-top: 56px;
+}
+.waiting-head .ser{ font-size: clamp(36px, 4.4vw, 52px); line-height: 1.0; letter-spacing: -0.018em; margin: 0; }
+.waiting-head .ser .eyebrow{ display: block; margin-bottom: 14px; }
+.waiting-head .meta-note{
+  font-family:'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-quiet); line-height: 1.7; max-width: 280px; text-align: right;
+}
+.waiting-grid{
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(120px, auto); gap: 16px; position: relative;
+}
+.waiting-grid .placeholder{ animation: drift 12s ease-in-out infinite; }
+.waiting-grid .placeholder:nth-child(2){ animation-delay: -2s; animation-duration: 14s; }
+.waiting-grid .placeholder:nth-child(3){ animation-delay: -4s; animation-duration: 16s; }
+.waiting-grid .placeholder:nth-child(4){ animation-delay: -6s; animation-duration: 13s; }
+.waiting-grid .placeholder:nth-child(5){ animation-delay: -1s; animation-duration: 15s; }
+.waiting-grid .placeholder:nth-child(6){ animation-delay: -3s; animation-duration: 17s; }
+@keyframes drift{
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(1px, 2px); }
+}
+@media (prefers-reduced-motion: reduce){ .waiting-grid .placeholder{ animation: none !important; } }
+.placeholder{
+  background: var(--ivory-darker);
+  background-image: repeating-linear-gradient(135deg, rgba(20,24,26,0.025) 0 1px, transparent 1px 6px);
+  position: relative; overflow: hidden; border: 1px solid var(--rule-soft);
+}
+.placeholder .meta-tl{
+  position:absolute; top:14px; left:14px;
+  font-family:'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-quiet); z-index: 2;
+}
+.placeholder .meta-br{ position:absolute; bottom:14px; right:14px; font-family:'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-quiet); z-index: 2; }
+.placeholder .meta-bl{ position:absolute; bottom:14px; left:14px; font-family:'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-quiet); z-index: 2; }
+.placeholder .center-it{ position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 36px 24px; }
+.placeholder .center-it .it{ font-family:'Fraunces', serif; font-style: italic; font-size: 18px; line-height: 1.3; color: var(--ink); }
+.interlude-line{
+  font-family:'Fraunces', serif; font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 44px); line-height: 1.2; letter-spacing: -0.012em; max-width: 1000px;
+}
+.stop-layout{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 56px;
+}
+.stop-layout.reverse{ direction: rtl; }
+.stop-layout.reverse > *{ direction: ltr; }
+.stop-title{
+  font-family:'Fraunces', serif; font-weight: 500;
+  font-size: clamp(34px, 3.8vw, 48px); line-height: 1.04; letter-spacing: -0.018em; margin: 0;
+}
+.stop-eyebrow{ margin-bottom: 22px; }
+.prose-stop{ position: relative; width: 100%; padding: 110px 0; }
+.prose-stop .light{ position: absolute; inset: 0; pointer-events: none; }
+.prose-stop .grid{
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px;
+  align-items: start; max-width: 1100px; margin: 0 auto; padding: 0 56px;
+}
+.prose-stop .grid .left{ max-width: 380px; }
+.prose-stop .grid .left h2{
+  font-family:'Fraunces', serif; font-weight: 500;
+  font-size: clamp(36px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.02em; margin: 0;
+}
+.prose-stop .grid .left h2 .em{ color: var(--emerald); font-style: italic; }
+.prose-stop .grid .left .eyebrow{ margin-bottom: 18px; }
+.prose-stop p{
+  font-family:'Fraunces', serif;
+  font-size: 22px; line-height: 1.55; color: var(--ink-soft);
+  margin: 0 0 28px; max-width: 600px;
+}
+.prose-stop p:last-child{ margin-bottom: 0; }
+.prose-stop p .em{ font-style: italic; color: var(--emerald); }
+.pills{ display: flex; gap: 14px; margin-top: 44px; flex-wrap: wrap; }
+.pill{
+  padding: 8px 16px; border: 1px solid var(--rule); border-radius: 999px;
+  font-family:'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-quiet);
+  background: rgba(251,248,239,0.6);
+}
+.signoff-stage{ text-align: center; }
+.signoff-stage .lead{
+  font-family:'Fraunces', serif; font-weight: 500;
+  font-size: clamp(40px, 5vw, 60px); line-height: 1.0; letter-spacing: -0.02em; margin: 0 0 36px;
+}
+.signoff-stage .lead .em{ font-style: italic; color: var(--emerald); font-size: 1.18em; }
+.cta{
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 26px; background: var(--emerald); color: var(--ivory);
+  font-family:'Geist', sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.02em;
+  border-radius: 999px; cursor: pointer; border: none; text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.cta:hover{ background: var(--emerald-deep); transform: translateY(-1px); }
+.cta .orb-in-cta{
+  width: 22px; height: 22px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #DCEED4 0%, #C9E7C2 60%, #B7E3CB 100%);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.18); display: inline-block;
+}
+.cta .arr{ position: relative; width: 16px; height: 1px; background: var(--ivory); }
+.cta .arr::after{
+  content:""; position:absolute; right: -1px; top: -4px;
+  width: 8px; height: 8px;
+  border-top: 1px solid var(--ivory); border-right: 1px solid var(--ivory);
+  transform: rotate(45deg);
+}
+.signoff-cue{
+  margin-top: 36px;
+  font-family:'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-quiet);
+}
+.colophon{
+  padding: 40px 56px 32px;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family:'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-quiet);
+}
+.colophon a{ color: inherit; text-decoration: none; }
+.colophon a:hover{ color: var(--ink); }
+.reveal{ opacity: 1; }
+.reveal.d-1, .reveal.d-2, .reveal.d-3, .reveal.d-4, .reveal.d-5, .reveal.d-6{}
+.scroll-progress{
+  position: fixed; top: 0; left: 0; right: 0; height: 1px;
+  background: rgba(20, 24, 26, 0.06); z-index: 95; pointer-events: none;
+}
+.scroll-progress-bar{
+  height: 100%; background: var(--emerald);
+  transform-origin: 0 0; transform: scaleX(0); transition: transform 0.15s linear;
+}
+.stop-indicator{
+  position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
+  z-index: 90; pointer-events: none;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+  transition: opacity 0.4s ease;
+}
+.stop-indicator .idx{ font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; color: var(--emerald); line-height: 1; }
+.stop-indicator .name{ font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-quiet); white-space: nowrap; }
+.hide-indicator .stop-indicator{ opacity: 0; }
+@media (max-width: 1100px){ .stop-indicator{ display: none; } }
+.companion{ position: fixed; bottom: 36px; right: 56px; z-index: 99; pointer-events: none; transition: opacity 0.6s ease; }
+@media (max-width: 900px){
+  :root{ --tk-bar: 36px; }
+  .top-nav{ padding: 18px 24px; }
+  .top-nav .links{ gap: 18px; }
+  .top-nav .links a:not(.primary){ display: none; }
+  .companion{ right: 24px; bottom: 24px; }
+  .pad, .pad-l{ padding: 0 24px; }
+  .hero-line{ font-size: clamp(38px, 9vw, 56px); }
+  .hero-eyebrow, .hero-orb-wrap, .hero-cue{ margin-bottom: 32px; }
+  .hero-cue{ margin-top: 32px; }
+  .remembered-word{ font-size: clamp(44px, 11vw, 64px); }
+  .waiting-head{ grid-template-columns: 1fr; gap: 14px; padding: 36px 24px 0; }
+  .waiting-head .meta-note{ text-align: left; max-width: none; }
+  .waiting-grid{ grid-template-columns: 1fr 1fr; padding: 0 24px; gap: 12px; }
+  .stop-layout{ grid-template-columns: 1fr; gap: 28px; padding: 0 24px; }
+  .stop-layout.reverse > .stop-text{ order: -1; }
+  .interlude-line{ font-size: clamp(24px, 6vw, 32px); padding: 0 24px; }
+  .prose-stop{ padding: 64px 0; }
+  .prose-stop .grid{ grid-template-columns: 1fr; gap: 28px; padding: 0 24px; }
+  .prose-stop p{ font-size: 18px; }
+  .signoff-stage .lead{ font-size: clamp(32px, 8vw, 44px); }
+  .pills{ gap: 8px; }
+  .pill{ padding: 6px 12px; font-size: 9px; }
+  .colophon{ padding: 28px 24px; font-size: 9px; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+  window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "hero": "stories",
+    "bar": 0,
+    "hold": 9,
+    "orb": 0.7,
+    "companion": false,
+    "light": ["#D7B96A", "#F2E2A8"],
+    "cta": "Begin a film",
+    "cue": "One minute · from a thirty-second voice"
+  }/*EDITMODE-END*/;
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+/* ── tweaks-panel ── */
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;overflow-x:hidden;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;overflow-wrap:anywhere}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);transition:transform .12s,box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = { x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)), y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)) };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(clampToViewport) : null;
+    if (ro) ro.observe(document.documentElement);
+    else window.addEventListener('resize', clampToViewport);
+    return () => { if (ro) ro.disconnect(); else window.removeEventListener('resize', clampToViewport); };
+  }, [open, clampToViewport]);
+  React.useEffect(() => {
+    const onMsg = (e) => { const t = e?.data?.type; if (t === '__activate_edit_mode') setOpen(true); else if (t === '__deactivate_edit_mode') setOpen(false); };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+  const dismiss = () => { setOpen(false); window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); };
+  const onDragStart = (e) => {
+    const panel = dragRef.current; if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right, startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => { offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) }; clampToViewport(); };
+    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+function TweakSection({ label, children }) { return <><div className="twk-sect">{label}</div>{children}</>; }
+function TweakRow({ label, value, children, inline = false }) {
+  return <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}><div className="twk-lbl"><span>{label}</span>{value != null && <span className="twk-val">{value}</span>}</div>{children}</div>;
+}
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return <TweakRow label={label} value={`${value}${unit}`}><input type="range" className="twk-slider" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} /></TweakRow>;
+}
+function TweakToggle({ label, value, onChange }) {
+  return <div className="twk-row twk-row-h"><div className="twk-lbl"><span>{label}</span></div><button type="button" className="twk-toggle" data-on={value ? '1' : '0'} role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button></div>;
+}
+function TweakSelect({ label, value, options, onChange }) {
+  return <TweakRow label={label}><select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>{options.map((o) => { const v = typeof o === 'object' ? o.value : o; const l = typeof o === 'object' ? o.label : o; return <option key={v} value={v}>{l}</option>; })}</select></TweakRow>;
+}
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const valueRef = React.useRef(value); valueRef.current = value;
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    const resolve = (s) => { const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s); return m === undefined ? s : typeof m === 'object' ? m.value : m; };
+    return <TweakSelect label={label} value={value} options={options} onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  const segAt = (clientX) => { const r = trackRef.current.getBoundingClientRect(); const inner = r.width - 4; const i = Math.floor(((clientX - r.left - 2) / inner) * n); return opts[Math.max(0, Math.min(n - 1, i))].value; };
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX); if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => { if (!trackRef.current) return; const v = segAt(ev.clientX); if (v !== valueRef.current) onChange(v); };
+    const up = () => { setDragging(false); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+  };
+  return <TweakRow label={label}><div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown} className={dragging ? 'twk-seg dragging' : 'twk-seg'}><div className="twk-seg-thumb" style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />{opts.map((o) => <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>{o.label}</button>)}</div></TweakRow>;
+}
+function TweakText({ label, value, onChange }) {
+  return <TweakRow label={label}><input className="twk-field" type="text" value={value} onChange={(e) => onChange(e.target.value)} /></TweakRow>;
+}
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', ''); const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16); if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255; return r * 299 + g * 587 + b * 114 > 148000;
+}
+const __TwkCheck = ({ light }) => <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} /></svg>;
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) return <div className="twk-row twk-row-h"><div className="twk-lbl"><span>{label}</span></div><input type="color" style={{ width: 56, height: 22 }} value={value} onChange={(e) => onChange(e.target.value)} /></div>;
+  const key = (o) => String(JSON.stringify(o)).toLowerCase(); const cur = key(value);
+  return <TweakRow label={label}><div className="twk-chips" role="radiogroup">{options.map((o, i) => { const colors = Array.isArray(o) ? o : [o]; const [hero, ...rest] = colors; const sup = rest.slice(0, 4); const on = key(o) === cur; return <button key={i} type="button" className="twk-chip" role="radio" aria-checked={on} data-on={on ? '1' : '0'} style={{ background: hero }} onClick={() => onChange(o)}>{sup.length > 0 && <span>{sup.map((c, j) => <i key={j} style={{ background: c }} />)}</span>}{on && <__TwkCheck light={__twkIsLight(hero)} />}</button>; })}</div></TweakRow>;
+}
+
+/* ── shared ── */
+const { useState, useEffect, useRef } = React;
+function Reveal({ as = 'div', d = 0, className = '', children, ...rest }) {
+  const Tag = as;
+  const cls = ['reveal', d ? `d-${d}` : '', 'in', className].filter(Boolean).join(' ');
+  return <Tag className={cls} {...rest}>{children}</Tag>;
+}
+function Orb({ size = 'normal', flavor = 'mint', className = '', style }) {
+  const cls = ['orb', size === 'small' ? 'small' : size === 'big' ? 'big' : '', flavor === 'gold' ? 'gold' : '', className].filter(Boolean).join(' ');
+  return <div className={cls} style={style} />;
+}
+function Letterbox() { return <><div className="letterbox-top" /><div className="letterbox-bottom" /></>; }
+function Stop({ id, height, bars = true, accent, light, footMeta, footMetaDark, children }) {
+  const styleProps = {}; if (height) styleProps.height = height; else styleProps.minHeight = '100vh';
+  return (
+    <section id={id} className={'stop' + (bars ? '' : ' no-bars')} style={styleProps}>
+      {light ? <div style={{ position:'absolute', inset:0, background: light, pointerEvents:'none', zIndex: 1 }} /> : null}
+      {accent}
+      {bars ? <Letterbox /> : null}
+      <div className="stage" style={{ zIndex: 2 }}>{children}</div>
+      {footMeta ? <div className={'foot-meta' + (footMetaDark ? ' dark' : '')}>{footMeta}</div> : null}
+    </section>
+  );
+}
+function Placeholder({ kind, meta1, meta2, italic, italicEm, w, h, style, children, className = '' }) {
+  return (
+    <div className={'placeholder ' + className} style={{ width: w, height: h, ...style }}>
+      <div className="meta-tl">{kind}</div>
+      {children ? children : (italic || italicEm) ? <div className="center-it"><div className="it">{italic}{italic && italicEm ? <br/> : null}{italicEm ? <span style={{ color: 'var(--emerald)' }}>{italicEm}</span> : null}</div></div> : null}
+      {meta1 ? <div className="meta-bl">{meta1}</div> : null}
+      {meta2 ? <div className="meta-br">{meta2}</div> : null}
+    </div>
+  );
+}
+function Waveform({ width = 380, height = 220, bars = 60 }) {
+  const lines = []; const step = (width - 56) / bars;
+  for (let i = 0; i < bars; i++) { const x = 28 + i * step; const h = 32 + Math.abs(Math.sin(i * 0.55) + Math.cos(i * 0.31)) * 32; lines.push(<line key={i} x1={x} y1={height/2 - h/2} x2={x} y2={height/2 + h/2} />); }
+  return <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100%" preserveAspectRatio="xMidYMid meet"><g stroke="#2A2F30" strokeWidth="1.1" fill="none" opacity="0.55">{lines}</g><line x1="28" y1={height - 32} x2="58" y2={height - 32} stroke="#2E9F7E" strokeWidth="1.5" /></svg>;
+}
+function FilmStill({ italic }) {
+  return <>
+    <div style={{ position:'absolute', inset: 32, border: '1px solid rgba(20,24,26,0.10)' }} />
+    <div style={{ position:'absolute', left: 32, right: 32, top: 32, height: 28, background: 'rgba(20,24,26,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 12px' }}>
+      <div className="mono" style={{ fontSize: 9, letterSpacing: '0.22em', color: 'var(--ink-quiet)' }}>SCENE 03</div>
+      <div className="mono" style={{ fontSize: 9, letterSpacing: '0.22em', color: 'var(--ink-quiet)' }}>FROM ONE VOICE NOTE</div>
+    </div>
+    <div className="center-it"><div className="it">{italic}</div></div>
+  </>;
+}
+function LetterPlaceholder() {
+  const widths = [300, 260, 280, 240, 290, 200, 270];
+  return <div style={{ position: 'absolute', left: 40, right: 80, top: 70, display: 'flex', flexDirection: 'column', gap: 14 }}>{widths.map((w, i) => <div key={i} style={{ height: 2, width: w, background: 'rgba(20,24,26,0.20)' }} />)}</div>;
+}
+
+/* ── sections ── */
+const HERO_VARIANTS = {
+  stories:   { a: 'A place where',  b: 'stories live.' },
+  memory:    { a: 'A place where',  b: 'memory lives.' },
+  comeAlive: { a: 'Where stories',  b: 'come alive.'   },
+};
+function Hero({ variant = 'stories' }) {
+  const v = HERO_VARIANTS[variant] || HERO_VARIANTS.stories;
+  return (
+    <Stop id="hero" height="100vh" bars={true} footMeta="A place"
+      accent={<div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'radial-gradient(40% 55% at 50% 52%, var(--tk-light-h1), transparent 70%)' }} />}
+    >
+      <div className="hero-stage">
+        <Reveal className="eyebrow hero-eyebrow" d={1}>A letter from SiyAI &middot; Spring 2026</Reveal>
+        <Reveal className="hero-orb-wrap" d={2}><Orb size="big" /></Reveal>
+        <Reveal className="hero-line ser" d={3}>{v.a}<br/><span className="em">{v.b}</span></Reveal>
+        <Reveal className="hero-cue" d={5}>Scroll, when you are ready.</Reveal>
+      </div>
+    </Stop>
+  );
+}
+function HeldBreathStop({ holdDuration = 9 }) {
+  const meta = `Held for 00:${String(holdDuration).padStart(2, '0')}`;
+  return (
+    <Stop id="remembered" height="68vh" bars={true} footMeta={meta}
+      accent={<div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'radial-gradient(35% 55% at 50% 55%, var(--tk-light-h1), transparent 70%)' }} />}
+    >
+      <div style={{ textAlign: 'center' }}>
+        <Reveal d={1} style={{ display: 'flex', justifyContent: 'center', marginBottom: 40 }}><Orb size="small" /></Reveal>
+        <Reveal d={3} className="remembered-word ser">remembered.</Reveal>
+      </div>
+    </Stop>
+  );
+}
+function WaitingRoom() {
+  const frames = [
+    { kind: 'Voice',  m1: 'Nani',    m2: '00:24', it: 'a laugh,',        itEm: 'kept by accident.' },
+    { kind: 'Film',   m1: 'For Maa', m2: '01:42', it: 'seventy years,',  itEm: 'in ninety seconds.' },
+    { kind: 'Letter', m1: 'Unread',  m2: '1998',  it: "in Papa's hand,", itEm: 'still folded.' },
+    { kind: 'Photo',  m1: 'Delhi',   m2: '1971',  it: 'a doorway,',      itEm: 'before us.' },
+    { kind: 'Song',   m1: 'Bhai',    m2: '03:12', it: 'the song that',   itEm: 'got us married.' },
+    { kind: 'Film',   m1: 'Diwali',  m2: '02:08', it: 'the last Diwali', itEm: 'we were all home.' },
+  ];
+  const spans = [
+    { col: '1 / span 4', row: '1', minH: 200 },
+    { col: '5 / span 5', row: '1 / span 2', minH: 280 },
+    { col: '10 / span 3', row: '1', minH: 200 },
+    { col: '1 / span 4', row: '2', minH: 240 },
+    { col: '10 / span 3', row: '2', minH: 240 },
+    { col: '1 / span 4', row: '3', minH: 220 },
+  ];
+  return (
+    <section id="waiting" className="stop" style={{ minHeight: '100vh', paddingBottom: 64 }}>
+      <div className="pad waiting-head">
+        <Reveal as="h2" className="ser" d={1}><span className="eyebrow">The room</span>What is waiting to be<br/><span className="em">remembered.</span></Reveal>
+        <Reveal className="meta-note" d={2}>These frames hold nothing yet.<br/>The metadata is the story so far.</Reveal>
+      </div>
+      <div className="pad">
+        <div className="waiting-grid">
+          {frames.map((f, i) => (
+            <Reveal key={i} d={Math.min(6, i + 1)} style={{ gridColumn: spans[i].col, gridRow: spans[i].row, minHeight: spans[i].minH }}>
+              <Placeholder kind={f.kind} meta1={f.m1} meta2={f.m2} italic={f.it} italicEm={f.itEm} w="100%" h="100%" />
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function Interlude() {
+  return (
+    <Stop id="interlude" height="44vh" bars={true} footMeta="Interlude">
+      <div className="pad" style={{ width: '100%' }}>
+        <Reveal as="p" className="ser interlude-line" d={1} style={{ margin: 0 }}>
+          Some voices we keep <span className="em">on purpose.</span><br/>Others, we did not know to keep.
+        </Reveal>
+      </div>
+    </Stop>
+  );
+}
+function StopVoice() {
+  return (
+    <Stop id="stop-voice" height="78vh" bars={true} footMeta="Stop i &middot; Voice">
+      <div className="stop-layout">
+        <Reveal d={1} className="stop-frame">
+          <Placeholder kind="Voice &middot; Nani &middot; 00:24" meta1="1998 &middot; Lucknow" meta2="Cassette" w="100%" h={280}>
+            <div style={{ position: 'absolute', inset: 28, top: 56 }}><Waveform width={440} height={220} bars={64} /></div>
+          </Placeholder>
+        </Reveal>
+        <Reveal d={3} className="stop-text">
+          <div className="eyebrow stop-eyebrow">Stop i</div>
+          <h2 className="ser stop-title">A voice<br/><span className="em">from before.</span></h2>
+        </Reveal>
+      </div>
+    </Stop>
+  );
+}
+function StopFilm() {
+  return (
+    <Stop id="stop-film" height="78vh" bars={true} footMeta="Stop ii &middot; Film">
+      <div className="stop-layout reverse">
+        <Reveal d={3} className="stop-text">
+          <div className="eyebrow stop-eyebrow">Stop ii</div>
+          <h2 className="ser stop-title">For the people<br/><span className="em">who could not be there.</span></h2>
+        </Reveal>
+        <Reveal d={1} className="stop-frame">
+          <Placeholder kind="Film &middot; 01:42" meta1="Mumbai &middot; April 2025" meta2="Take 01" w="100%" h={300}>
+            <FilmStill italic={<>for Maa, on seventy.</>} />
+          </Placeholder>
+        </Reveal>
+      </div>
+    </Stop>
+  );
+}
+function StopLetter() {
+  return (
+    <Stop id="stop-letter" height="78vh" bars={true} footMeta="Stop iii &middot; Letter">
+      <div className="stop-layout">
+        <Reveal d={1} className="stop-frame">
+          <Placeholder kind="Letter &middot; Unread" meta1="In Papa's hand" meta2="Date unknown" w="100%" h={320}>
+            <LetterPlaceholder />
+          </Placeholder>
+        </Reveal>
+        <Reveal d={3} className="stop-text">
+          <div className="eyebrow stop-eyebrow">Stop iii</div>
+          <h2 className="ser stop-title">Kept the way<br/><span className="em">you keep a letter.</span></h2>
+        </Reveal>
+      </div>
+    </Stop>
+  );
+}
+function WhatWeHold() {
+  return (
+    <section id="what-we-hold" className="prose-stop">
+      <div className="light" style={{ background: 'radial-gradient(28% 50% at 92% 50%, var(--tk-light-h2), transparent 65%), radial-gradient(80% 40% at 50% 0%, var(--ivory), transparent 70%)' }} />
+      <div className="grid">
+        <div className="left">
+          <Reveal className="eyebrow" d={1}>On what we hold</Reveal>
+          <Reveal as="h2" className="ser" d={2}>Joy. The <span className="em">heavier</span> days.<br/>And, mostly, <span className="em">later.</span></Reveal>
+        </div>
+        <div>
+          <Reveal as="p" d={2}>Some of what we hold is <span className="em">for joy.</span> A song that got two people married. A birthday voice from across an ocean. A film of a child's first words, in two languages.</Reveal>
+          <Reveal as="p" d={3}>Some of it is for the days that are <span className="em">heavier.</span> The grandfather who passed in the monsoon. The voice on the answering machine the family could not bring themselves to erase.</Reveal>
+          <Reveal as="p" d={4}>Most of it, in the end, is <span className="em">for later.</span> For the granddaughter who has not been born yet, but who one day will want to know what we sounded like.</Reveal>
+        </div>
+      </div>
+      <div className="foot-meta dark" style={{ right: 56 }}>On what we hold</div>
+    </section>
+  );
+}
+function Safekeeping() {
+  return (
+    <section id="safekeeping" className="prose-stop">
+      <div className="light" style={{ background: 'radial-gradient(26% 50% at 92% 78%, var(--tk-light-mid), transparent 65%), radial-gradient(80% 40% at 50% 0%, var(--ivory), transparent 70%)' }} />
+      <div className="grid">
+        <div className="left">
+          <Reveal className="eyebrow" d={1}>On safekeeping</Reveal>
+          <Reveal as="h2" className="ser" d={2}>Held the way<br/><span className="em">a house holds a letter.</span></Reveal>
+        </div>
+        <div>
+          <Reveal as="p" d={2}>When you give us your father's voice, you are not handing it to a company. You are handing it to a<span className="em"> family locker,</span> the kind with a key only your house has.</Reveal>
+          <Reveal as="p" d={3}>We treat it the way you keep a letter, <span className="em">not the way you keep a password.</span></Reveal>
+          <Reveal d={4} className="pills">
+            <span className="pill">Private by default</span>
+            <span className="pill">Yours to delete</span>
+            <span className="pill">Voice &amp; likeness consent</span>
+          </Reveal>
+        </div>
+      </div>
+      <div className="foot-meta dark" style={{ right: 56 }}>On safekeeping</div>
+    </section>
+  );
+}
+function SignOff({ ctaCopy = 'Begin a film', cueCopy = 'One minute · from a thirty-second voice' }) {
+  return (
+    <Stop id="signoff" height="80vh" bars={true} footMeta="Yours,"
+      accent={<div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'radial-gradient(60% 80% at 50% 100%, var(--tk-light-end), transparent 75%)' }} />}
+    >
+      <div className="signoff-stage">
+        <Reveal className="ser lead" d={1}>When you are ready,<br/><span className="em">begin one.</span></Reveal>
+        <Reveal d={3}>
+          <button className="cta"><span className="orb-in-cta" /><span>{ctaCopy}</span><span className="arr" /></button>
+        </Reveal>
+        <Reveal className="signoff-cue" d={4}>{cueCopy}</Reveal>
+      </div>
+    </Stop>
+  );
+}
+function Colophon() {
+  return (
+    <footer className="colophon">
+      <div>SiyAI &middot; Spring 2026</div>
+      <div style={{ display: 'flex', gap: 32 }}>
+        <a href="#hero">Top</a>
+        <a href="#stop-voice">Films</a>
+        <a href="#safekeeping">Keep</a>
+        <a href="#signoff">Begin</a>
+      </div>
+      <div>Made in India, for everyone you love.</div>
+    </footer>
+  );
+}
+
+/* ── app ── */
+function TopNav() {
+  return (
+    <nav className="top-nav" id="top-nav">
+      <a href="#hero" className="mark" style={{ textDecoration: 'none' }}><span className="dot" />SiyAI</a>
+      <div className="links">
+        <a href="#stop-voice">Films</a>
+        <a href="#stop-letter">Voices</a>
+        <a href="#safekeeping">Keep</a>
+        <a href="#signoff" className="primary">Begin</a>
+      </div>
+    </nav>
+  );
+}
+function ScrollUI({ companionEnabled }) {
+  const progRef = useRef(null);
+  const compRef = useRef(null);
+  const stopRef = useRef(null);
+  useEffect(() => {
+    const stops = [
+      { id: 'hero',         label: 'i',    name: 'A place' },
+      { id: 'remembered',   label: 'ii',   name: 'remembered.' },
+      { id: 'waiting',      label: 'iii',  name: 'The room' },
+      { id: 'interlude',    label: 'iv',   name: 'Interlude' },
+      { id: 'stop-voice',   label: 'v',    name: 'A voice' },
+      { id: 'stop-film',    label: 'vi',   name: 'A film' },
+      { id: 'stop-letter',  label: 'vii',  name: 'A letter' },
+      { id: 'what-we-hold', label: 'viii', name: 'What we hold' },
+      { id: 'safekeeping',  label: 'ix',   name: 'Safekeeping' },
+      { id: 'signoff',      label: 'x',    name: 'Yours,' },
+    ];
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const doc = document.documentElement;
+      const y = window.scrollY || 0;
+      const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const p = Math.min(1, Math.max(0, y / max));
+      if (progRef.current) progRef.current.style.transform = `scaleX(${p})`;
+      if (compRef.current) { const target = (companionEnabled !== false) && y > window.innerHeight * 0.85; compRef.current.style.opacity = target ? '0.9' : '0'; }
+      const mid = window.innerHeight * 0.35;
+      let current = stops[0];
+      for (const s of stops) { const el = document.getElementById(s.id); if (!el) continue; const r = el.getBoundingClientRect(); if (r.top <= mid) current = s; }
+      if (stopRef.current) {
+        const labelEl = stopRef.current.querySelector('.idx');
+        const nameEl = stopRef.current.querySelector('.name');
+        if (labelEl && labelEl.textContent !== current.label) labelEl.textContent = current.label;
+        if (nameEl && nameEl.textContent !== current.name) nameEl.textContent = current.name;
+      }
+      const nav = document.getElementById('top-nav');
+      if (nav) {
+        const cs = getComputedStyle(document.documentElement);
+        const bar = parseFloat(cs.getPropertyValue('--tk-bar')) || 0;
+        const overTopBar = bar > 0 && (() => { const sections = document.querySelectorAll('section.stop'); for (const s of sections) { const r = s.getBoundingClientRect(); if (r.top <= 0 && r.bottom > bar) return true; } return false; })();
+        nav.classList.toggle('on-dark', overTopBar);
+        const lastY = nav._lastY || 0; const dy = y - lastY;
+        if (y > window.innerHeight * 0.4 && dy > 4) nav.classList.add('is-hidden');
+        else if (dy < -4 || y < window.innerHeight * 0.4) nav.classList.remove('is-hidden');
+        nav._lastY = y;
+      }
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, [companionEnabled]);
+  return (
+    <>
+      <div className="scroll-progress"><div ref={progRef} className="scroll-progress-bar" /></div>
+      <div ref={compRef} className="companion" style={{ opacity: 0 }}><Orb size="small" /></div>
+      <div ref={stopRef} className="stop-indicator" aria-hidden="true"><span className="idx">i</span><span className="name">A place</span></div>
+    </>
+  );
+}
+function LandingTweaks({ t, setTweak }) {
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Hero">
+        <TweakRadio label="Hero line" value={t.hero} options={[{ label: 'stories live', value: 'stories' }, { label: 'memory lives', value: 'memory' }, { label: 'come alive', value: 'comeAlive' }]} onChange={(v) => setTweak('hero', v)} />
+      </TweakSection>
+      <TweakSection label="Cinema">
+        <TweakSelect label="Letterbox" value={t.bar} options={[{ label: 'Hidden', value: 0 }, { label: 'Light', value: 32 }, { label: 'Standard', value: 64 }, { label: 'Strict', value: 96 }]} onChange={(v) => setTweak('bar', Number(v))} />
+        <TweakSlider label="Held" value={t.hold} min={3} max={15} step={1} unit="s" onChange={(v) => setTweak('hold', v)} />
+      </TweakSection>
+      <TweakSection label="Presence">
+        <TweakSelect label="Orb" value={t.orb} options={[{ label: 'Subtle', value: 0.7 }, { label: 'Standard', value: 1.0 }, { label: 'Present', value: 1.3 }]} onChange={(v) => setTweak('orb', Number(v))} />
+        <TweakToggle label="Companion orb" value={t.companion} onChange={(v) => setTweak('companion', v)} />
+        <TweakToggle label="Stop indicator" value={t.indicator !== false} onChange={(v) => setTweak('indicator', v)} />
+      </TweakSection>
+      <TweakSection label="Light">
+        <TweakColor label="Hero light" value={t.light} options={[['#2E9F7E', '#C9E7C2'], ['#D7B96A', '#F2E2A8'], ['#BFD6E6', '#E0EAF1']]} onChange={(v) => setTweak('light', v)} />
+      </TweakSection>
+      <TweakSection label="Copy">
+        <TweakText label="CTA" value={t.cta} onChange={(v) => setTweak('cta', v)} />
+        <TweakText label="CTA cue" value={t.cue} onChange={(v) => setTweak('cue', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+function makeLight(swatches, alpha, idx = 0) {
+  const hex = Array.isArray(swatches) ? swatches[idx] || swatches[0] : swatches;
+  if (!hex || typeof hex !== 'string') return `rgba(46, 159, 126, ${alpha})`;
+  const m = hex.match(/^#?([0-9a-f]{6})$/i);
+  if (!m) return `rgba(46, 159, 126, ${alpha})`;
+  const n = parseInt(m[1], 16); const r = (n >> 16) & 0xff; const g = (n >> 8) & 0xff; const b = n & 0xff;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+function App() {
+  const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
+  const heroVariant = t.hero || 'stories';
+  const rootStyle = {
+    '--tk-bar': `${t.bar ?? 0}px`,
+    '--tk-orb': t.orb ?? 0.7,
+    '--tk-light-h1': makeLight(t.light, 0.22, 0),
+    '--tk-light-h2': makeLight(t.light, 0.36, 1),
+    '--tk-light-mid': 'rgba(183, 227, 203, 0.34)',
+    '--tk-light-end': makeLight(t.light, 0.30, 0),
+  };
+  const stopIndicatorClass = t.indicator === false ? 'hide-indicator' : '';
+  return (
+    <div className={'grain ' + stopIndicatorClass} style={rootStyle}>
+      <TopNav />
+      <ScrollUI companionEnabled={t.companion !== false} />
+      <main>
+        <Hero variant={heroVariant} />
+        <HeldBreathStop holdDuration={t.hold ?? 9} />
+        <WaitingRoom />
+        <Interlude />
+        <StopVoice />
+        <StopFilm />
+        <StopLetter />
+        <WhatWeHold />
+        <Safekeeping />
+        <SignOff ctaCopy={t.cta || 'Begin a film'} cueCopy={t.cue || 'One minute · from a thirty-second voice'} />
+      </main>
+      <Colophon />
+      <LandingTweaks t={t} setTweak={setTweak} />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
