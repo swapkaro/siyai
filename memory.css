@@ -177,6 +177,15 @@
 }
 .trust h2 em { color: #ACE4AA; }
 
+/* Memory hero keeps full cinematic display size (landing.css demotes hero h1 to caption) */
+.hero-col h1 {
+  font-size: clamp(56px, 9vw, 140px); line-height: 0.92; letter-spacing: -0.04em;
+  font-weight: 400;
+  color: rgba(255, 253, 247, 0.95);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+  max-width: none;
+}
+
 /* ─── CLOSE · sage glow over deep purple ────────────────── */
 .close {
   background:

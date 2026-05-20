@@ -512,22 +512,27 @@ image-slot {
 /* the play circle is a link; kill the underline */
 .hero-play, .hero-play:hover { text-decoration: none; }
 
-/* the single left-anchored vertical column: eyebrow + h1 + CTA row */
+/* the single left-anchored vertical column: caption + CTA row */
 .hero-col {
   position: absolute; bottom: 130px; left: 56px; z-index: 5;
   max-width: 1000px;
-  display: flex; flex-direction: column; gap: 24px;
+  display: flex; flex-direction: column; gap: 18px;
 }
 .hero-col .it {
   font-family: var(--font-display); font-style: italic;
   font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -0.012em; line-height: 1;
   color: rgba(255, 253, 247, 0.75);
 }
+/* Headline is demoted from display H1 to a quiet film-caption-sized italic
+   line. The video carries the narrative now; this is a subtitle, not a title. */
 .hero-col h1 {
   font-family: var(--font-display); font-style: italic;
-  font-size: clamp(56px, 9vw, 140px); line-height: 0.92; letter-spacing: -0.04em;
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 34px); line-height: 1.2; letter-spacing: -0.015em;
   margin: 0;
-  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+  color: rgba(255, 253, 247, 0.88);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+  max-width: 520px;
 }
 .hero-col h1 .accent { color: var(--gold); }
 .hero-col .row {
@@ -995,6 +1000,7 @@ image-slot {
   max-width: 1280px; margin: 0 auto;
 }
 .product-hero {
+  text-decoration: none; color: inherit;
   grid-row: span 2;
   position: relative;
   border-radius: 32px;
