@@ -32,7 +32,7 @@
      ═══════════════════════════════════════════════════════ -->
 <section class="hero" data-screen-label="01 Hero">
 
-  <video class="hero-bg" muted loop playsinline preload="metadata" poster="assets/generated/hero-still.png" aria-hidden="true"></video>
+  <video class="hero-bg" muted loop playsinline preload="metadata" disableremoteplayback disablepictureinpicture poster="assets/generated/hero-still.png" aria-hidden="true"></video>
 
   <div class="hero-col reveal">
     <div class="row">
@@ -106,7 +106,7 @@
         <div class="phone opening">
           <div class="notch"></div>
           <div class="slot-fill over-gradient"><image-slot id="tuesday-opening-still" placeholder="film still &middot; the road" src="assets/generated/tuesday-opening-still.png"></image-slot></div>
-          <video class="phone-video" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+          <video class="phone-video" muted loop playsinline preload="none" disableremoteplayback disablepictureinpicture aria-hidden="true"></video>
           <div class="studio"><div class="siy">SIY<span class="ai">AI</span></div><div class="pr">presents</div></div>
           <div class="credit"><div class="for">For Papa &middot; on his 60th</div><div class="ttl"><em>The road from Patna,</em><br>in his own words.</div></div>
           <div class="home"></div>
@@ -466,7 +466,7 @@
       <div class="phone opening">
         <div class="notch"></div>
         <div class="slot-fill over-gradient"><image-slot id="arrival-opening-still" placeholder="film still &middot; the opening" src="assets/generated/arrival-opening-still.png"></image-slot></div>
-        <video class="phone-video" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <video class="phone-video" muted loop playsinline preload="none" disableremoteplayback disablepictureinpicture aria-hidden="true"></video>
         <div class="studio"><div class="siy">SIY<span class="ai">AI</span></div><div class="pr">presents</div></div>
         <div class="credit">
           <div class="for">For Papa &middot; on his 60th</div>
@@ -649,8 +649,9 @@
   }, { rootMargin: '-10% 0px -10% 0px', threshold: 0.01 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const heroBg = document.querySelector('.hero .hero-bg');
-  if (heroBg) {
+  if (heroBg && !reducedMotion) {
     const candidates = [
       { src: 'assets/uploads/tuesday-reveal.mp4',  type: 'video/mp4' },
       { src: 'assets/uploads/tuesday-reveal.webm', type: 'video/webm' }
@@ -692,36 +693,62 @@
     }
   }
 
-  document.querySelectorAll('.phone.opening').forEach(async (phone) => {
-    const video = phone.querySelector('.phone-video');
-    if (!video) return;
-    const candidates = [
+  // Phone-screen videos (Beat 04 + Arrival's 3rd phone): lazy-attach
+  // source only when the phone enters the viewport, pause when it leaves.
+  // Prevents simultaneous decoders fighting the hero video for the GPU.
+  if (!reducedMotion) {
+    const phoneCandidates = [
       { src: 'assets/uploads/tuesday-reveal-vertical.mp4',  type: 'video/mp4' },
       { src: 'assets/uploads/tuesday-reveal-vertical.webm', type: 'video/webm' },
       { src: 'assets/uploads/tuesday-reveal.mp4',  type: 'video/mp4' },
       { src: 'assets/uploads/tuesday-reveal.webm', type: 'video/webm' }
     ];
-    for (const c of candidates) {
-      try {
-        const r = await fetch(c.src, { method: 'HEAD' });
-        if (r.ok) {
-          const s = document.createElement('source');
-          s.src = c.src; s.type = c.type;
-          video.appendChild(s);
+
+    document.querySelectorAll('.phone.opening').forEach((phone) => {
+      const video = phone.querySelector('.phone-video');
+      if (!video) return;
+      let attached = false;
+      const attach = async () => {
+        if (attached) return; attached = true;
+        for (const c of phoneCandidates) {
+          try {
+            const r = await fetch(c.src, { method: 'HEAD' });
+            if (r.ok) {
+              const s = document.createElement('source');
+              s.src = c.src; s.type = c.type;
+              video.appendChild(s);
+            }
+          } catch (_) {}
         }
-      } catch (_) {}
-    }
-    if (video.querySelector('source')) {
-      video.load();
-      const p = video.play(); if (p && p.catch) p.catch(() => {});
-      video.addEventListener('playing', () => {
-        video.classList.add('is-playing');
-        phone.classList.add('has-video-playing');
-      });
-    } else {
-      video.remove();
-    }
-  });
+        if (video.querySelector('source')) {
+          video.load();
+          const p = video.play(); if (p && p.catch) p.catch(() => {});
+          video.addEventListener('playing', () => {
+            video.classList.add('is-playing');
+            phone.classList.add('has-video-playing');
+          });
+        } else {
+          video.remove();
+        }
+      };
+      if ('IntersectionObserver' in window) {
+        const ioP = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              attach().then(() => {
+                const p = video.play(); if (p && p.catch) p.catch(() => {});
+              });
+            } else if (attached) {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.15 });
+        ioP.observe(phone);
+      } else {
+        attach();
+      }
+    });
+  }
 </script>
 
 </body>
